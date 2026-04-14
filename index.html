@@ -32,9 +32,7 @@
   --r-xl: 24px;
   --r-full: 999px;
 }
-
 * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
-
 body {
   font-family: 'Noto Sans SC', system-ui, sans-serif;
   background: linear-gradient(135deg, #F0EDF8 0%, #F8ECF1 50%, #EDF5F2 100%);
@@ -44,8 +42,6 @@ body {
   justify-content: center;
   padding: 20px;
 }
-
-/* ── APP SHELL ── */
 .phone {
   width: 390px;
   min-height: 844px;
@@ -57,8 +53,6 @@ body {
   flex-direction: column;
   position: relative;
 }
-
-/* ── STATUS BAR ── */
 .status-bar {
   display: flex;
   justify-content: space-between;
@@ -72,14 +66,10 @@ body {
 }
 .status-icons { display: flex; gap: 5px; align-items: center; }
 .status-icons svg { width: 14px; height: 14px; }
-
-/* ── SCREENS ── */
 .screen { display: none; flex-direction: column; flex: 1; overflow: hidden; }
 .screen.active { display: flex; }
 .scroll-area { flex: 1; overflow-y: auto; padding-bottom: 88px; scroll-behavior: smooth; }
 .scroll-area::-webkit-scrollbar { display: none; }
-
-/* ── BOTTOM NAV ── */
 .bottom-nav {
   position: sticky;
   bottom: 0;
@@ -122,8 +112,6 @@ body {
 .nav-icon { font-size: 18px; }
 .nav-label { font-size: 10px; color: var(--ink-60); font-weight: 400; letter-spacing: 0.02em; }
 .nav-btn.active .nav-label { color: var(--rose); font-weight: 500; }
-
-/* ── PAGE HEADER ── */
 .page-header {
   display: flex;
   align-items: center;
@@ -152,8 +140,6 @@ body {
   font-family: inherit;
 }
 .header-action:hover { background: var(--rose-mid); }
-
-/* ── SECTION TITLE ── */
 .section-title {
   font-size: 14px;
   font-weight: 600;
@@ -165,8 +151,6 @@ body {
   justify-content: space-between;
 }
 .section-more { font-size: 12px; color: var(--ink-60); font-weight: 400; cursor: pointer; }
-
-/* Buttons */
 .btn-primary {
   background: linear-gradient(135deg, var(--rose), #C43060);
   color: white; border: none; border-radius: var(--r-full);
@@ -183,8 +167,6 @@ body {
   cursor: pointer; transition: all 0.2s; font-family: inherit;
 }
 .btn-ghost:hover { background: var(--border); }
-
-/* ── TOAST ── */
 .toast {
   position: fixed; bottom: 120px; left: 50%;
   transform: translateX(-50%) translateY(20px);
@@ -195,8 +177,6 @@ body {
   white-space: nowrap; z-index: 9999; pointer-events: none;
 }
 .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
-
-/* Animations */
 @keyframes fadeSlide {
   from { opacity: 0; transform: translateY(12px); }
   to { opacity: 1; transform: translateY(0); }
@@ -207,11 +187,7 @@ body {
 }
 .screen.active .scroll-area > * { animation: fadeSlide 0.3s ease forwards; }
 
-/* ══════════════════════════════
-   HOME SCREEN
-══════════════════════════════ */
-
-/* Search Bar */
+/* Search */
 .search-bar {
   margin: 10px 20px 0;
   background: var(--surface-2);
@@ -223,17 +199,9 @@ body {
 .search-bar span { font-size: 13px; color: var(--ink-60); }
 
 /* Category Pills */
-.category-strip {
-  display: flex; gap: 8px;
-  padding: 12px 20px 4px;
-  overflow-x: auto;
-}
+.category-strip { display: flex; gap: 8px; padding: 12px 20px 4px; overflow-x: auto; }
 .category-strip::-webkit-scrollbar { display: none; }
-.cat-pill {
-  flex-shrink: 0;
-  display: flex; flex-direction: column; align-items: center; gap: 5px;
-  cursor: pointer;
-}
+.cat-pill { flex-shrink: 0; display: flex; flex-direction: column; align-items: center; gap: 5px; cursor: pointer; }
 .cat-icon {
   width: 52px; height: 52px; border-radius: 18px;
   display: flex; align-items: center; justify-content: center;
@@ -245,13 +213,8 @@ body {
 .cat-label { font-size: 10px; color: var(--ink-60); font-weight: 500; text-align: center; }
 .cat-pill.active .cat-label { color: var(--rose); font-weight: 600; }
 
-/* Product Grid (Home) */
-.product-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
-  padding: 4px 20px 0;
-}
+/* Product Grid */
+.product-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 4px 20px 0; }
 .product-grid-card {
   border: 1px solid var(--border);
   border-radius: var(--r-lg);
@@ -262,74 +225,30 @@ body {
   transition: all 0.2s;
 }
 .product-grid-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
-.pgc-img {
-  height: 160px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 52px; position: relative;
-}
-.pgc-badge {
-  position: absolute; top: 8px; right: 8px;
-  background: linear-gradient(135deg, var(--indigo), var(--indigo-dark));
-  color: white; font-size: 9px; font-weight: 600;
-  padding: 3px 8px; border-radius: var(--r-full);
-}
-.pgc-winner {
-  position: absolute; top: 8px; left: 8px;
-  background: linear-gradient(135deg, var(--amber), #E08020);
-  color: white; font-size: 9px; font-weight: 600;
-  padding: 3px 8px; border-radius: var(--r-full);
-}
+.pgc-img { height: 160px; display: flex; align-items: center; justify-content: center; font-size: 52px; position: relative; }
+.pgc-badge { position: absolute; top: 8px; right: 8px; background: linear-gradient(135deg, var(--indigo), var(--indigo-dark)); color: white; font-size: 9px; font-weight: 600; padding: 3px 8px; border-radius: var(--r-full); }
+.pgc-winner { position: absolute; top: 8px; left: 8px; background: linear-gradient(135deg, var(--amber), #E08020); color: white; font-size: 9px; font-weight: 600; padding: 3px 8px; border-radius: var(--r-full); }
 .pgc-body { padding: 10px 12px; }
 .pgc-name { font-size: 12px; font-weight: 600; color: var(--ink); margin-bottom: 4px; line-height: 1.3; }
 .pgc-price-row { display: flex; align-items: center; gap: 4px; margin-bottom: 6px; }
 .pgc-price { font-size: 16px; font-weight: 700; color: var(--rose); }
 .pgc-orig { font-size: 11px; color: var(--ink-30); text-decoration: line-through; }
 .pgc-divid { font-size: 10px; color: var(--mint); background: var(--mint-light); padding: 2px 7px; border-radius: var(--r-full); margin-left: auto; }
-.pgc-progress-track {
-  height: 3px; background: var(--surface-2); border-radius: 2px; overflow: hidden;
-}
-.pgc-progress-fill { height: 100%; border-radius: 2px; background: linear-gradient(90deg, var(--rose), var(--indigo)); }
+.pgc-progress-track { height: 3px; background: var(--surface-2); border-radius: 2px; overflow: hidden; }
+.pgc-progress-fill { height: 100%; border-radius: 2px; background: linear-gradient(90deg, var(--rose), var(--indigo)); transition: width 0.8s ease; }
 .pgc-meta { font-size: 10px; color: var(--ink-60); margin-top: 4px; }
 
-/* Hot Vote on Home (compact) */
-.home-vote-card {
-  margin: 0 20px 14px;
-  border: 1px solid var(--border);
-  border-radius: var(--r-xl);
-  overflow: hidden;
-  box-shadow: var(--shadow-sm);
-  background: var(--surface);
-  cursor: pointer;
-}
-.home-vote-header {
-  display: flex; align-items: center; gap: 10px;
-  padding: 12px 16px; border-bottom: 1px solid var(--border);
-}
-.vote-avatar {
-  width: 38px; height: 38px; border-radius: 50%;
-  background: linear-gradient(135deg, var(--rose-mid), var(--rose));
-  display: flex; align-items: center; justify-content: center;
-  font-size: 17px; flex-shrink: 0;
-}
+/* Home Vote */
+.home-vote-card { margin: 0 20px 14px; border: 1px solid var(--border); border-radius: var(--r-xl); overflow: hidden; box-shadow: var(--shadow-sm); background: var(--surface); }
+.home-vote-header { display: flex; align-items: center; gap: 10px; padding: 12px 16px; border-bottom: 1px solid var(--border); }
+.vote-avatar { width: 38px; height: 38px; border-radius: 50%; background: linear-gradient(135deg, var(--rose-mid), var(--rose)); display: flex; align-items: center; justify-content: center; font-size: 17px; flex-shrink: 0; }
 .vote-info { flex: 1; }
 .vote-name { font-size: 12px; font-weight: 600; color: var(--ink); }
 .vote-meta { font-size: 10px; color: var(--ink-60); }
-.live-badge {
-  display: flex; align-items: center; gap: 4px;
-  background: #FFF0F0; color: #C0392B;
-  font-size: 10px; font-weight: 600;
-  padding: 4px 10px; border-radius: var(--r-full);
-  border: 1px solid rgba(192,57,43,0.15);
-}
-.live-dot {
-  width: 6px; height: 6px; background: #E74C3C; border-radius: 50%;
-  animation: pulse-dot 1.2s ease-in-out infinite;
-}
+.live-badge { display: flex; align-items: center; gap: 4px; background: #FFF0F0; color: #C0392B; font-size: 10px; font-weight: 600; padding: 4px 10px; border-radius: var(--r-full); border: 1px solid rgba(192,57,43,0.15); }
+.live-dot { width: 6px; height: 6px; background: #E74C3C; border-radius: 50%; animation: pulse-dot 1.2s ease-in-out infinite; }
 .home-vote-options { display: flex; gap: 6px; padding: 12px 16px; }
-.hvo {
-  flex: 1; border: 1.5px solid var(--border); border-radius: var(--r-md);
-  overflow: hidden; cursor: pointer; transition: all 0.2s;
-}
+.hvo { flex: 1; border: 1.5px solid var(--border); border-radius: var(--r-md); overflow: hidden; cursor: pointer; transition: all 0.2s; }
 .hvo:hover { border-color: var(--rose-mid); }
 .hvo.chosen { border-color: var(--rose); box-shadow: 0 0 0 3px rgba(232,84,122,0.12); }
 .hvo-img { height: 70px; display: flex; align-items: center; justify-content: center; font-size: 28px; position: relative; }
@@ -338,17 +257,13 @@ body {
 .hvo-lbl { padding: 6px 8px; }
 .hvo-name { font-size: 10px; font-weight: 500; color: var(--ink); margin-bottom: 3px; }
 .hvo-bar-wrap { height: 2px; background: var(--surface-2); border-radius: 2px; margin-bottom: 3px; }
-.hvo-bar { height: 100%; border-radius: 2px; background: var(--rose); }
+.hvo-bar { height: 100%; border-radius: 2px; background: var(--rose); transition: width 0.5s ease; }
 .hvo-pct { font-size: 10px; color: var(--rose); font-weight: 600; }
 .home-vote-footer { display: flex; gap: 8px; padding: 0 16px 14px; align-items: center; }
 .home-vote-count { font-size: 11px; color: var(--ink-60); flex: 1; }
 
 /* Stats Strip */
-.stats-strip {
-  display: flex; gap: 0; margin: 0 20px 4px;
-  background: var(--surface-2); border: 1px solid var(--border);
-  border-radius: var(--r-lg); overflow: hidden;
-}
+.stats-strip { display: flex; gap: 0; margin: 0 20px 4px; background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--r-lg); overflow: hidden; }
 .stat-cell { flex: 1; text-align: center; padding: 14px 8px; border-right: 1px solid var(--border); }
 .stat-cell:last-child { border-right: none; }
 .stat-num { font-size: 17px; font-weight: 700; color: var(--ink); letter-spacing: -0.03em; }
@@ -357,30 +272,15 @@ body {
 .stat-num.mint { color: var(--mint); }
 .stat-lbl { font-size: 10px; color: var(--ink-60); margin-top: 2px; letter-spacing: 0.02em; }
 
-/* ══════════════════════════════
-   PRODUCT DETAIL SCREEN
-══════════════════════════════ */
+/* Product Detail */
 .detail-img-gallery { position: relative; }
-.detail-main-img {
-  height: 280px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 90px;
-  position: relative;
-}
+.detail-main-img { height: 280px; display: flex; align-items: center; justify-content: center; font-size: 90px; position: relative; }
 .detail-badge-row { position: absolute; top: 16px; left: 16px; display: flex; gap: 6px; }
-.detail-badge {
-  padding: 5px 12px; border-radius: var(--r-full);
-  font-size: 10px; font-weight: 600;
-}
+.detail-badge { padding: 5px 12px; border-radius: var(--r-full); font-size: 10px; font-weight: 600; }
 .detail-badge.winner { background: linear-gradient(135deg, var(--amber), #E08020); color: white; }
 .detail-badge.shareholder { background: linear-gradient(135deg, var(--indigo), var(--indigo-dark)); color: white; }
 .detail-thumbs { display: flex; gap: 8px; padding: 10px 20px; }
-.thumb {
-  width: 60px; height: 60px; border-radius: var(--r-md);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 24px; cursor: pointer; border: 2px solid transparent;
-  transition: all 0.2s; flex-shrink: 0;
-}
+.thumb { width: 60px; height: 60px; border-radius: var(--r-md); display: flex; align-items: center; justify-content: center; font-size: 24px; cursor: pointer; border: 2px solid transparent; transition: all 0.2s; flex-shrink: 0; }
 .thumb.active { border-color: var(--rose); box-shadow: 0 0 0 3px rgba(232,84,122,0.15); }
 .detail-body { padding: 14px 20px 0; }
 .detail-title { font-size: 18px; font-weight: 700; color: var(--ink); margin-bottom: 4px; letter-spacing: -0.03em; }
@@ -395,35 +295,17 @@ body {
 .tag-mint { background: var(--mint-light); color: var(--mint); }
 .tag-indigo { background: var(--indigo-light); color: var(--indigo); }
 .tag-amber { background: var(--amber-light); color: var(--amber); }
-
-/* Size selector */
 .detail-section-lbl { font-size: 12px; font-weight: 600; color: var(--ink); margin-bottom: 8px; }
 .size-row { display: flex; gap: 8px; margin-bottom: 16px; flex-wrap: wrap; }
-.size-btn {
-  min-width: 46px; height: 36px; border: 1.5px solid var(--border);
-  border-radius: var(--r-md); background: white;
-  font-size: 12px; font-weight: 500; color: var(--ink);
-  cursor: pointer; font-family: inherit; transition: all 0.2s;
-  padding: 0 10px;
-}
+.size-btn { min-width: 46px; height: 36px; border: 1.5px solid var(--border); border-radius: var(--r-md); background: white; font-size: 12px; font-weight: 500; color: var(--ink); cursor: pointer; font-family: inherit; transition: all 0.2s; padding: 0 10px; }
 .size-btn.chosen { border-color: var(--rose); background: var(--rose-light); color: var(--rose); font-weight: 600; }
 .size-btn.sold { opacity: 0.4; cursor: not-allowed; text-decoration: line-through; }
-
-/* Color selector */
 .color-row { display: flex; gap: 8px; margin-bottom: 16px; }
-.color-dot {
-  width: 32px; height: 32px; border-radius: 50%;
-  cursor: pointer; border: 2px solid transparent; transition: all 0.2s;
-  position: relative;
-}
+.color-dot { width: 32px; height: 32px; border-radius: 50%; cursor: pointer; border: 2px solid transparent; transition: all 0.2s; position: relative; }
 .color-dot.chosen { border-color: var(--rose); box-shadow: 0 0 0 3px rgba(232,84,122,0.2); }
 
-/* Holder card */
-.holder-card {
-  background: linear-gradient(135deg, #1A1460, #4A35C8);
-  border-radius: var(--r-xl); margin: 14px 20px;
-  padding: 16px 18px;
-}
+/* Holder Card */
+.holder-card { background: linear-gradient(135deg, #1A1460, #4A35C8); border-radius: var(--r-xl); margin: 14px 20px; padding: 16px 18px; }
 .holder-card-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
 .holder-card-title { font-size: 12px; color: rgba(200,195,255,0.8); font-weight: 500; }
 .holder-count { font-size: 20px; font-weight: 700; color: white; letter-spacing: -0.03em; }
@@ -442,7 +324,7 @@ body {
 .detail-prog-meta { display: flex; justify-content: space-between; font-size: 12px; color: var(--ink-60); margin-bottom: 8px; }
 .detail-prog-meta strong { color: var(--ink); }
 .detail-prog-track { height: 8px; background: var(--surface-2); border-radius: 4px; overflow: hidden; }
-.detail-prog-fill { height: 100%; border-radius: 4px; background: linear-gradient(90deg, var(--rose), var(--indigo)); position: relative; }
+.detail-prog-fill { height: 100%; border-radius: 4px; background: linear-gradient(90deg, var(--rose), var(--indigo)); position: relative; transition: width 0.8s ease; }
 .detail-prog-fill::after { content: ''; position: absolute; top: 0; right: 0; width: 10px; height: 100%; background: rgba(255,255,255,0.4); border-radius: 4px; }
 
 /* Benefit rows */
@@ -456,7 +338,7 @@ body {
 .benefit-sub { font-size: 11px; color: var(--ink-60); }
 .benefit-amount { font-size: 14px; font-weight: 700; color: var(--mint); }
 
-/* Vote section (embedded in detail) */
+/* Vote section (embedded) */
 .detail-vote-section { margin: 0 20px 14px; background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--r-xl); overflow: hidden; }
 .dvs-header { padding: 14px 16px 10px; border-bottom: 1px solid var(--border); }
 .dvs-title { font-size: 13px; font-weight: 600; color: var(--ink); margin-bottom: 2px; }
@@ -471,7 +353,7 @@ body {
 .dvs-lbl { padding: 8px 10px; }
 .dvs-name { font-size: 11px; font-weight: 500; color: var(--ink); margin-bottom: 4px; }
 .dvs-bar-wrap { height: 3px; background: var(--surface-2); border-radius: 2px; margin-bottom: 3px; }
-.dvs-bar { height: 100%; border-radius: 2px; background: linear-gradient(90deg, var(--rose), #C43060); }
+.dvs-bar { height: 100%; border-radius: 2px; background: linear-gradient(90deg, var(--rose), #C43060); transition: width 0.5s ease; }
 .dvs-pct { font-size: 11px; color: var(--rose); font-weight: 600; }
 .dvs-footer { padding: 10px 12px 14px; border-top: 1px solid var(--border); display: flex; align-items: center; gap: 8px; }
 .dvs-count { font-size: 11px; color: var(--ink-60); flex: 1; }
@@ -491,26 +373,18 @@ body {
 .creative-item-likes { font-size: 10px; color: var(--rose); text-align: center; }
 .creative-upload-btn { margin: 0 16px 14px; }
 
-/* CTA Bar (detail bottom) */
-.detail-cta-bar {
-  margin: 14px 20px 0;
-  background: linear-gradient(135deg, var(--rose), #C43060);
-  border-radius: var(--r-xl); padding: 16px 20px;
-  display: flex; align-items: center; justify-content: space-between;
-}
+/* CTA Bar */
+.detail-cta-bar { margin: 14px 20px 0; background: linear-gradient(135deg, var(--rose), #C43060); border-radius: var(--r-xl); padding: 16px 20px; display: flex; align-items: center; justify-content: space-between; }
 .detail-cta-info p { font-size: 11px; color: rgba(255,255,255,0.75); margin-bottom: 2px; }
 .detail-cta-info strong { font-size: 20px; font-weight: 700; color: white; letter-spacing: -0.03em; }
 .detail-cta-btn { background: white; color: var(--rose); border: none; border-radius: var(--r-full); padding: 10px 18px; font-size: 13px; font-weight: 700; cursor: pointer; font-family: inherit; white-space: nowrap; transition: all 0.2s; }
 .detail-cta-btn:hover { transform: scale(1.03); }
 
-/* ══════════════════════════════
-   VOTE SCREEN
-══════════════════════════════ */
+/* Vote Screen */
 .vote-filter { display: flex; gap: 6px; padding: 8px 20px 14px; overflow-x: auto; }
 .vote-filter::-webkit-scrollbar { display: none; }
 .filter-chip { flex-shrink: 0; padding: 7px 16px; border-radius: var(--r-full); font-size: 12px; font-weight: 500; cursor: pointer; border: 1px solid var(--border); background: white; color: var(--ink-60); transition: all 0.2s; font-family: inherit; }
 .filter-chip.active { background: var(--rose); color: white; border-color: var(--rose); }
-
 .feed-card { margin: 0 20px 14px; border: 1px solid var(--border); border-radius: var(--r-xl); overflow: hidden; background: var(--surface); box-shadow: var(--shadow-sm); }
 .feed-header { display: flex; align-items: center; gap: 10px; padding: 14px 16px 12px; border-bottom: 1px solid var(--border); }
 .feed-avatar { width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
@@ -529,19 +403,15 @@ body {
 .feed-action-btn { display: flex; align-items: center; gap: 5px; font-size: 12px; color: var(--ink-60); cursor: pointer; padding: 4px 12px; border-radius: var(--r-full); transition: all 0.15s; flex: 1; justify-content: center; }
 .feed-action-btn:hover { background: var(--surface-2); color: var(--rose); }
 .vote-mini-tag { font-size: 11px; background: var(--rose-light); color: var(--rose); padding: 5px 14px; border-radius: var(--r-full); font-weight: 500; margin: 0 16px 14px; display: inline-flex; align-items: center; gap: 5px; border: 1px solid rgba(232,84,122,0.15); }
-
 .initiate-cta { margin: 0 20px 20px; background: linear-gradient(135deg, var(--surface-2), white); border: 1.5px dashed var(--rose-mid); border-radius: var(--r-xl); padding: 20px; text-align: center; cursor: pointer; transition: all 0.2s; }
 .initiate-cta:hover { background: var(--rose-light); border-color: var(--rose); }
 .initiate-cta h3 { font-size: 14px; font-weight: 600; color: var(--ink); margin-bottom: 4px; }
 .initiate-cta p { font-size: 12px; color: var(--ink-60); margin-bottom: 14px; }
 
-/* ══════════════════════════════
-   PRESALE / SHAREHOLDER SCREEN
-══════════════════════════════ */
+/* Presale */
 .mechanism-banner { margin: 14px 20px; background: linear-gradient(135deg, var(--indigo-light), #FBEAF0); border: 1px solid rgba(74,53,200,0.1); border-radius: var(--r-lg); padding: 14px 16px; }
 .mechanism-title { font-size: 12px; font-weight: 600; color: var(--indigo); margin-bottom: 5px; display: flex; align-items: center; gap: 5px; }
 .mechanism-text { font-size: 12px; color: #7F77DD; line-height: 1.65; }
-
 .stock-hero { margin: 0 20px 14px; border-radius: var(--r-xl); overflow: hidden; box-shadow: var(--shadow-md); }
 .stock-top { background: linear-gradient(135deg, #1A1460 0%, #2D1E8F 50%, #4A35C8 100%); padding: 20px; position: relative; overflow: hidden; }
 .stock-top::before { content: ''; position: absolute; top: -20px; right: -20px; width: 120px; height: 120px; background: radial-gradient(circle, rgba(255,255,255,0.08) 0%, transparent 70%); border-radius: 50%; }
@@ -566,9 +436,7 @@ body {
 .invest-action-btn { background: white; color: var(--indigo); border: none; border-radius: var(--r-full); padding: 10px 18px; font-size: 13px; font-weight: 700; cursor: pointer; font-family: inherit; white-space: nowrap; transition: all 0.2s; }
 .invest-action-btn:hover { transform: scale(1.03); }
 
-/* ══════════════════════════════
-   WALLET SCREEN
-══════════════════════════════ */
+/* Wallet */
 .wallet-hero { margin: 14px 20px; background: linear-gradient(135deg, #1A1460 0%, #2D1E8F 60%, #533AB7 100%); border-radius: var(--r-xl); padding: 22px 22px 20px; position: relative; overflow: hidden; box-shadow: var(--shadow-md); }
 .wallet-hero::before { content: ''; position: absolute; top: -40px; right: -40px; width: 180px; height: 180px; background: radial-gradient(circle, rgba(255,255,255,0.06) 0%, transparent 70%); border-radius: 50%; }
 .wallet-lbl { font-size: 11px; color: rgba(200,195,255,0.7); letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 4px; }
@@ -605,9 +473,7 @@ body {
 .referral-code { font-size: 14px; font-weight: 600; color: var(--ink); flex: 1; letter-spacing: 0.05em; }
 .copy-btn { font-size: 11px; color: var(--rose); font-weight: 600; cursor: pointer; padding: 4px 10px; background: var(--rose-light); border-radius: var(--r-full); border: none; font-family: inherit; }
 
-/* ══════════════════════════════
-   PROFILE SCREEN
-══════════════════════════════ */
+/* Profile */
 .profile-cover { height: 110px; background: linear-gradient(135deg, #2D1E8F 0%, var(--rose) 100%); position: relative; }
 .profile-ava-wrap { position: absolute; bottom: -28px; left: 20px; width: 64px; height: 64px; border-radius: 50%; border: 3px solid white; background: linear-gradient(135deg, var(--rose-mid), var(--indigo)); display: flex; align-items: center; justify-content: center; font-size: 28px; box-shadow: var(--shadow-md); }
 .profile-edit-btn { position: absolute; bottom: -40px; right: 20px; padding: 7px 16px; border-radius: var(--r-full); font-size: 12px; font-weight: 500; background: white; border: 1px solid var(--border); color: var(--ink); cursor: pointer; font-family: inherit; box-shadow: var(--shadow-sm); }
@@ -638,13 +504,101 @@ body {
 .settings-label { flex: 1; font-size: 13px; color: var(--ink); font-weight: 500; }
 .settings-arrow { font-size: 12px; color: var(--ink-30); }
 .notif-dot { width: 8px; height: 8px; background: var(--rose); border-radius: 50%; flex-shrink: 0; }
+
+/* ── Modal Overlay ── */
+.modal-overlay {
+  display: none;
+  position: absolute;
+  inset: 0;
+  background: rgba(26,22,37,0.55);
+  backdrop-filter: blur(4px);
+  z-index: 500;
+  align-items: flex-end;
+  justify-content: center;
+  border-radius: 44px;
+  overflow: hidden;
+}
+.modal-overlay.open { display: flex; animation: fadeIn 0.2s ease; }
+@keyframes fadeIn { from { opacity:0 } to { opacity:1 } }
+.modal-sheet {
+  background: white;
+  width: 100%;
+  border-radius: 28px 28px 0 0;
+  padding: 20px 24px 32px;
+  animation: slideUp 0.3s cubic-bezier(0.34,1.56,0.64,1);
+}
+@keyframes slideUp { from { transform: translateY(100%) } to { transform: translateY(0) } }
+.modal-handle { width: 36px; height: 4px; background: var(--ink-30); border-radius: 2px; margin: 0 auto 16px; }
+.modal-title { font-size: 17px; font-weight: 700; color: var(--ink); margin-bottom: 6px; }
+.modal-sub { font-size: 13px; color: var(--ink-60); margin-bottom: 20px; line-height: 1.5; }
+.modal-row { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid var(--border); }
+.modal-row-label { font-size: 13px; color: var(--ink-60); }
+.modal-row-value { font-size: 14px; font-weight: 600; color: var(--ink); }
+.modal-row-value.green { color: var(--mint); }
+.modal-close-btn { position: absolute; top: 20px; right: 24px; font-size: 18px; cursor: pointer; color: var(--ink-60); border: none; background: none; }
+
+/* Notification badge */
+.notif-badge {
+  position: absolute;
+  top: 6px; right: 6px;
+  width: 8px; height: 8px;
+  background: var(--rose);
+  border-radius: 50%;
+  border: 2px solid white;
+}
+
+/* Real-time ticker */
+.realtime-ticker {
+  background: linear-gradient(135deg, #FFF5F8, #F0F0FE);
+  border: 1px solid rgba(232,84,122,0.12);
+  border-radius: var(--r-lg);
+  margin: 0 20px 14px;
+  padding: 10px 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  overflow: hidden;
+}
+.ticker-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--rose); flex-shrink: 0; animation: pulse-dot 1.5s ease-in-out infinite; }
+.ticker-text { font-size: 12px; color: var(--ink-60); flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.ticker-text strong { color: var(--rose); }
+
+/* Launch vote modal form */
+.launch-form { display: flex; flex-direction: column; gap: 14px; }
+.form-group label { display: block; font-size: 12px; font-weight: 600; color: var(--ink-60); margin-bottom: 6px; }
+.form-group input, .form-group select, .form-group textarea {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  font-size: 13px;
+  font-family: inherit;
+  color: var(--ink);
+  background: var(--surface-2);
+  outline: none;
+  transition: border-color 0.2s;
+}
+.form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--rose); background: white; }
+.form-group textarea { resize: none; height: 70px; }
+
+/* Withdraw modal */
+.withdraw-amount-display { font-size: 36px; font-weight: 700; color: var(--ink); text-align: center; margin: 10px 0; letter-spacing: -0.04em; }
+.bank-card-item { display: flex; align-items: center; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--border); cursor: pointer; }
+.bank-icon { width: 38px; height: 38px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 18px; background: var(--indigo-light); }
+.bank-info { flex: 1; }
+.bank-name { font-size: 13px; font-weight: 500; color: var(--ink); }
+.bank-num { font-size: 11px; color: var(--ink-60); }
+.bank-check { font-size: 16px; color: var(--rose); }
+
+/* Animated counter */
+.counter-anim { transition: all 0.4s ease; }
 </style>
 </head>
 <body>
 
-<div class="phone">
+<div class="phone" id="app">
   <div class="status-bar">
-    <span style="font-weight:600">9:41</span>
+    <span id="clock" style="font-weight:600">9:41</span>
     <div class="status-icons">
       <svg viewBox="0 0 24 24" fill="currentColor"><path d="M1 9l2 2c4.97-4.97 13.03-4.97 18 0l2-2C16.93 2.93 7.08 2.93 1 9zm8 8l3 3 3-3c-1.65-1.66-4.34-1.66-6 0zm-4-4l2 2c2.76-2.76 7.24-2.76 10 0l2-2C15.14 9.14 8.87 9.14 5 13z"/></svg>
       <svg viewBox="0 0 24 24" fill="currentColor"><rect x="2" y="7" width="15" height="11" rx="1.5"/><rect x="19" y="10" width="3" height="5" rx="1"/></svg>
@@ -654,199 +608,56 @@ body {
   <!-- ══ HOME SCREEN ══ -->
   <div class="screen active" id="screen-home">
     <div class="scroll-area">
-      <!-- Search -->
       <div class="search-bar" onclick="showToast('搜索功能即将开放')">
-        <span>🔍</span>
-        <span>搜索博主、款式、品类...</span>
+        <span>🔍</span><span>搜索博主、款式、品类...</span>
+      </div>
+      <div class="category-strip" id="cat-strip">
+        <div class="cat-pill active" onclick="selectCat(this,'全部')"><div class="cat-icon" style="background:linear-gradient(135deg,#FBECF1,#EDEAFD)">✨</div><span class="cat-label">全部</span></div>
+        <div class="cat-pill" onclick="selectCat(this,'外套')"><div class="cat-icon" style="background:linear-gradient(135deg,#FEF3DF,#FAE0A0)">🧥</div><span class="cat-label">外套</span></div>
+        <div class="cat-pill" onclick="selectCat(this,'连衣裙')"><div class="cat-icon" style="background:linear-gradient(135deg,#FBECF1,#F4B8CB)">👗</div><span class="cat-label">连衣裙</span></div>
+        <div class="cat-pill" onclick="selectCat(this,'裤装')"><div class="cat-icon" style="background:linear-gradient(135deg,#E2F5EE,#A0EDD6)">👖</div><span class="cat-label">裤装</span></div>
+        <div class="cat-pill" onclick="selectCat(this,'配件')"><div class="cat-icon" style="background:linear-gradient(135deg,#EDEAFD,#C8BFFF)">👜</div><span class="cat-label">配件</span></div>
+        <div class="cat-pill" onclick="selectCat(this,'针织')"><div class="cat-icon" style="background:linear-gradient(135deg,#E2F5EE,#CBF0E0)">🧣</div><span class="cat-label">针织</span></div>
       </div>
 
-      <!-- Category Pills -->
-      <div class="category-strip">
-        <div class="cat-pill active" onclick="selectCat(this,'全部')">
-          <div class="cat-icon" style="background:linear-gradient(135deg,#FBECF1,#EDEAFD)">✨</div>
-          <span class="cat-label">全部</span>
-        </div>
-        <div class="cat-pill" onclick="selectCat(this,'外套')">
-          <div class="cat-icon" style="background:linear-gradient(135deg,#FEF3DF,#FAE0A0)">🧥</div>
-          <span class="cat-label">外套</span>
-        </div>
-        <div class="cat-pill" onclick="selectCat(this,'连衣裙')">
-          <div class="cat-icon" style="background:linear-gradient(135deg,#FBECF1,#F4B8CB)">👗</div>
-          <span class="cat-label">连衣裙</span>
-        </div>
-        <div class="cat-pill" onclick="selectCat(this,'裤装')">
-          <div class="cat-icon" style="background:linear-gradient(135deg,#E2F5EE,#A0EDD6)">👖</div>
-          <span class="cat-label">裤装</span>
-        </div>
-        <div class="cat-pill" onclick="selectCat(this,'配件')">
-          <div class="cat-icon" style="background:linear-gradient(135deg,#EDEAFD,#C8BFFF)">👜</div>
-          <span class="cat-label">配件</span>
-        </div>
-        <div class="cat-pill" onclick="selectCat(this,'针织')">
-          <div class="cat-icon" style="background:linear-gradient(135deg,#E2F5EE,#CBF0E0)">🧣</div>
-          <span class="cat-label">针织</span>
-        </div>
+      <!-- Real-time Activity Ticker -->
+      <div class="realtime-ticker" id="ticker">
+        <div class="ticker-dot"></div>
+        <div class="ticker-text" id="ticker-text">🎉 <strong>@小鱼穿搭</strong> 刚成为「宽肩廓形大衣」第451位股东</div>
       </div>
 
-      <!-- Product Grid -->
-      <div class="section-title">🔥 热门产品 <span class="section-more">查看全部</span></div>
-      <div class="product-grid">
-        <div class="product-grid-card" onclick="switchScreen('detail')">
-          <div class="pgc-img" style="background:linear-gradient(135deg,#F1EFE8,#E8E4D8)">
-            🧥
-            <div class="pgc-badge">单款股东</div>
-            <div class="pgc-winner">🏆 冠军</div>
-          </div>
-          <div class="pgc-body">
-            <div class="pgc-name">经典翻领风衣 2024秋冬</div>
-            <div class="pgc-price-row">
-              <span class="pgc-price">¥589</span>
-              <span class="pgc-orig">¥899</span>
-              <span class="pgc-divid">分红</span>
-            </div>
-            <div class="pgc-progress-track"><div class="pgc-progress-fill" style="width:84.7%"></div></div>
-            <div class="pgc-meta">847/1000件 · 847位股东</div>
-          </div>
-        </div>
-        <div class="product-grid-card" onclick="switchScreen('detail')">
-          <div class="pgc-img" style="background:linear-gradient(135deg,#EEEDFE,#DDD9F8)">
-            🥼
-            <div class="pgc-badge">预售中</div>
-          </div>
-          <div class="pgc-body">
-            <div class="pgc-name">宽肩廓形大衣 复古款</div>
-            <div class="pgc-price-row">
-              <span class="pgc-price">¥699</span>
-              <span class="pgc-orig">¥1099</span>
-              <span class="pgc-divid">分红</span>
-            </div>
-            <div class="pgc-progress-track"><div class="pgc-progress-fill" style="width:45%"></div></div>
-            <div class="pgc-meta">450/1000件 · 450位股东</div>
-          </div>
-        </div>
-        <div class="product-grid-card" onclick="switchScreen('detail')">
-          <div class="pgc-img" style="background:linear-gradient(135deg,#E1F5EE,#CBF0E0)">
-            👗
-            <div class="pgc-badge">票选冠军</div>
-          </div>
-          <div class="pgc-body">
-            <div class="pgc-name">腰带版型连衣裙 简约</div>
-            <div class="pgc-price-row">
-              <span class="pgc-price">¥459</span>
-              <span class="pgc-orig">¥699</span>
-              <span class="pgc-divid">分红</span>
-            </div>
-            <div class="pgc-progress-track"><div class="pgc-progress-fill" style="width:62%"></div></div>
-            <div class="pgc-meta">620/1000件 · 620位股东</div>
-          </div>
-        </div>
-        <div class="product-grid-card" onclick="switchScreen('detail')">
-          <div class="pgc-img" style="background:linear-gradient(135deg,#FBEAF0,#F5D0DE)">
-            🧣
-            <div class="pgc-badge">新品</div>
-          </div>
-          <div class="pgc-body">
-            <div class="pgc-name">斗篷叠穿套装 秋季</div>
-            <div class="pgc-price-row">
-              <span class="pgc-price">¥329</span>
-              <span class="pgc-orig">¥499</span>
-              <span class="pgc-divid">分红</span>
-            </div>
-            <div class="pgc-progress-track"><div class="pgc-progress-fill" style="width:28%"></div></div>
-            <div class="pgc-meta">280/1000件 · 280位股东</div>
-          </div>
-        </div>
-      </div>
+      <div class="section-title">🔥 热门产品 <span class="section-more" onclick="switchScreen('vote')">查看全部</span></div>
+      <div class="product-grid" id="product-grid"></div>
 
-      <!-- Stats Strip -->
       <div class="stats-strip" style="margin-top:20px">
-        <div class="stat-cell">
-          <div class="stat-num rose">6,200+</div>
-          <div class="stat-lbl">活跃博主</div>
-        </div>
-        <div class="stat-cell">
-          <div class="stat-num indigo">32款</div>
-          <div class="stat-lbl">票选进行中</div>
-        </div>
-        <div class="stat-cell">
-          <div class="stat-num mint">¥286万</div>
-          <div class="stat-lbl">累计分红</div>
-        </div>
+        <div class="stat-cell"><div class="stat-num rose counter-anim" id="stat-bloggers">6,200+</div><div class="stat-lbl">活跃博主</div></div>
+        <div class="stat-cell"><div class="stat-num indigo counter-anim" id="stat-votes">32款</div><div class="stat-lbl">票选进行中</div></div>
+        <div class="stat-cell"><div class="stat-num mint counter-anim" id="stat-divid">¥286万</div><div class="stat-lbl">累计分红</div></div>
       </div>
 
-      <!-- Hot Vote (compact inline) -->
       <div class="section-title">🗳️ 热门票选 <span class="section-more" onclick="switchScreen('vote')">查看全部</span></div>
-      <div class="home-vote-card" onclick="void(0)">
+      <div class="home-vote-card">
         <div class="home-vote-header">
           <div class="vote-avatar">✨</div>
           <div class="vote-info">
             <div class="vote-name">@MOMO穿搭研究所</div>
-            <div class="vote-meta">24.6万粉丝 · 今日票选 #1</div>
+            <div class="vote-meta" id="home-vote-meta">24.6万粉丝 · 今日票选 #1</div>
           </div>
           <div class="live-badge"><div class="live-dot"></div>投票中</div>
         </div>
-        <div class="home-vote-options">
-          <div class="hvo chosen" onclick="homeVote(this)">
-            <div class="hvo-img" style="background:linear-gradient(135deg,#F1EFE8,#E8E4D8)">🧥<div class="hvo-check">✓</div></div>
-            <div class="hvo-lbl">
-              <div class="hvo-name">A. 经典翻领</div>
-              <div class="hvo-bar-wrap"><div class="hvo-bar" style="width:62%"></div></div>
-              <div class="hvo-pct">62%</div>
-            </div>
-          </div>
-          <div class="hvo" onclick="homeVote(this)">
-            <div class="hvo-img" style="background:linear-gradient(135deg,#EEEDFE,#DDD9F8)">🥼<div class="hvo-check">✓</div></div>
-            <div class="hvo-lbl">
-              <div class="hvo-name">B. 宽肩廓形</div>
-              <div class="hvo-bar-wrap"><div class="hvo-bar" style="width:21%"></div></div>
-              <div class="hvo-pct">21%</div>
-            </div>
-          </div>
-          <div class="hvo" onclick="homeVote(this)">
-            <div class="hvo-img" style="background:linear-gradient(135deg,#E1F5EE,#CBF0E0)">👗<div class="hvo-check">✓</div></div>
-            <div class="hvo-lbl">
-              <div class="hvo-name">C. 腰带款</div>
-              <div class="hvo-bar-wrap"><div class="hvo-bar" style="width:11%"></div></div>
-              <div class="hvo-pct">11%</div>
-            </div>
-          </div>
-          <div class="hvo" onclick="homeVote(this)">
-            <div class="hvo-img" style="background:linear-gradient(135deg,#FBEAF0,#F5D0DE)">🧣<div class="hvo-check">✓</div></div>
-            <div class="hvo-lbl">
-              <div class="hvo-name">D. 斗篷叠</div>
-              <div class="hvo-bar-wrap"><div class="hvo-bar" style="width:6%"></div></div>
-              <div class="hvo-pct">6%</div>
-            </div>
-          </div>
-        </div>
+        <div class="home-vote-options" id="home-vote-opts"></div>
         <div class="home-vote-footer">
-          <span class="home-vote-count">🗳️ 3,289人已投 · 剩余2天</span>
+          <span class="home-vote-count" id="home-vote-count">🗳️ 3,289人已投 · 剩余2天</span>
           <button class="btn-primary" style="font-size:12px;padding:8px 14px" onclick="switchScreen('detail')">投票并预购</button>
         </div>
       </div>
     </div>
-
     <div class="bottom-nav">
-      <button class="nav-btn active" onclick="switchScreen('home',this)">
-        <div class="nav-icon-wrap"><span class="nav-icon">🏠</span></div>
-        <span class="nav-label">首页</span>
-      </button>
-      <button class="nav-btn" onclick="switchScreen('vote',this)">
-        <div class="nav-icon-wrap"><span class="nav-icon">🗳️</span></div>
-        <span class="nav-label">票选</span>
-      </button>
-      <button class="nav-btn" onclick="switchScreen('presale',this)">
-        <div class="nav-icon-wrap"><span class="nav-icon">🧥</span></div>
-        <span class="nav-label">预售</span>
-      </button>
-      <button class="nav-btn" onclick="switchScreen('wallet',this)">
-        <div class="nav-icon-wrap"><span class="nav-icon">💰</span></div>
-        <span class="nav-label">分红</span>
-      </button>
-      <button class="nav-btn" onclick="switchScreen('profile',this)">
-        <div class="nav-icon-wrap"><span class="nav-icon">👤</span></div>
-        <span class="nav-label">我的</span>
-      </button>
+      <button class="nav-btn active" onclick="switchScreen('home',this)"><div class="nav-icon-wrap"><span class="nav-icon">🏠</span></div><span class="nav-label">首页</span></button>
+      <button class="nav-btn" onclick="switchScreen('vote',this)"><div class="nav-icon-wrap"><span class="nav-icon">🗳️</span></div><span class="nav-label">票选</span></button>
+      <button class="nav-btn" onclick="switchScreen('presale',this)"><div class="nav-icon-wrap"><span class="nav-icon">🧥</span></div><span class="nav-label">预售</span></button>
+      <button class="nav-btn" onclick="switchScreen('wallet',this)"><div class="nav-icon-wrap"><span class="nav-icon">💰</span></div><span class="nav-label">分红</span></button>
+      <button class="nav-btn" onclick="switchScreen('profile',this)"><div class="nav-icon-wrap"><span class="nav-icon">👤</span></div><span class="nav-label">我的</span></button>
     </div>
   </div>
 
@@ -855,10 +666,9 @@ body {
     <div class="page-header" style="padding-bottom:0">
       <div class="header-back" onclick="switchScreen('home',null)">←</div>
       <div style="font-size:14px;font-weight:600;color:var(--ink)">产品详情</div>
-      <button class="header-action" onclick="showToast('已收藏！')">🔖 收藏</button>
+      <button class="header-action" id="fav-btn" onclick="toggleFavorite()">🔖 收藏</button>
     </div>
     <div class="scroll-area">
-      <!-- Gallery -->
       <div class="detail-img-gallery">
         <div class="detail-main-img" id="detail-main" style="background:linear-gradient(135deg,#F1EFE8,#E8E4D8)">
           <span id="detail-main-emoji">🧥</span>
@@ -875,8 +685,6 @@ body {
           <div class="thumb" style="background:linear-gradient(135deg,#FEF3DF,#FAE0A0)" onclick="switchThumb(this,'📐','linear-gradient(135deg,#FEF3DF,#FAE0A0)')">📐</div>
         </div>
       </div>
-
-      <!-- Product Info -->
       <div class="detail-body">
         <div class="detail-title">经典翻领风衣 · 2024秋冬款</div>
         <div class="detail-subtitle">@MOMO穿搭研究所 出品 · 票选冠军款</div>
@@ -887,218 +695,109 @@ body {
         </div>
         <div class="detail-tags">
           <span class="detail-tag tag-rose">购买即分红</span>
-          <span class="detail-tag tag-mint">人均收益 ¥51</span>
-          <span class="detail-tag tag-indigo">847位股东</span>
+          <span class="detail-tag tag-mint" id="detail-avg-tag">人均收益 ¥51</span>
+          <span class="detail-tag tag-indigo" id="detail-holder-tag">847位股东</span>
           <span class="detail-tag tag-amber">🏆 票选冠军</span>
         </div>
-
-        <!-- Size -->
         <div class="detail-section-lbl">选择尺码</div>
-        <div class="size-row">
+        <div class="size-row" id="size-row">
           <button class="size-btn" onclick="selectSize(this)">XS</button>
           <button class="size-btn chosen" onclick="selectSize(this)">S</button>
           <button class="size-btn" onclick="selectSize(this)">M</button>
           <button class="size-btn" onclick="selectSize(this)">L</button>
           <button class="size-btn" onclick="selectSize(this)">XL</button>
-          <button class="size-btn sold" onclick="void(0)">XXL</button>
+          <button class="size-btn sold">XXL</button>
         </div>
-
-        <!-- Color -->
         <div class="detail-section-lbl">选择颜色</div>
         <div class="color-row">
-          <div class="color-dot chosen" style="background:#D4C4A0" onclick="selectColor(this)" title="卡其"></div>
-          <div class="color-dot" style="background:#2C2C2C" onclick="selectColor(this)" title="墨黑"></div>
-          <div class="color-dot" style="background:#C4A8B8" onclick="selectColor(this)" title="藕粉"></div>
-          <div class="color-dot" style="background:#8B7355" onclick="selectColor(this)" title="棕驼"></div>
-          <div class="color-dot" style="background:#E8E4D8" onclick="selectColor(this)" title="米白"></div>
+          <div class="color-dot chosen" style="background:#D4C4A0" onclick="selectColor(this,'卡其')"></div>
+          <div class="color-dot" style="background:#2C2C2C" onclick="selectColor(this,'墨黑')"></div>
+          <div class="color-dot" style="background:#C4A8B8" onclick="selectColor(this,'藕粉')"></div>
+          <div class="color-dot" style="background:#8B7355" onclick="selectColor(this,'棕驼')"></div>
+          <div class="color-dot" style="background:#E8E4D8" onclick="selectColor(this,'米白')"></div>
         </div>
       </div>
-
-      <!-- Holder Card -->
       <div class="holder-card">
         <div class="holder-card-top">
           <div>
             <div class="holder-card-title">已有股东</div>
-            <div class="holder-count">847 位</div>
+            <div class="holder-count" id="detail-holder-count">847 位</div>
           </div>
-          <div>
-            <div class="holder-avatars">
-              <div class="h-ava" style="background:#F4C0D1">A</div>
-              <div class="h-ava" style="background:#C0DD97">B</div>
-              <div class="h-ava" style="background:#B5D4F4">C</div>
-              <div class="h-ava" style="background:#FAC775">D</div>
-              <div class="h-ava" style="background:#F7C1C1">E</div>
-              <span class="h-more">+842</span>
-            </div>
+          <div class="holder-avatars">
+            <div class="h-ava" style="background:#F4C0D1">A</div>
+            <div class="h-ava" style="background:#C0DD97">B</div>
+            <div class="h-ava" style="background:#B5D4F4">C</div>
+            <div class="h-ava" style="background:#FAC775">D</div>
+            <div class="h-ava" style="background:#F7C1C1">E</div>
+            <span class="h-more" id="detail-h-more">+842</span>
           </div>
         </div>
         <div class="holder-divid-row">
-          <div class="h-stat">
-            <div class="h-stat-lbl">累计分红</div>
-            <div class="h-stat-val green">¥43,200</div>
-          </div>
-          <div class="h-stat">
-            <div class="h-stat-lbl">人均收益</div>
-            <div class="h-stat-val green">¥51</div>
-          </div>
-          <div class="h-stat">
-            <div class="h-stat-lbl">每新增1位</div>
-            <div class="h-stat-val">¥6 / 人</div>
-          </div>
+          <div class="h-stat"><div class="h-stat-lbl">累计分红</div><div class="h-stat-val green" id="detail-total-divid">¥43,200</div></div>
+          <div class="h-stat"><div class="h-stat-lbl">人均收益</div><div class="h-stat-val green" id="detail-avg-divid">¥51</div></div>
+          <div class="h-stat"><div class="h-stat-lbl">每新增1位</div><div class="h-stat-val">¥6 / 人</div></div>
         </div>
       </div>
-
-      <!-- Progress -->
       <div class="detail-progress">
         <div class="detail-prog-meta">
-          <span>已预售 <strong>847</strong> 件</span>
-          <span>目标 <strong>1,000</strong> 件 · 差153件达标</span>
+          <span>已预售 <strong id="detail-sold">847</strong> 件</span>
+          <span>目标 <strong>1,000</strong> 件 · <span id="detail-remaining">差153件达标</span></span>
         </div>
-        <div class="detail-prog-track"><div class="detail-prog-fill" style="width:84.7%"></div></div>
+        <div class="detail-prog-track"><div class="detail-prog-fill" id="detail-prog-fill" style="width:84.7%"></div></div>
       </div>
-
-      <!-- Shareholder Benefits -->
       <div class="benefit-row">
         <div class="benefit-icon rose">💰</div>
-        <div class="benefit-text">
-          <div class="benefit-title">销售分红</div>
-          <div class="benefit-sub">每新增一位股东，自动获得</div>
-        </div>
+        <div class="benefit-text"><div class="benefit-title">销售分红</div><div class="benefit-sub">每新增一位股东，自动获得</div></div>
         <div class="benefit-amount">¥6 / 人</div>
       </div>
       <div class="benefit-row">
         <div class="benefit-icon indigo">🔗</div>
-        <div class="benefit-text">
-          <div class="benefit-title">推荐奖励</div>
-          <div class="benefit-sub">朋友通过你的链接购买</div>
-        </div>
+        <div class="benefit-text"><div class="benefit-title">推荐奖励</div><div class="benefit-sub">朋友通过你的链接购买</div></div>
         <div class="benefit-amount">¥30 / 单</div>
       </div>
       <div class="benefit-row">
         <div class="benefit-icon mint">📈</div>
-        <div class="benefit-text">
-          <div class="benefit-title">复购分红</div>
-          <div class="benefit-sub">老股东回购，持续获益</div>
-        </div>
+        <div class="benefit-text"><div class="benefit-title">复购分红</div><div class="benefit-sub">老股东回购，持续获益</div></div>
         <div class="benefit-amount">¥3 / 单</div>
       </div>
-
-      <!-- Vote Section (embedded) -->
       <div class="section-title" style="padding-bottom:4px">🗳️ 参与款型票选</div>
       <div class="detail-vote-section">
         <div class="dvs-header">
           <div class="dvs-title">下一季秋冬款，你最想要哪个版型？</div>
-          <div class="dvs-sub">🗳️ 3,289人已投票 · 票高才生产 · 剩余2天</div>
+          <div class="dvs-sub" id="dvs-sub-count">🗳️ 3,289人已投票 · 票高才生产 · 剩余2天</div>
         </div>
-        <div class="dvs-grid">
-          <div class="dvs-opt chosen" onclick="detailVote(this)">
-            <div class="dvs-img" style="background:linear-gradient(135deg,#F1EFE8,#E8E4D8)">🧥<div class="dvs-check">✓</div></div>
-            <div class="dvs-lbl">
-              <div class="dvs-name">A. 经典翻领</div>
-              <div class="dvs-bar-wrap"><div class="dvs-bar" style="width:62%"></div></div>
-              <div class="dvs-pct">62%</div>
-            </div>
-          </div>
-          <div class="dvs-opt" onclick="detailVote(this)">
-            <div class="dvs-img" style="background:linear-gradient(135deg,#EEEDFE,#DDD9F8)">🥼<div class="dvs-check">✓</div></div>
-            <div class="dvs-lbl">
-              <div class="dvs-name">B. 宽肩廓形</div>
-              <div class="dvs-bar-wrap"><div class="dvs-bar" style="width:21%"></div></div>
-              <div class="dvs-pct">21%</div>
-            </div>
-          </div>
-          <div class="dvs-opt" onclick="detailVote(this)">
-            <div class="dvs-img" style="background:linear-gradient(135deg,#E1F5EE,#CBF0E0)">👗<div class="dvs-check">✓</div></div>
-            <div class="dvs-lbl">
-              <div class="dvs-name">C. 腰带版型</div>
-              <div class="dvs-bar-wrap"><div class="dvs-bar" style="width:11%"></div></div>
-              <div class="dvs-pct">11%</div>
-            </div>
-          </div>
-          <div class="dvs-opt" onclick="detailVote(this)">
-            <div class="dvs-img" style="background:linear-gradient(135deg,#FBEAF0,#F5D0DE)">🧣<div class="dvs-check">✓</div></div>
-            <div class="dvs-lbl">
-              <div class="dvs-name">D. 斗篷叠穿</div>
-              <div class="dvs-bar-wrap"><div class="dvs-bar" style="width:6%"></div></div>
-              <div class="dvs-pct">6%</div>
-            </div>
-          </div>
-        </div>
+        <div class="dvs-grid" id="dvs-grid"></div>
         <div class="dvs-footer">
-          <span class="dvs-count">🗳️ 3,289 人已投票</span>
-          <button class="btn-primary" style="font-size:12px;padding:8px 16px" onclick="showToast('投票成功！感谢参与 🎉')">确认投票</button>
+          <span class="dvs-count" id="dvs-count-label">🗳️ 3,289 人已投票</span>
+          <button class="btn-primary" style="font-size:12px;padding:8px 16px" onclick="submitDetailVote()">确认投票</button>
         </div>
       </div>
-
-      <!-- Buyer Creative Design -->
       <div class="section-title" style="padding-bottom:4px">🎨 买家创意设计</div>
       <div class="creative-section">
         <div class="creative-header">
           <div class="creative-icon">🎨</div>
-          <div>
-            <div class="creative-title">买家DIY创意展示</div>
-            <div class="creative-sub">上传你的穿搭创意，获得更多分红加成</div>
-          </div>
+          <div><div class="creative-title">买家DIY创意展示</div><div class="creative-sub">上传你的穿搭创意，获得更多分红加成</div></div>
         </div>
-        <div class="creative-gallery">
-          <div class="creative-item">
-            <div class="creative-img" style="background:linear-gradient(135deg,#F1EFE8,#E8E4D8)">🧥</div>
-            <div class="creative-item-name">@momo搭法</div>
-            <div class="creative-item-likes">❤️ 1.2k</div>
-          </div>
-          <div class="creative-item">
-            <div class="creative-img" style="background:linear-gradient(135deg,#FBEAF0,#F4B8CB)">🧥</div>
-            <div class="creative-item-name">@小鱼创意</div>
-            <div class="creative-item-likes">❤️ 876</div>
-          </div>
-          <div class="creative-item">
-            <div class="creative-img" style="background:linear-gradient(135deg,#EDEAFD,#C8BFFF)">🧥</div>
-            <div class="creative-item-name">@橘子穿法</div>
-            <div class="creative-item-likes">❤️ 634</div>
-          </div>
-          <div class="creative-item" onclick="showToast('上传创意设计即将开放！')">
-            <div class="creative-img" style="background:var(--surface-2);border:2px dashed var(--rose-mid)">➕</div>
-            <div class="creative-item-name" style="color:var(--rose)">上传我的</div>
-            <div class="creative-item-likes" style="color:var(--ink-60)">获分红加成</div>
-          </div>
-        </div>
+        <div class="creative-gallery" id="creative-gallery"></div>
         <div class="creative-upload-btn">
-          <button class="btn-primary" style="width:100%;padding:12px" onclick="showToast('🎨 上传创意设计页面即将开放！')">🎨 上传我的创意搭配，赚额外分红</button>
+          <button class="btn-primary" style="width:100%;padding:12px" onclick="openModal('modal-creative')">🎨 上传我的创意搭配，赚额外分红</button>
         </div>
       </div>
-
-      <!-- CTA -->
       <div class="detail-cta-bar">
         <div class="detail-cta-info">
           <p>立即成为单款股东</p>
           <strong>¥589</strong>
         </div>
-        <button class="detail-cta-btn" onclick="showToast('🎉 加入成功！你已成为第848位股东！')">成为股东 →</button>
+        <button class="detail-cta-btn" onclick="joinShareholder()">成为股东 →</button>
       </div>
       <div style="height:20px"></div>
     </div>
-
     <div class="bottom-nav">
-      <button class="nav-btn" onclick="switchScreen('home',this)">
-        <div class="nav-icon-wrap"><span class="nav-icon">🏠</span></div>
-        <span class="nav-label">首页</span>
-      </button>
-      <button class="nav-btn" onclick="switchScreen('vote',this)">
-        <div class="nav-icon-wrap"><span class="nav-icon">🗳️</span></div>
-        <span class="nav-label">票选</span>
-      </button>
-      <button class="nav-btn active" onclick="switchScreen('detail',this)">
-        <div class="nav-icon-wrap"><span class="nav-icon">🧥</span></div>
-        <span class="nav-label">产品</span>
-      </button>
-      <button class="nav-btn" onclick="switchScreen('wallet',this)">
-        <div class="nav-icon-wrap"><span class="nav-icon">💰</span></div>
-        <span class="nav-label">分红</span>
-      </button>
-      <button class="nav-btn" onclick="switchScreen('profile',this)">
-        <div class="nav-icon-wrap"><span class="nav-icon">👤</span></div>
-        <span class="nav-label">我的</span>
-      </button>
+      <button class="nav-btn" onclick="switchScreen('home',this)"><div class="nav-icon-wrap"><span class="nav-icon">🏠</span></div><span class="nav-label">首页</span></button>
+      <button class="nav-btn" onclick="switchScreen('vote',this)"><div class="nav-icon-wrap"><span class="nav-icon">🗳️</span></div><span class="nav-label">票选</span></button>
+      <button class="nav-btn active" onclick="switchScreen('detail',this)"><div class="nav-icon-wrap"><span class="nav-icon">🧥</span></div><span class="nav-label">产品</span></button>
+      <button class="nav-btn" onclick="switchScreen('wallet',this)"><div class="nav-icon-wrap"><span class="nav-icon">💰</span></div><span class="nav-label">分红</span></button>
+      <button class="nav-btn" onclick="switchScreen('profile',this)"><div class="nav-icon-wrap"><span class="nav-icon">👤</span></div><span class="nav-label">我的</span></button>
     </div>
   </div>
 
@@ -1106,115 +805,31 @@ body {
   <div class="screen" id="screen-vote">
     <div class="page-header">
       <div class="page-title">票选广场</div>
-      <button class="header-action" onclick="showToast('发起票选功能即将开放！')">+ 发起票选</button>
+      <button class="header-action" onclick="openModal('modal-launch')">+ 发起票选</button>
     </div>
     <div class="scroll-area">
-      <div class="vote-filter">
-        <button class="filter-chip active" onclick="filterChip(this)">全部</button>
-        <button class="filter-chip" onclick="filterChip(this)">进行中 🔴</button>
-        <button class="filter-chip" onclick="filterChip(this)">已结束</button>
-        <button class="filter-chip" onclick="filterChip(this)">外套</button>
-        <button class="filter-chip" onclick="filterChip(this)">连衣裙</button>
-        <button class="filter-chip" onclick="filterChip(this)">裤装</button>
+      <div class="vote-filter" id="vote-filter">
+        <button class="filter-chip active" onclick="filterChip(this,'全部')">全部</button>
+        <button class="filter-chip" onclick="filterChip(this,'进行中')">进行中 🔴</button>
+        <button class="filter-chip" onclick="filterChip(this,'已结束')">已结束</button>
+        <button class="filter-chip" onclick="filterChip(this,'外套')">外套</button>
+        <button class="filter-chip" onclick="filterChip(this,'连衣裙')">连衣裙</button>
+        <button class="filter-chip" onclick="filterChip(this,'裤装')">裤装</button>
       </div>
-
-      <div class="feed-card">
-        <div class="feed-header">
-          <div class="feed-avatar" style="background:var(--rose-light)">✨</div>
-          <div class="feed-user-info">
-            <div class="feed-username">@MOMO穿搭研究所 <span class="blogger-badge">博主</span></div>
-            <div class="feed-time">2小时前 · 24.6万粉丝</div>
-          </div>
-          <button class="follow-btn followed" onclick="toggleFollow(this)">已关注</button>
-        </div>
-        <div class="feed-text">秋冬风衣系列！大家最想穿哪款版型？票数最高的我来帮大家做出来～买了还能参与分红哦 🎉 快来投票！</div>
-        <div class="feed-imgs">
-          <div class="feed-img" style="background:linear-gradient(135deg,#F1EFE8,#E8E4D8)" onclick="switchScreen('detail')">🧥</div>
-          <div class="feed-img" style="background:linear-gradient(135deg,#EEEDFE,#DDD9F8)" onclick="switchScreen('detail')">🥼</div>
-          <div class="feed-img" style="background:linear-gradient(135deg,#E1F5EE,#CBF0E0)" onclick="switchScreen('detail')">👗</div>
-        </div>
-        <span class="vote-mini-tag">🗳️ 进行中 · 3,289人已投 · 剩2天</span>
-        <div class="feed-actions">
-          <div class="feed-action-btn" onclick="switchScreen('detail')">🗳️ 去投票</div>
-          <div class="feed-action-btn" onclick="showToast('评论功能即将开放')">💬 128</div>
-          <div class="feed-action-btn" onclick="showToast('分享链接已复制！')">↗ 分享</div>
-        </div>
-      </div>
-
-      <div class="feed-card">
-        <div class="feed-header">
-          <div class="feed-avatar" style="background:var(--indigo-light)">🌸</div>
-          <div class="feed-user-info">
-            <div class="feed-username">@小鱼穿搭日记 <span class="blogger-badge" style="background:var(--indigo-light);color:var(--indigo)">博主</span></div>
-            <div class="feed-time">昨天 · 8.3万粉丝</div>
-          </div>
-          <button class="follow-btn" onclick="toggleFollow(this)">+ 关注</button>
-        </div>
-        <div class="feed-text">上周我发起的A款夹克票选成功啦！现在都出货了，我的粉丝们都在拿分红了 😍 这次我来做风衣！大家支持哪个款？</div>
-        <div class="feed-imgs">
-          <div class="feed-img" style="background:linear-gradient(135deg,#F4C0D1,#E8A0C0)" onclick="switchScreen('detail')">🧣</div>
-          <div class="feed-img" style="background:linear-gradient(135deg,#C0DD97,#A8CC75)" onclick="switchScreen('detail')">🧤</div>
-        </div>
-        <span class="vote-mini-tag" style="background:var(--surface-2);color:var(--ink-60);border-color:var(--border)">✅ 已结束 · 1.2万票</span>
-        <div class="feed-actions">
-          <div class="feed-action-btn" onclick="switchScreen('detail')">📦 查看产品</div>
-          <div class="feed-action-btn" onclick="showToast('评论功能即将开放')">💬 356</div>
-          <div class="feed-action-btn" onclick="showToast('分享链接已复制！')">↗ 分享</div>
-        </div>
-      </div>
-
-      <div class="feed-card">
-        <div class="feed-header">
-          <div class="feed-avatar" style="background:var(--mint-light)">🌿</div>
-          <div class="feed-user-info">
-            <div class="feed-username">@橘子的日常穿搭 <span class="blogger-badge" style="background:var(--mint-light);color:var(--mint)">博主</span></div>
-            <div class="feed-time">3小时前 · 5.1万粉丝</div>
-          </div>
-          <button class="follow-btn" onclick="toggleFollow(this)">+ 关注</button>
-        </div>
-        <div class="feed-text">冬天必备！羽绒服款式大票选，你们最想要哪款呢？超过800票就开产！🐻</div>
-        <div class="feed-imgs">
-          <div class="feed-img" style="background:linear-gradient(135deg,#FEF3DF,#FAE0A0)" onclick="switchScreen('detail')">🧸</div>
-          <div class="feed-img" style="background:linear-gradient(135deg,#EEEDFE,#DDD9F8)" onclick="switchScreen('detail')">🐧</div>
-          <div class="feed-img" style="background:linear-gradient(135deg,#FBEAF0,#F5D0DE)" onclick="switchScreen('detail')">🦊</div>
-        </div>
-        <span class="vote-mini-tag">🗳️ 进行中 · 421人已投 · 剩5天</span>
-        <div class="feed-actions">
-          <div class="feed-action-btn" onclick="switchScreen('detail')">🗳️ 去投票</div>
-          <div class="feed-action-btn" onclick="showToast('评论功能即将开放')">💬 34</div>
-          <div class="feed-action-btn" onclick="showToast('分享链接已复制！')">↗ 分享</div>
-        </div>
-      </div>
-
-      <div class="initiate-cta" onclick="showToast('发起票选功能即将开放！')">
+      <div id="vote-feed"></div>
+      <div class="initiate-cta" onclick="openModal('modal-launch')">
         <div style="font-size:32px;margin-bottom:10px">📸</div>
         <h3>我也要发起票选</h3>
         <p>上传穿搭图，让粉丝选出最想买的款式<br>票高才生产，零库存、零囤货风险</p>
         <button class="btn-primary">免费发起票选 →</button>
       </div>
     </div>
-
     <div class="bottom-nav">
-      <button class="nav-btn" onclick="switchScreen('home',this)">
-        <div class="nav-icon-wrap"><span class="nav-icon">🏠</span></div>
-        <span class="nav-label">首页</span>
-      </button>
-      <button class="nav-btn active" onclick="switchScreen('vote',this)">
-        <div class="nav-icon-wrap"><span class="nav-icon">🗳️</span></div>
-        <span class="nav-label">票选</span>
-      </button>
-      <button class="nav-btn" onclick="switchScreen('presale',this)">
-        <div class="nav-icon-wrap"><span class="nav-icon">🧥</span></div>
-        <span class="nav-label">预售</span>
-      </button>
-      <button class="nav-btn" onclick="switchScreen('wallet',this)">
-        <div class="nav-icon-wrap"><span class="nav-icon">💰</span></div>
-        <span class="nav-label">分红</span>
-      </button>
-      <button class="nav-btn" onclick="switchScreen('profile',this)">
-        <div class="nav-icon-wrap"><span class="nav-icon">👤</span></div>
-        <span class="nav-label">我的</span>
-      </button>
+      <button class="nav-btn" onclick="switchScreen('home',this)"><div class="nav-icon-wrap"><span class="nav-icon">🏠</span></div><span class="nav-label">首页</span></button>
+      <button class="nav-btn active" onclick="switchScreen('vote',this)"><div class="nav-icon-wrap"><span class="nav-icon">🗳️</span></div><span class="nav-label">票选</span></button>
+      <button class="nav-btn" onclick="switchScreen('presale',this)"><div class="nav-icon-wrap"><span class="nav-icon">🧥</span></div><span class="nav-label">预售</span></button>
+      <button class="nav-btn" onclick="switchScreen('wallet',this)"><div class="nav-icon-wrap"><span class="nav-icon">💰</span></div><span class="nav-label">分红</span></button>
+      <button class="nav-btn" onclick="switchScreen('profile',this)"><div class="nav-icon-wrap"><span class="nav-icon">👤</span></div><span class="nav-label">我的</span></button>
     </div>
   </div>
 
@@ -1222,54 +837,44 @@ body {
   <div class="screen" id="screen-presale">
     <div class="page-header">
       <div class="page-title">单款股东</div>
-      <button class="header-action" onclick="showToast('收藏成功！')">🔖 收藏</button>
+      <button class="header-action" onclick="showToast('已加入收藏 🔖')">🔖 收藏</button>
     </div>
     <div class="scroll-area">
       <div class="mechanism-banner">
         <div class="mechanism-title">✦ 什么是「单款股东」？</div>
         <div class="mechanism-text">买下这件风衣 = 成为这款产品的股东。每新增一位购买者，你的持仓自动分红。带朋友购买，还能额外赚推荐奖励。越多人买，赚越多。</div>
       </div>
-
       <div class="stock-hero">
         <div class="stock-top">
           <div class="stock-item-name">经典翻领风衣 · 2024秋冬</div>
           <div class="stock-price-row">
             <div class="stock-price">¥589</div>
-            <div class="stock-change">↑ 本周 +12.4%</div>
+            <div class="stock-change" id="stock-change-label">↑ 本周 +12.4%</div>
           </div>
           <div class="stock-stats">
-            <div>
-              <div class="stock-stat-label">已售件数</div>
-              <div class="stock-stat-val">847</div>
-            </div>
-            <div>
-              <div class="stock-stat-label">累计分红</div>
-              <div class="stock-stat-val">¥43,200</div>
-            </div>
-            <div>
-              <div class="stock-stat-label">人均收益</div>
-              <div class="stock-stat-val">¥51</div>
-            </div>
+            <div><div class="stock-stat-label">已售件数</div><div class="stock-stat-val" id="presale-sold">847</div></div>
+            <div><div class="stock-stat-label">累计分红</div><div class="stock-stat-val" id="presale-divid-total">¥43,200</div></div>
+            <div><div class="stock-stat-label">人均收益</div><div class="stock-stat-val" id="presale-avg">¥51</div></div>
           </div>
           <div class="stock-divider"></div>
           <div style="display:flex;justify-content:space-between;font-size:11px;color:rgba(200,195,255,0.7);margin-bottom:6px">
             <span>预售进度</span>
-            <span style="color:#6EE8C8;font-weight:600">84.7% · 差153件达标</span>
+            <span style="color:#6EE8C8;font-weight:600" id="presale-prog-label">84.7% · 差153件达标</span>
           </div>
           <div style="height:6px;background:rgba(255,255,255,0.12);border-radius:3px;overflow:hidden">
-            <div style="height:100%;width:84.7%;background:linear-gradient(90deg,#1BAF82,#6EE8C8);border-radius:3px"></div>
+            <div style="height:100%;background:linear-gradient(90deg,#1BAF82,#6EE8C8);border-radius:3px;transition:width 0.8s ease" id="presale-prog-bar"></div>
           </div>
         </div>
         <div class="stock-bottom">
           <div class="holders-block">
-            <div class="holders-label">已有 847 位股东持有</div>
+            <div class="holders-label" id="presale-holders-label">已有 847 位股东持有</div>
             <div class="holders-row">
               <div class="holder-ava" style="background:#F4C0D1">A</div>
               <div class="holder-ava" style="background:#C0DD97">B</div>
               <div class="holder-ava" style="background:#B5D4F4">C</div>
               <div class="holder-ava" style="background:#FAC775">D</div>
               <div class="holder-ava" style="background:#F7C1C1">E</div>
-              <div class="holder-more">+842 位</div>
+              <div class="holder-more" id="presale-holder-more">+842 位</div>
             </div>
           </div>
           <div class="benefit-row" style="padding:12px 0">
@@ -1289,38 +894,18 @@ body {
           </div>
         </div>
       </div>
-
       <div class="invest-cta-bar">
-        <div class="invest-info">
-          <p>立即成为单款股东</p>
-          <strong>¥589</strong>
-        </div>
-        <button class="invest-action-btn" onclick="showToast('🎉 加入成功！你已成为第848位股东！')">立即入股 →</button>
+        <div class="invest-info"><p>立即成为单款股东</p><strong>¥589</strong></div>
+        <button class="invest-action-btn" onclick="joinShareholder()">立即入股 →</button>
       </div>
       <div style="height:20px"></div>
     </div>
-
     <div class="bottom-nav">
-      <button class="nav-btn" onclick="switchScreen('home',this)">
-        <div class="nav-icon-wrap"><span class="nav-icon">🏠</span></div>
-        <span class="nav-label">首页</span>
-      </button>
-      <button class="nav-btn" onclick="switchScreen('vote',this)">
-        <div class="nav-icon-wrap"><span class="nav-icon">🗳️</span></div>
-        <span class="nav-label">票选</span>
-      </button>
-      <button class="nav-btn active" onclick="switchScreen('presale',this)">
-        <div class="nav-icon-wrap"><span class="nav-icon">🧥</span></div>
-        <span class="nav-label">预售</span>
-      </button>
-      <button class="nav-btn" onclick="switchScreen('wallet',this)">
-        <div class="nav-icon-wrap"><span class="nav-icon">💰</span></div>
-        <span class="nav-label">分红</span>
-      </button>
-      <button class="nav-btn" onclick="switchScreen('profile',this)">
-        <div class="nav-icon-wrap"><span class="nav-icon">👤</span></div>
-        <span class="nav-label">我的</span>
-      </button>
+      <button class="nav-btn" onclick="switchScreen('home',this)"><div class="nav-icon-wrap"><span class="nav-icon">🏠</span></div><span class="nav-label">首页</span></button>
+      <button class="nav-btn" onclick="switchScreen('vote',this)"><div class="nav-icon-wrap"><span class="nav-icon">🗳️</span></div><span class="nav-label">票选</span></button>
+      <button class="nav-btn active" onclick="switchScreen('presale',this)"><div class="nav-icon-wrap"><span class="nav-icon">🧥</span></div><span class="nav-label">预售</span></button>
+      <button class="nav-btn" onclick="switchScreen('wallet',this)"><div class="nav-icon-wrap"><span class="nav-icon">💰</span></div><span class="nav-label">分红</span></button>
+      <button class="nav-btn" onclick="switchScreen('profile',this)"><div class="nav-icon-wrap"><span class="nav-icon">👤</span></div><span class="nav-label">我的</span></button>
     </div>
   </div>
 
@@ -1328,116 +913,40 @@ body {
   <div class="screen" id="screen-wallet">
     <div class="page-header">
       <div class="page-title">我的分红</div>
-      <button class="header-action" onclick="showToast('提现申请中...')">提现</button>
+      <button class="header-action" onclick="openModal('modal-withdraw')">提现</button>
     </div>
     <div class="scroll-area">
       <div class="wallet-hero">
         <div class="wallet-lbl">可提现余额</div>
-        <div class="wallet-amount">¥2,340</div>
-        <div class="wallet-change">↑ 本月新增 ¥860 · 较上月 +24%</div>
+        <div class="wallet-amount" id="wallet-balance">¥2,340</div>
+        <div class="wallet-change" id="wallet-change">↑ 本月新增 ¥860 · 较上月 +24%</div>
         <div class="wallet-actions">
-          <button class="wallet-action-btn" onclick="showToast('提现申请中...')">💳 提现</button>
-          <button class="wallet-action-btn" onclick="showToast('分享链接已复制！')">🔗 邀请赚钱</button>
-          <button class="wallet-action-btn" onclick="showToast('分红记录')">📊 明细</button>
+          <button class="wallet-action-btn" onclick="openModal('modal-withdraw')">💳 提现</button>
+          <button class="wallet-action-btn" onclick="copyReferral()">🔗 邀请赚钱</button>
+          <button class="wallet-action-btn" onclick="openModal('modal-divid-detail')">📊 明细</button>
         </div>
       </div>
-
       <div class="section-title" style="padding-top:10px">收入分类</div>
-      <div class="income-grid">
-        <div class="income-card">
-          <div class="income-icon">💰</div>
-          <div class="income-type">销售分红</div>
-          <div class="income-amount rose">¥1,428</div>
-          <div class="income-change">↑ 本月 +18%</div>
-        </div>
-        <div class="income-card">
-          <div class="income-icon">🔗</div>
-          <div class="income-type">推荐奖励</div>
-          <div class="income-amount mint">¥630</div>
-          <div class="income-change">↑ 本月 +42%</div>
-        </div>
-        <div class="income-card">
-          <div class="income-icon">📈</div>
-          <div class="income-type">复购分红</div>
-          <div class="income-amount indigo">¥210</div>
-          <div class="income-change">↑ 本月 +8%</div>
-        </div>
-        <div class="income-card">
-          <div class="income-icon">🎨</div>
-          <div class="income-type">创意设计加成</div>
-          <div class="income-amount" style="color:var(--amber)">¥72</div>
-          <div class="income-change" style="color:var(--amber)">↑ 新增功能</div>
-        </div>
-      </div>
-
+      <div class="income-grid" id="income-grid"></div>
       <div class="section-title">我的持仓</div>
-      <div class="holding-item" onclick="switchScreen('detail')">
-        <div class="holding-icon rose">🧥</div>
-        <div class="holding-info">
-          <div class="holding-name">经典翻领风衣</div>
-          <div class="holding-meta">持有1份 · 847位股东</div>
-        </div>
-        <div class="holding-right">
-          <div class="holding-amount">+¥51</div>
-          <div class="holding-period">本月分红</div>
-        </div>
-      </div>
-      <div class="holding-item" onclick="switchScreen('detail')">
-        <div class="holding-icon indigo">🥼</div>
-        <div class="holding-info">
-          <div class="holding-name">宽肩廓形大衣</div>
-          <div class="holding-meta">持有1份 · 450位股东</div>
-        </div>
-        <div class="holding-right">
-          <div class="holding-amount">+¥22</div>
-          <div class="holding-period">本月分红</div>
-        </div>
-      </div>
-      <div class="holding-item" onclick="switchScreen('detail')">
-        <div class="holding-icon mint">👗</div>
-        <div class="holding-info">
-          <div class="holding-name">腰带版型连衣裙</div>
-          <div class="holding-meta">持有1份 · 620位股东</div>
-        </div>
-        <div class="holding-right">
-          <div class="holding-amount">+¥34</div>
-          <div class="holding-period">本月分红</div>
-        </div>
-      </div>
-
+      <div id="holdings-list"></div>
       <div class="section-title" style="margin-top:8px">裂变推荐</div>
       <div class="referral-block">
         <div class="referral-title">📤 分享专属链接，赚推荐奖励</div>
         <div class="referral-sub">朋友通过你的链接购买任意款式，你立即获得 ¥30 推荐奖励，实时到账</div>
         <div class="referral-code-row">
-          <span class="referral-code">MOMO-2024-STYLE</span>
-          <button class="copy-btn" onclick="showToast('邀请码已复制！')">复制</button>
+          <span class="referral-code" id="referral-code">MOMO-2024-STYLE</span>
+          <button class="copy-btn" onclick="copyReferral()">复制</button>
         </div>
-        <button class="btn-primary" style="width:100%;padding:12px" onclick="showToast('分享面板已打开')">📤 立即分享专属链接</button>
+        <button class="btn-primary" style="width:100%;padding:12px" onclick="copyReferral()">📤 立即分享专属链接</button>
       </div>
     </div>
-
     <div class="bottom-nav">
-      <button class="nav-btn" onclick="switchScreen('home',this)">
-        <div class="nav-icon-wrap"><span class="nav-icon">🏠</span></div>
-        <span class="nav-label">首页</span>
-      </button>
-      <button class="nav-btn" onclick="switchScreen('vote',this)">
-        <div class="nav-icon-wrap"><span class="nav-icon">🗳️</span></div>
-        <span class="nav-label">票选</span>
-      </button>
-      <button class="nav-btn" onclick="switchScreen('presale',this)">
-        <div class="nav-icon-wrap"><span class="nav-icon">🧥</span></div>
-        <span class="nav-label">预售</span>
-      </button>
-      <button class="nav-btn active" onclick="switchScreen('wallet',this)">
-        <div class="nav-icon-wrap"><span class="nav-icon">💰</span></div>
-        <span class="nav-label">分红</span>
-      </button>
-      <button class="nav-btn" onclick="switchScreen('profile',this)">
-        <div class="nav-icon-wrap"><span class="nav-icon">👤</span></div>
-        <span class="nav-label">我的</span>
-      </button>
+      <button class="nav-btn" onclick="switchScreen('home',this)"><div class="nav-icon-wrap"><span class="nav-icon">🏠</span></div><span class="nav-label">首页</span></button>
+      <button class="nav-btn" onclick="switchScreen('vote',this)"><div class="nav-icon-wrap"><span class="nav-icon">🗳️</span></div><span class="nav-label">票选</span></button>
+      <button class="nav-btn" onclick="switchScreen('presale',this)"><div class="nav-icon-wrap"><span class="nav-icon">🧥</span></div><span class="nav-label">预售</span></button>
+      <button class="nav-btn active" onclick="switchScreen('wallet',this)"><div class="nav-icon-wrap"><span class="nav-icon">💰</span></div><span class="nav-label">分红</span></button>
+      <button class="nav-btn" onclick="switchScreen('profile',this)"><div class="nav-icon-wrap"><span class="nav-icon">👤</span></div><span class="nav-label">我的</span></button>
     </div>
   </div>
 
@@ -1446,170 +955,572 @@ body {
     <div class="scroll-area">
       <div class="profile-cover">
         <div class="profile-ava-wrap">🌸</div>
-        <button class="profile-edit-btn" onclick="showToast('编辑功能即将上线')">编辑资料</button>
+        <button class="profile-edit-btn" onclick="openModal('modal-edit-profile')">编辑资料</button>
       </div>
       <div class="profile-info">
-        <div class="profile-name">MOMO穿搭研究所</div>
-        <div class="profile-handle">@momo_style · 穿搭博主</div>
-        <div class="profile-bio">秋冬大衣控 / 正在带粉丝一起做品牌 🧥 欢迎来投票，一起发财！</div>
+        <div class="profile-name" id="profile-name">MOMO穿搭研究所</div>
+        <div class="profile-handle" id="profile-handle">@momo_style · 穿搭博主</div>
+        <div class="profile-bio" id="profile-bio">秋冬大衣控 / 正在带粉丝一起做品牌 🧥 欢迎来投票，一起发财！</div>
       </div>
       <div class="profile-stats">
-        <div class="p-stat">
-          <div class="p-stat-num">24.6万</div>
-          <div class="p-stat-lbl">粉丝</div>
-        </div>
-        <div class="p-stat">
-          <div class="p-stat-num rose">¥43,200</div>
-          <div class="p-stat-lbl">累计分红</div>
-        </div>
-        <div class="p-stat">
-          <div class="p-stat-num">3款</div>
-          <div class="p-stat-lbl">已发起</div>
-        </div>
+        <div class="p-stat"><div class="p-stat-num" id="prof-fans">24.6万</div><div class="p-stat-lbl">粉丝</div></div>
+        <div class="p-stat"><div class="p-stat-num rose" id="prof-divid">¥43,200</div><div class="p-stat-lbl">累计分红</div></div>
+        <div class="p-stat"><div class="p-stat-num" id="prof-designs">3款</div><div class="p-stat-lbl">已发起</div></div>
       </div>
-
       <div class="section-title">🚀 博主成长路径</div>
-      <div class="journey-step">
-        <div class="step-num" style="background:var(--rose)">1</div>
-        <div class="step-body">
-          <div class="step-title">发布穿搭 · 积累粉丝</div>
-          <div class="step-desc">分享穿搭日记，零成本涨粉，建立自己的审美标签</div>
-        </div>
-        <span class="step-status step-done">✓ 已完成</span>
-      </div>
-      <div class="journey-step">
-        <div class="step-num" style="background:var(--indigo)">2</div>
-        <div class="step-body">
-          <div class="step-title">发起票选 · 验证市场</div>
-          <div class="step-desc">让粉丝选款型，票高才生产，零库存风险</div>
-        </div>
-        <span class="step-status step-active">进行中</span>
-      </div>
-      <div class="journey-step">
-        <div class="step-num" style="background:var(--mint)">3</div>
-        <div class="step-body">
-          <div class="step-title">预售众筹 · 粉丝变股东</div>
-          <div class="step-desc">预售达标才开产，买家参与持续分红</div>
-        </div>
-        <span class="step-status step-next">下一步</span>
-      </div>
-      <div class="journey-step">
-        <div class="step-num" style="background:var(--amber)">4</div>
-        <div class="step-body">
-          <div class="step-title">病毒裂变 · 自动增长</div>
-          <div class="step-desc">股东主动推荐，裂变无需花钱投流</div>
-        </div>
-        <span class="step-status step-next">待解锁</span>
-      </div>
-
+      <div class="journey-step"><div class="step-num" style="background:var(--rose)">1</div><div class="step-body"><div class="step-title">发布穿搭 · 积累粉丝</div><div class="step-desc">分享穿搭日记，零成本涨粉，建立自己的审美标签</div></div><span class="step-status step-done">✓ 已完成</span></div>
+      <div class="journey-step"><div class="step-num" style="background:var(--indigo)">2</div><div class="step-body"><div class="step-title">发起票选 · 验证市场</div><div class="step-desc">让粉丝选款型，票高才生产，零库存风险</div></div><span class="step-status step-active">进行中</span></div>
+      <div class="journey-step"><div class="step-num" style="background:var(--mint)">3</div><div class="step-body"><div class="step-title">预售众筹 · 粉丝变股东</div><div class="step-desc">预售达标才开产，买家参与持续分红</div></div><span class="step-status step-next">下一步</span></div>
+      <div class="journey-step"><div class="step-num" style="background:var(--amber)">4</div><div class="step-body"><div class="step-title">病毒裂变 · 自动增长</div><div class="step-desc">股东主动推荐，裂变无需花钱投流</div></div><span class="step-status step-next">待解锁</span></div>
       <div class="section-title" style="margin-top:8px">账户设置</div>
       <div class="settings-group">
-        <div class="settings-item" onclick="showToast('通知设置')">
-          <div class="settings-icon" style="background:var(--rose-light)">🔔</div>
-          <span class="settings-label">消息通知</span>
-          <div class="notif-dot"></div>
-          <span class="settings-arrow">›</span>
-        </div>
-        <div class="settings-item" onclick="showToast('实名认证')">
-          <div class="settings-icon" style="background:var(--mint-light)">✅</div>
-          <span class="settings-label">实名认证</span>
-          <span class="settings-arrow">›</span>
-        </div>
-        <div class="settings-item" onclick="showToast('绑定银行卡')">
-          <div class="settings-icon" style="background:var(--indigo-light)">💳</div>
-          <span class="settings-label">提现账户</span>
-          <span class="settings-arrow">›</span>
-        </div>
-        <div class="settings-item" onclick="showToast('邀请记录')">
-          <div class="settings-icon" style="background:var(--amber-light)">🔗</div>
-          <span class="settings-label">我的邀请记录</span>
-          <span class="settings-arrow">›</span>
-        </div>
-        <div class="settings-item" onclick="showToast('帮助中心')">
-          <div class="settings-icon" style="background:var(--surface-2)">❓</div>
-          <span class="settings-label">帮助中心</span>
-          <span class="settings-arrow">›</span>
-        </div>
+        <div class="settings-item" onclick="showToast('消息通知设置')"><div class="settings-icon" style="background:var(--rose-light)">🔔</div><span class="settings-label">消息通知</span><div class="notif-dot"></div><span class="settings-arrow">›</span></div>
+        <div class="settings-item" onclick="showToast('实名认证已完成 ✅')"><div class="settings-icon" style="background:var(--mint-light)">✅</div><span class="settings-label">实名认证</span><span class="settings-arrow">›</span></div>
+        <div class="settings-item" onclick="openModal('modal-withdraw')"><div class="settings-icon" style="background:var(--indigo-light)">💳</div><span class="settings-label">提现账户</span><span class="settings-arrow">›</span></div>
+        <div class="settings-item" onclick="openModal('modal-invites')"><div class="settings-icon" style="background:var(--amber-light)">🔗</div><span class="settings-label">我的邀请记录</span><span class="settings-arrow">›</span></div>
+        <div class="settings-item" onclick="showToast('帮助中心即将上线')"><div class="settings-icon" style="background:var(--surface-2)">❓</div><span class="settings-label">帮助中心</span><span class="settings-arrow">›</span></div>
       </div>
       <div style="height:20px"></div>
     </div>
-
     <div class="bottom-nav">
-      <button class="nav-btn" onclick="switchScreen('home',this)">
-        <div class="nav-icon-wrap"><span class="nav-icon">🏠</span></div>
-        <span class="nav-label">首页</span>
-      </button>
-      <button class="nav-btn" onclick="switchScreen('vote',this)">
-        <div class="nav-icon-wrap"><span class="nav-icon">🗳️</span></div>
-        <span class="nav-label">票选</span>
-      </button>
-      <button class="nav-btn" onclick="switchScreen('presale',this)">
-        <div class="nav-icon-wrap"><span class="nav-icon">🧥</span></div>
-        <span class="nav-label">预售</span>
-      </button>
-      <button class="nav-btn" onclick="switchScreen('wallet',this)">
-        <div class="nav-icon-wrap"><span class="nav-icon">💰</span></div>
-        <span class="nav-label">分红</span>
-      </button>
-      <button class="nav-btn active" onclick="switchScreen('profile',this)">
-        <div class="nav-icon-wrap"><span class="nav-icon">👤</span></div>
-        <span class="nav-label">我的</span>
-      </button>
+      <button class="nav-btn" onclick="switchScreen('home',this)"><div class="nav-icon-wrap"><span class="nav-icon">🏠</span></div><span class="nav-label">首页</span></button>
+      <button class="nav-btn" onclick="switchScreen('vote',this)"><div class="nav-icon-wrap"><span class="nav-icon">🗳️</span></div><span class="nav-label">票选</span></button>
+      <button class="nav-btn" onclick="switchScreen('presale',this)"><div class="nav-icon-wrap"><span class="nav-icon">🧥</span></div><span class="nav-label">预售</span></button>
+      <button class="nav-btn" onclick="switchScreen('wallet',this)"><div class="nav-icon-wrap"><span class="nav-icon">💰</span></div><span class="nav-label">分红</span></button>
+      <button class="nav-btn active" onclick="switchScreen('profile',this)"><div class="nav-icon-wrap"><span class="nav-icon">👤</span></div><span class="nav-label">我的</span></button>
     </div>
   </div>
 
   <!-- Toast -->
   <div class="toast" id="toast"></div>
-</div>
+
+  <!-- ══ MODAL: 发起票选 ══ -->
+  <div class="modal-overlay" id="modal-launch" onclick="closeModalOutside(event,'modal-launch')">
+    <div class="modal-sheet" onclick="event.stopPropagation()">
+      <div class="modal-handle"></div>
+      <div class="modal-title">发起新的票选</div>
+      <div class="modal-sub">上传你的穿搭构想，让粉丝票选出最受欢迎的款式，票高才生产。</div>
+      <div class="launch-form">
+        <div class="form-group"><label>款式名称</label><input type="text" id="launch-name" placeholder="例如：秋冬翻领风衣系列" /></div>
+        <div class="form-group"><label>品类</label>
+          <select id="launch-cat">
+            <option>外套</option><option>连衣裙</option><option>裤装</option><option>针织</option><option>配件</option>
+          </select>
+        </div>
+        <div class="form-group"><label>设计描述</label><textarea id="launch-desc" placeholder="描述你的设计理念、面料、版型..."></textarea></div>
+        <div class="form-group"><label>票选截止天数</label>
+          <select id="launch-days"><option>3天</option><option>5天</option><option>7天</option><option>14天</option></select>
+        </div>
+        <button class="btn-primary" style="width:100%;padding:13px" onclick="submitLaunchVote()">🚀 免费发起票选</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ MODAL: 提现 ══ -->
+  <div class="modal-overlay" id="modal-withdraw" onclick="closeModalOutside(event,'modal-withdraw')">
+    <div class="modal-sheet" onclick="event.stopPropagation()">
+      <div class="modal-handle"></div>
+      <div class="modal-title">申请提现</div>
+      <div class="withdraw-amount-display">¥2,340.00</div>
+      <div class="modal-sub" style="text-align:center;margin-top:0;margin-bottom:14px">可提现全部余额</div>
+      <div class="bank-card-item" onclick="selectBank(this)">
+        <div class="bank-icon">🏦</div>
+        <div class="bank-info"><div class="bank-name">招商银行</div><div class="bank-num">尾号 6821</div></div>
+        <div class="bank-check">●</div>
+      </div>
+      <div class="bank-card-item" onclick="selectBank(this)">
+        <div class="bank-icon" style="background:var(--mint-light)">💚</div>
+        <div class="bank-info"><div class="bank-name">微信钱包</div><div class="bank-num">已绑定</div></div>
+        <div class="bank-check" style="color:var(--ink-30)">○</div>
+      </div>
+      <div class="bank-card-item" onclick="selectBank(this)">
+        <div class="bank-icon" style="background:var(--amber-light)">🟡</div>
+        <div class="bank-info"><div class="bank-name">支付宝</div><div class="bank-num">已绑定</div></div>
+        <div class="bank-check" style="color:var(--ink-30)">○</div>
+      </div>
+      <button class="btn-primary" style="width:100%;padding:13px;margin-top:16px" onclick="submitWithdraw()">确认提现 ¥2,340</button>
+    </div>
+  </div>
+
+  <!-- ══ MODAL: 分红明细 ══ -->
+  <div class="modal-overlay" id="modal-divid-detail" onclick="closeModalOutside(event,'modal-divid-detail')">
+    <div class="modal-sheet" onclick="event.stopPropagation()">
+      <div class="modal-handle"></div>
+      <div class="modal-title">分红明细</div>
+      <div id="divid-detail-list"></div>
+      <button class="btn-ghost" style="width:100%;padding:12px;margin-top:16px" onclick="closeModal('modal-divid-detail')">关闭</button>
+    </div>
+  </div>
+
+  <!-- ══ MODAL: 创意上传 ══ -->
+  <div class="modal-overlay" id="modal-creative" onclick="closeModalOutside(event,'modal-creative')">
+    <div class="modal-sheet" onclick="event.stopPropagation()">
+      <div class="modal-handle"></div>
+      <div class="modal-title">上传创意搭配</div>
+      <div class="modal-sub">展示你的穿搭创意，获得额外分红加成 +¥15 / 获赞</div>
+      <div class="launch-form">
+        <div class="form-group"><label>搭配描述</label><textarea id="creative-desc" placeholder="分享你的穿搭灵感和心得..."></textarea></div>
+        <div style="height:100px;background:var(--surface-2);border:2px dashed var(--rose-mid);border-radius:var(--r-md);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:13px;color:var(--ink-60);gap:8px" onclick="showToast('选择照片...')">📸 点击上传穿搭照片</div>
+        <button class="btn-primary" style="width:100%;padding:13px" onclick="submitCreative()">发布创意搭配 赚分红</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ MODAL: 编辑资料 ══ -->
+  <div class="modal-overlay" id="modal-edit-profile" onclick="closeModalOutside(event,'modal-edit-profile')">
+    <div class="modal-sheet" onclick="event.stopPropagation()">
+      <div class="modal-handle"></div>
+      <div class="modal-title">编辑个人资料</div>
+      <div class="launch-form">
+        <div class="form-group"><label>昵称</label><input type="text" id="edit-name" /></div>
+        <div class="form-group"><label>账号ID</label><input type="text" id="edit-handle" /></div>
+        <div class="form-group"><label>个人简介</label><textarea id="edit-bio"></textarea></div>
+        <button class="btn-primary" style="width:100%;padding:13px" onclick="saveProfile()">保存资料</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ MODAL: 邀请记录 ══ -->
+  <div class="modal-overlay" id="modal-invites" onclick="closeModalOutside(event,'modal-invites')">
+    <div class="modal-sheet" onclick="event.stopPropagation()">
+      <div class="modal-handle"></div>
+      <div class="modal-title">邀请记录</div>
+      <div id="invite-list"></div>
+      <button class="btn-ghost" style="width:100%;padding:12px;margin-top:16px" onclick="closeModal('modal-invites')">关闭</button>
+    </div>
+  </div>
+
+</div><!-- end .phone -->
 
 <script>
-// ── Screen Switch
+// ════════════════════════════════════════════════
+//  BACKEND STATE STORE
+// ════════════════════════════════════════════════
+const DB = {
+  user: {
+    name: 'MOMO穿搭研究所',
+    handle: '@momo_style',
+    bio: '秋冬大衣控 / 正在带粉丝一起做品牌 🧥 欢迎来投票，一起发财！',
+    fans: 246000,
+    referralCode: 'MOMO-2024-STYLE',
+    isShareholder: false,
+    favorites: [],
+    selectedSize: 'S',
+    selectedColor: '卡其',
+  },
+  wallet: {
+    balance: 2340,
+    monthlyNew: 860,
+    monthlyGrowth: 24,
+    incomes: [
+      { icon: '💰', type: '销售分红', amount: 1428, change: 18, cls: 'rose' },
+      { icon: '🔗', type: '推荐奖励', amount: 630, change: 42, cls: 'mint' },
+      { icon: '📈', type: '复购分红', amount: 210, change: 8, cls: 'indigo' },
+      { icon: '🎨', type: '创意设计加成', amount: 72, change: 0, cls: 'amber', clsColor: 'var(--amber)' },
+    ],
+    holdings: [
+      { icon: '🧥', name: '经典翻领风衣', meta: '持有1份 · 847位股东', amount: 51, cls: 'rose' },
+      { icon: '🥼', name: '宽肩廓形大衣', meta: '持有1份 · 450位股东', amount: 22, cls: 'indigo' },
+      { icon: '👗', name: '腰带版型连衣裙', meta: '持有1份 · 620位股东', amount: 34, cls: 'mint' },
+    ],
+    dividHistory: [
+      { date: '04-15', type: '销售分红', desc: '经典翻领风衣 新增6位股东', amount: 36 },
+      { date: '04-14', type: '推荐奖励', desc: '@橘子通过你的链接购买', amount: 30 },
+      { date: '04-13', type: '销售分红', desc: '宽肩廓形大衣 新增3位股东', amount: 18 },
+      { date: '04-12', type: '复购分红', desc: '@小鱼 复购腰带版型连衣裙', amount: 3 },
+      { date: '04-11', type: '推荐奖励', desc: '@CC通过你的链接购买', amount: 30 },
+      { date: '04-10', type: '销售分红', desc: '经典翻领风衣 新增8位股东', amount: 48 },
+    ],
+  },
+  invites: [
+    { name: '@橘子的日常', date: '04-15', amount: 30, product: '经典翻领风衣' },
+    { name: '@CC时髦精', date: '04-11', amount: 30, product: '宽肩廓形大衣' },
+    { name: '@奶油小熊', date: '04-09', amount: 30, product: '经典翻领风衣' },
+    { name: '@Lily搭配', date: '04-06', amount: 30, product: '腰带版型连衣裙' },
+  ],
+  product: {
+    name: '经典翻领风衣',
+    price: 589,
+    target: 1000,
+    sold: 847,
+    dividPerNew: 6,
+    totalDivid: 43200,
+  },
+  vote: {
+    totalVoters: 3289,
+    hasVoted: false,
+    userChoice: 0,
+    options: [
+      { name: 'A. 经典翻领', emoji: '🧥', bg: 'linear-gradient(135deg,#F1EFE8,#E8E4D8)', votes: 2039 },
+      { name: 'B. 宽肩廓形', emoji: '🥼', bg: 'linear-gradient(135deg,#EEEDFE,#DDD9F8)', votes: 690 },
+      { name: 'C. 腰带版型', emoji: '👗', bg: 'linear-gradient(135deg,#E1F5EE,#CBF0E0)', votes: 362 },
+      { name: 'D. 斗篷叠穿', emoji: '🧣', bg: 'linear-gradient(135deg,#FBEAF0,#F5D0DE)', votes: 197 },
+    ],
+  },
+  votePosts: [
+    {
+      id: 1, avatar: '✨', avatarBg: 'var(--rose-light)', name: '@MOMO穿搭研究所',
+      badge: '博主', badgeBg: 'var(--rose-light)', badgeColor: 'var(--rose)',
+      time: '2小时前 · 24.6万粉丝', followed: true,
+      text: '秋冬风衣系列！大家最想穿哪款版型？票数最高的我来帮大家做出来～买了还能参与分红哦 🎉 快来投票！',
+      imgs: [
+        { emoji:'🧥', bg:'linear-gradient(135deg,#F1EFE8,#E8E4D8)' },
+        { emoji:'🥼', bg:'linear-gradient(135deg,#EEEDFE,#DDD9F8)' },
+        { emoji:'👗', bg:'linear-gradient(135deg,#E1F5EE,#CBF0E0)' },
+      ],
+      tag: '🗳️ 进行中 · 3,289人已投 · 剩2天', tagActive: true,
+      actionLabel: '🗳️ 去投票', comments: 128, category: '外套',
+    },
+    {
+      id: 2, avatar: '🌸', avatarBg: 'var(--indigo-light)', name: '@小鱼穿搭日记',
+      badge: '博主', badgeBg: 'var(--indigo-light)', badgeColor: 'var(--indigo)',
+      time: '昨天 · 8.3万粉丝', followed: false,
+      text: '上周我发起的A款夹克票选成功啦！现在都出货了，我的粉丝们都在拿分红了 😍 这次我来做风衣！大家支持哪个款？',
+      imgs: [
+        { emoji:'🧣', bg:'linear-gradient(135deg,#F4C0D1,#E8A0C0)' },
+        { emoji:'🧤', bg:'linear-gradient(135deg,#C0DD97,#A8CC75)' },
+      ],
+      tag: '✅ 已结束 · 1.2万票', tagActive: false,
+      actionLabel: '📦 查看产品', comments: 356, category: '外套',
+    },
+    {
+      id: 3, avatar: '🌿', avatarBg: 'var(--mint-light)', name: '@橘子的日常穿搭',
+      badge: '博主', badgeBg: 'var(--mint-light)', badgeColor: 'var(--mint)',
+      time: '3小时前 · 5.1万粉丝', followed: false,
+      text: '冬天必备！羽绒服款式大票选，你们最想要哪款呢？超过800票就开产！🐻',
+      imgs: [
+        { emoji:'🧸', bg:'linear-gradient(135deg,#FEF3DF,#FAE0A0)' },
+        { emoji:'🐧', bg:'linear-gradient(135deg,#EEEDFE,#DDD9F8)' },
+        { emoji:'🦊', bg:'linear-gradient(135deg,#FBEAF0,#F5D0DE)' },
+      ],
+      tag: '🗳️ 进行中 · 421人已投 · 剩5天', tagActive: true,
+      actionLabel: '🗳️ 去投票', comments: 34, category: '外套',
+    },
+  ],
+  products: [
+    { name: '经典翻领风衣 2024秋冬', price: 589, orig: 899, sold: 847, target: 1000, badge: '单款股东', winner: true, emoji: '🧥', bg: 'linear-gradient(135deg,#F1EFE8,#E8E4D8)' },
+    { name: '宽肩廓形大衣 复古款', price: 699, orig: 1099, sold: 450, target: 1000, badge: '预售中', winner: false, emoji: '🥼', bg: 'linear-gradient(135deg,#EEEDFE,#DDD9F8)' },
+    { name: '腰带版型连衣裙 简约', price: 459, orig: 699, sold: 620, target: 1000, badge: '票选冠军', winner: false, emoji: '👗', bg: 'linear-gradient(135deg,#E1F5EE,#CBF0E0)' },
+    { name: '斗篷叠穿套装 秋季', price: 329, orig: 499, sold: 280, target: 1000, badge: '新品', winner: false, emoji: '🧣', bg: 'linear-gradient(135deg,#FBEAF0,#F5D0DE)' },
+  ],
+  creativeItems: [
+    { emoji: '🧥', bg: 'linear-gradient(135deg,#F1EFE8,#E8E4D8)', name: '@momo搭法', likes: '1.2k' },
+    { emoji: '🧥', bg: 'linear-gradient(135deg,#FBEAF0,#F4B8CB)', name: '@小鱼创意', likes: '876' },
+    { emoji: '🧥', bg: 'linear-gradient(135deg,#EDEAFD,#C8BFFF)', name: '@橘子穿法', likes: '634' },
+  ],
+  tickerMessages: [
+    '🎉 <strong>@小鱼穿搭</strong> 刚成为「宽肩廓形大衣」第451位股东',
+    '💰 <strong>@橘子</strong> 通过推荐链接赚取了 ¥30 奖励',
+    '🗳️ <strong>@CC时髦精</strong> 参与了 MOMO 的风衣票选',
+    '📈 <strong>@Lily搭配</strong> 今日获得销售分红 ¥18',
+    '🎨 <strong>@奶油小熊</strong> 上传了创意穿搭，获赞 234',
+    '🔥 <strong>经典翻领风衣</strong> 距目标还差 <strong>153件</strong>，快去预购！',
+  ],
+  currentFilter: '全部',
+};
+
+// ════════════════════════════════════════════════
+//  SCREEN NAVIGATION
+// ════════════════════════════════════════════════
 function switchScreen(name, navBtn) {
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
   const target = document.getElementById('screen-' + name);
   if (target) {
     target.classList.add('active');
-    const scrollArea = target.querySelector('.scroll-area');
-    if (scrollArea) scrollArea.scrollTop = 0;
+    const sa = target.querySelector('.scroll-area');
+    if (sa) sa.scrollTop = 0;
   }
-  // Update nav active states in ALL navbars
-  document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
   if (navBtn) {
     navBtn.classList.add('active');
   } else {
-    // Find and activate correct button by screen name
-    const labels = { home:'首页', vote:'票选', presale:'预售', detail:'产品', wallet:'分红', profile:'我的' };
-    document.querySelectorAll('.nav-btn').forEach(btn => {
-      const lbl = btn.querySelector('.nav-label');
-      if (lbl && lbl.textContent.trim() === labels[name]) {
-        btn.classList.add('active');
-      }
+    const map = { home:'首页', vote:'票选', presale:'预售', detail:'产品', wallet:'分红', profile:'我的' };
+    document.querySelectorAll('.nav-btn').forEach(b => {
+      const lbl = b.querySelector('.nav-label');
+      if (lbl && lbl.textContent.trim() === map[name]) b.classList.add('active');
     });
+  }
+  // Refresh dynamic screens
+  if (name === 'wallet') renderWallet();
+  if (name === 'vote') renderVoteFeed();
+  if (name === 'detail') renderDetailVote();
+  if (name === 'home') renderHome();
+  if (name === 'presale') renderPresale();
+}
+
+// ════════════════════════════════════════════════
+//  RENDER: HOME
+// ════════════════════════════════════════════════
+function renderHome() {
+  // Product grid
+  const grid = document.getElementById('product-grid');
+  if (grid) {
+    grid.innerHTML = DB.products.map(p => {
+      const pct = Math.round((p.sold / p.target) * 1000) / 10;
+      return `<div class="product-grid-card" onclick="switchScreen('detail')">
+        <div class="pgc-img" style="background:${p.bg}">
+          ${p.emoji}
+          <div class="pgc-badge">${p.badge}</div>
+          ${p.winner ? '<div class="pgc-winner">🏆 冠军</div>' : ''}
+        </div>
+        <div class="pgc-body">
+          <div class="pgc-name">${p.name}</div>
+          <div class="pgc-price-row">
+            <span class="pgc-price">¥${p.price}</span>
+            <span class="pgc-orig">¥${p.orig}</span>
+            <span class="pgc-divid">分红</span>
+          </div>
+          <div class="pgc-progress-track"><div class="pgc-progress-fill" style="width:${pct}%"></div></div>
+          <div class="pgc-meta">${p.sold}/${p.target}件 · ${p.sold}位股东</div>
+        </div>
+      </div>`;
+    }).join('');
+  }
+
+  // Home vote options
+  const optsEl = document.getElementById('home-vote-opts');
+  if (optsEl) {
+    const total = DB.vote.totalVoters;
+    optsEl.innerHTML = DB.vote.options.map((o, i) => {
+      const pct = Math.round((o.votes / total) * 100);
+      const chosen = DB.vote.userChoice === i && DB.vote.hasVoted ? 'chosen' : '';
+      return `<div class="hvo ${chosen}" onclick="homeVote(this, ${i})">
+        <div class="hvo-img" style="background:${o.bg}">${o.emoji}<div class="hvo-check">✓</div></div>
+        <div class="hvo-lbl">
+          <div class="hvo-name">${o.name}</div>
+          <div class="hvo-bar-wrap"><div class="hvo-bar" style="width:${pct}%"></div></div>
+          <div class="hvo-pct">${pct}%</div>
+        </div>
+      </div>`;
+    }).join('');
+  }
+
+  const countEl = document.getElementById('home-vote-count');
+  if (countEl) countEl.textContent = `🗳️ ${DB.vote.totalVoters.toLocaleString()}人已投 · 剩余2天`;
+}
+
+// ════════════════════════════════════════════════
+//  RENDER: VOTE FEED
+// ════════════════════════════════════════════════
+function renderVoteFeed() {
+  const feed = document.getElementById('vote-feed');
+  if (!feed) return;
+  let posts = DB.votePosts;
+  if (DB.currentFilter === '进行中') posts = posts.filter(p => p.tagActive);
+  else if (DB.currentFilter === '已结束') posts = posts.filter(p => !p.tagActive);
+  else if (DB.currentFilter !== '全部') posts = posts.filter(p => p.category === DB.currentFilter);
+
+  feed.innerHTML = posts.map(p => `
+    <div class="feed-card">
+      <div class="feed-header">
+        <div class="feed-avatar" style="background:${p.avatarBg}">${p.avatar}</div>
+        <div class="feed-user-info">
+          <div class="feed-username">${p.name} <span class="blogger-badge" style="background:${p.badgeBg};color:${p.badgeColor}">${p.badge}</span></div>
+          <div class="feed-time">${p.time}</div>
+        </div>
+        <button class="follow-btn ${p.followed ? 'followed' : ''}" onclick="toggleFollow(this, ${p.id})">${p.followed ? '已关注' : '+ 关注'}</button>
+      </div>
+      <div class="feed-text">${p.text}</div>
+      <div class="feed-imgs">
+        ${p.imgs.map(img => `<div class="feed-img" style="background:${img.bg}" onclick="switchScreen('detail')">${img.emoji}</div>`).join('')}
+      </div>
+      <span class="vote-mini-tag" style="${p.tagActive ? '' : 'background:var(--surface-2);color:var(--ink-60);border-color:var(--border)'}">${p.tag}</span>
+      <div class="feed-actions">
+        <div class="feed-action-btn" onclick="switchScreen('detail')">${p.actionLabel}</div>
+        <div class="feed-action-btn" onclick="showToast('评论功能即将开放')">💬 ${p.comments}</div>
+        <div class="feed-action-btn" onclick="sharePost(${p.id})">↗ 分享</div>
+      </div>
+    </div>
+  `).join('');
+}
+
+// ════════════════════════════════════════════════
+//  RENDER: DETAIL VOTE
+// ════════════════════════════════════════════════
+function renderDetailVote() {
+  const grid = document.getElementById('dvs-grid');
+  if (!grid) return;
+  const total = DB.vote.totalVoters;
+  grid.innerHTML = DB.vote.options.map((o, i) => {
+    const pct = Math.round((o.votes / total) * 100);
+    const chosen = DB.vote.userChoice === i && DB.vote.hasVoted ? 'chosen' : (i === 0 && !DB.vote.hasVoted ? 'chosen' : '');
+    return `<div class="dvs-opt ${chosen}" onclick="detailVote(this, ${i})">
+      <div class="dvs-img" style="background:${o.bg}">${o.emoji}<div class="dvs-check">✓</div></div>
+      <div class="dvs-lbl">
+        <div class="dvs-name">${o.name}</div>
+        <div class="dvs-bar-wrap"><div class="dvs-bar" style="width:${pct}%"></div></div>
+        <div class="dvs-pct">${pct}%</div>
+      </div>
+    </div>`;
+  }).join('');
+
+  const countLbl = document.getElementById('dvs-count-label');
+  const subLbl = document.getElementById('dvs-sub-count');
+  if (countLbl) countLbl.textContent = `🗳️ ${DB.vote.totalVoters.toLocaleString()} 人已投票`;
+  if (subLbl) subLbl.textContent = `🗳️ ${DB.vote.totalVoters.toLocaleString()}人已投票 · 票高才生产 · 剩余2天`;
+
+  // Creative gallery
+  const gallery = document.getElementById('creative-gallery');
+  if (gallery) {
+    gallery.innerHTML = DB.creativeItems.map(c => `
+      <div class="creative-item">
+        <div class="creative-img" style="background:${c.bg}">${c.emoji}</div>
+        <div class="creative-item-name">${c.name}</div>
+        <div class="creative-item-likes">❤️ ${c.likes}</div>
+      </div>
+    `).join('') + `
+      <div class="creative-item" onclick="openModal('modal-creative')">
+        <div class="creative-img" style="background:var(--surface-2);border:2px dashed var(--rose-mid)">➕</div>
+        <div class="creative-item-name" style="color:var(--rose)">上传我的</div>
+        <div class="creative-item-likes" style="color:var(--ink-60)">获分红加成</div>
+      </div>`;
+  }
+
+  // Update product stats
+  updateDetailStats();
+}
+
+function updateDetailStats() {
+  const p = DB.product;
+  const pct = (p.sold / p.target * 100).toFixed(1);
+  const avgDivid = Math.round(p.totalDivid / p.sold);
+  const remaining = p.target - p.sold;
+
+  setEl('detail-holder-count', `${p.sold} 位`);
+  setEl('detail-h-more', `+${p.sold - 5}`);
+  setEl('detail-total-divid', `¥${p.totalDivid.toLocaleString()}`);
+  setEl('detail-avg-divid', `¥${avgDivid}`);
+  setEl('detail-sold', p.sold);
+  setEl('detail-remaining', remaining > 0 ? `差${remaining}件达标` : '🎉 已达标！');
+  setEl('detail-avg-tag', `人均收益 ¥${avgDivid}`);
+  setEl('detail-holder-tag', `${p.sold}位股东`);
+  const fill = document.getElementById('detail-prog-fill');
+  if (fill) fill.style.width = pct + '%';
+}
+
+// ════════════════════════════════════════════════
+//  RENDER: PRESALE
+// ════════════════════════════════════════════════
+function renderPresale() {
+  const p = DB.product;
+  const pct = (p.sold / p.target * 100).toFixed(1);
+  const avgDivid = Math.round(p.totalDivid / p.sold);
+  const remaining = p.target - p.sold;
+
+  setEl('presale-sold', p.sold);
+  setEl('presale-divid-total', `¥${p.totalDivid.toLocaleString()}`);
+  setEl('presale-avg', `¥${avgDivid}`);
+  setEl('presale-prog-label', `${pct}% · ${remaining > 0 ? '差'+remaining+'件达标' : '🎉已达标'}`);
+  setEl('presale-holders-label', `已有 ${p.sold} 位股东持有`);
+  setEl('presale-holder-more', `+${p.sold - 5} 位`);
+  const bar = document.getElementById('presale-prog-bar');
+  if (bar) bar.style.width = pct + '%';
+}
+
+// ════════════════════════════════════════════════
+//  RENDER: WALLET
+// ════════════════════════════════════════════════
+function renderWallet() {
+  const w = DB.wallet;
+  setEl('wallet-balance', `¥${w.balance.toLocaleString()}`);
+  setEl('wallet-change', `↑ 本月新增 ¥${w.monthlyNew.toLocaleString()} · 较上月 +${w.monthlyGrowth}%`);
+
+  const incomeGrid = document.getElementById('income-grid');
+  if (incomeGrid) {
+    incomeGrid.innerHTML = w.incomes.map(ic => `
+      <div class="income-card">
+        <div class="income-icon">${ic.icon}</div>
+        <div class="income-type">${ic.type}</div>
+        <div class="income-amount ${ic.cls}" style="${ic.clsColor ? 'color:'+ic.clsColor : ''}">¥${ic.amount.toLocaleString()}</div>
+        <div class="income-change" style="${ic.clsColor ? 'color:'+ic.clsColor : ''}">↑ ${ic.change > 0 ? '本月 +'+ic.change+'%' : '新增功能'}</div>
+      </div>`).join('');
+  }
+
+  const holdList = document.getElementById('holdings-list');
+  if (holdList) {
+    holdList.innerHTML = w.holdings.map(h => `
+      <div class="holding-item" onclick="switchScreen('detail')">
+        <div class="holding-icon ${h.cls}">${h.icon}</div>
+        <div class="holding-info">
+          <div class="holding-name">${h.name}</div>
+          <div class="holding-meta">${h.meta}</div>
+        </div>
+        <div class="holding-right">
+          <div class="holding-amount">+¥${h.amount}</div>
+          <div class="holding-period">本月分红</div>
+        </div>
+      </div>`).join('');
+  }
+
+  // Dividend detail modal
+  const ddList = document.getElementById('divid-detail-list');
+  if (ddList) {
+    ddList.innerHTML = w.dividHistory.map(d => `
+      <div class="modal-row">
+        <div>
+          <div style="font-size:13px;font-weight:500;color:var(--ink)">${d.type}</div>
+          <div style="font-size:11px;color:var(--ink-60)">${d.date} · ${d.desc}</div>
+        </div>
+        <div class="modal-row-value green">+¥${d.amount}</div>
+      </div>`).join('');
+  }
+
+  // Invite list modal
+  const invList = document.getElementById('invite-list');
+  if (invList) {
+    invList.innerHTML = DB.invites.map(inv => `
+      <div class="modal-row">
+        <div>
+          <div style="font-size:13px;font-weight:500;color:var(--ink)">${inv.name}</div>
+          <div style="font-size:11px;color:var(--ink-60)">${inv.date} · ${inv.product}</div>
+        </div>
+        <div class="modal-row-value green">+¥${inv.amount}</div>
+      </div>`).join('');
   }
 }
 
-// ── Category Select
+// ════════════════════════════════════════════════
+//  ACTIONS
+// ════════════════════════════════════════════════
+function homeVote(el, idx) {
+  el.closest('.home-vote-options').querySelectorAll('.hvo').forEach(o => o.classList.remove('chosen'));
+  el.classList.add('chosen');
+  DB.vote.userChoice = idx;
+  if (!DB.vote.hasVoted) {
+    DB.vote.hasVoted = true;
+    DB.vote.options[idx].votes += 1;
+    DB.vote.totalVoters += 1;
+  } else {
+    // Switch vote: remove old, add new
+    DB.vote.options[DB.vote.userChoice === idx ? idx : idx].votes += 1;
+    DB.vote.userChoice = idx;
+  }
+  renderHome();
+  showToast('✓ 投票成功！');
+}
+
+function detailVote(el, idx) {
+  el.closest('.dvs-grid').querySelectorAll('.dvs-opt').forEach(o => o.classList.remove('chosen'));
+  el.classList.add('chosen');
+  DB.vote.userChoice = idx;
+}
+
+function submitDetailVote() {
+  if (!DB.vote.hasVoted) {
+    DB.vote.hasVoted = true;
+    DB.vote.options[DB.vote.userChoice].votes += 1;
+    DB.vote.totalVoters += 1;
+  }
+  renderDetailVote();
+  showToast('投票成功！感谢参与 🎉');
+}
+
 function selectCat(pill, name) {
   document.querySelectorAll('.cat-pill').forEach(p => p.classList.remove('active'));
   pill.classList.add('active');
   showToast('分类：' + name);
 }
 
-// ── Home Vote
-function homeVote(el) {
-  el.closest('.home-vote-options').querySelectorAll('.hvo').forEach(o => o.classList.remove('chosen'));
-  el.classList.add('chosen');
-  showToast('✓ 投票成功！');
-}
-
-// ── Detail Vote
-function detailVote(el) {
-  el.closest('.dvs-grid').querySelectorAll('.dvs-opt').forEach(o => o.classList.remove('chosen'));
-  el.classList.add('chosen');
-  showToast('已选择款型 ✓');
-}
-
-// ── Thumb Gallery
 function switchThumb(thumb, emoji, bg) {
   document.querySelectorAll('.thumb').forEach(t => t.classList.remove('active'));
   thumb.classList.add('active');
@@ -1618,49 +1529,288 @@ function switchThumb(thumb, emoji, bg) {
   document.getElementById('detail-main-emoji').textContent = emoji;
 }
 
-// ── Size Select
 function selectSize(btn) {
   if (btn.classList.contains('sold')) return;
   btn.closest('.size-row').querySelectorAll('.size-btn').forEach(b => b.classList.remove('chosen'));
   btn.classList.add('chosen');
+  DB.user.selectedSize = btn.textContent;
   showToast('已选 ' + btn.textContent + ' 码');
 }
 
-// ── Color Select
-function selectColor(dot) {
+function selectColor(dot, name) {
   dot.closest('.color-row').querySelectorAll('.color-dot').forEach(d => d.classList.remove('chosen'));
   dot.classList.add('chosen');
-  showToast('颜色已选');
+  DB.user.selectedColor = name;
+  showToast('已选颜色：' + name);
 }
 
-// ── Follow Toggle
-function toggleFollow(btn) {
-  if (btn.classList.contains('followed')) {
-    btn.classList.remove('followed');
-    btn.textContent = '+ 关注';
-    showToast('已取消关注');
-  } else {
-    btn.classList.add('followed');
-    btn.textContent = '已关注';
-    showToast('关注成功！');
+function toggleFollow(btn, postId) {
+  const post = DB.votePosts.find(p => p.id === postId);
+  if (post) {
+    post.followed = !post.followed;
+    btn.classList.toggle('followed');
+    btn.textContent = post.followed ? '已关注' : '+ 关注';
+    showToast(post.followed ? '关注成功！' : '已取消关注');
   }
 }
 
-// ── Filter Chip
-function filterChip(chip) {
+function filterChip(chip, filter) {
   chip.closest('.vote-filter').querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
   chip.classList.add('active');
+  DB.currentFilter = filter;
+  renderVoteFeed();
 }
 
-// ── Toast
+function toggleFavorite() {
+  const btn = document.getElementById('fav-btn');
+  const idx = DB.user.favorites.indexOf('product-1');
+  if (idx === -1) {
+    DB.user.favorites.push('product-1');
+    btn.textContent = '❤️ 已收藏';
+    showToast('已加入收藏 ❤️');
+  } else {
+    DB.user.favorites.splice(idx, 1);
+    btn.textContent = '🔖 收藏';
+    showToast('已取消收藏');
+  }
+}
+
+function joinShareholder() {
+  if (DB.user.isShareholder) {
+    showToast('你已经是股东了 ✅');
+    return;
+  }
+  DB.user.isShareholder = true;
+  DB.product.sold += 1;
+  DB.product.totalDivid += DB.product.dividPerNew;
+  // Update wallet - add holding
+  DB.wallet.balance += DB.product.dividPerNew;
+  DB.wallet.incomes[0].amount += DB.product.dividPerNew;
+  DB.wallet.holdings[0].amount += DB.product.dividPerNew;
+  DB.wallet.dividHistory.unshift({
+    date: new Date().toLocaleDateString('zh-CN', { month:'2-digit', day:'2-digit' }).replace('/','-'),
+    type: '股东入股',
+    desc: '你成为经典翻领风衣第' + DB.product.sold + '位股东',
+    amount: 0,
+  });
+  // Update DB
+  renderPresale();
+  updateDetailStats();
+  showToast(`🎉 恭喜！你已成为第${DB.product.sold}位股东！`);
+  // Trigger realtime ticker update
+  setTimeout(() => {
+    addTickerMsg(`🎉 <strong>你</strong> 刚成为「经典翻领风衣」第${DB.product.sold}位股东！`);
+  }, 800);
+}
+
+function sharePost(postId) {
+  DB.wallet.balance += 0;
+  showToast('分享链接已复制！邀友购买得¥30 🔗');
+}
+
+function copyReferral() {
+  const code = DB.user.referralCode;
+  showToast(`邀请码已复制：${code} 🔗`);
+}
+
+function selectBank(item) {
+  document.querySelectorAll('.bank-check').forEach(c => { c.textContent = '○'; c.style.color = 'var(--ink-30)'; });
+  const check = item.querySelector('.bank-check');
+  check.textContent = '●';
+  check.style.color = 'var(--rose)';
+}
+
+function submitWithdraw() {
+  const amount = DB.wallet.balance;
+  DB.wallet.balance = 0;
+  DB.wallet.dividHistory.unshift({
+    date: new Date().toLocaleDateString('zh-CN', { month:'2-digit', day:'2-digit' }).replace('/','-'),
+    type: '提现',
+    desc: '提现至绑定账户',
+    amount: -amount,
+  });
+  closeModal('modal-withdraw');
+  renderWallet();
+  showToast(`提现 ¥${amount.toLocaleString()} 申请成功，预计1-3工作日到账 ✅`);
+}
+
+function submitLaunchVote() {
+  const name = document.getElementById('launch-name').value.trim();
+  const cat = document.getElementById('launch-cat').value;
+  const desc = document.getElementById('launch-desc').value.trim();
+  const days = document.getElementById('launch-days').value;
+  if (!name) { showToast('请填写款式名称'); return; }
+  if (!desc) { showToast('请填写设计描述'); return; }
+
+  // Add to vote posts
+  const emojis = { '外套': '🧥', '连衣裙': '👗', '裤装': '👖', '针织': '🧣', '配件': '👜' };
+  const colors = ['linear-gradient(135deg,#FBEAF0,#F4B8CB)', 'linear-gradient(135deg,#E2F5EE,#A0EDD6)', 'linear-gradient(135deg,#EDEAFD,#C8BFFF)'];
+  DB.votePosts.unshift({
+    id: Date.now(), avatar: '🌸', avatarBg: 'var(--rose-light)',
+    name: DB.user.handle, badge: '博主', badgeBg: 'var(--rose-light)', badgeColor: 'var(--rose)',
+    time: '刚刚', followed: true,
+    text: desc,
+    imgs: [
+      { emoji: emojis[cat] || '🧥', bg: colors[0] },
+      { emoji: emojis[cat] || '🧥', bg: colors[1] },
+    ],
+    tag: `🗳️ 进行中 · 0人已投 · 剩${days}`, tagActive: true,
+    actionLabel: '🗳️ 去投票', comments: 0, category: cat,
+  });
+  DB.user.designs = (DB.user.designs || 3) + 1;
+  setEl('prof-designs', DB.user.designs + '款');
+
+  document.getElementById('launch-name').value = '';
+  document.getElementById('launch-desc').value = '';
+  closeModal('modal-launch');
+  showToast(`🚀 票选「${name}」发布成功！`);
+  renderVoteFeed();
+  addTickerMsg(`🎉 <strong>${DB.user.handle}</strong> 刚发起了新的票选「${name}」`);
+}
+
+function submitCreative() {
+  const desc = document.getElementById('creative-desc').value.trim();
+  if (!desc) { showToast('请填写搭配描述'); return; }
+  DB.creativeItems.unshift({ emoji: '🧥', bg: 'linear-gradient(135deg,#FEF3DF,#FAE0A0)', name: DB.user.handle, likes: '0' });
+  DB.wallet.incomes[3].amount += 15;
+  document.getElementById('creative-desc').value = '';
+  closeModal('modal-creative');
+  renderDetailVote();
+  showToast('🎨 创意搭配发布成功！分红加成已开启 +¥15');
+}
+
+function saveProfile() {
+  const name = document.getElementById('edit-name').value.trim();
+  const handle = document.getElementById('edit-handle').value.trim();
+  const bio = document.getElementById('edit-bio').value.trim();
+  if (name) { DB.user.name = name; setEl('profile-name', name); }
+  if (handle) { DB.user.handle = handle; setEl('profile-handle', handle + ' · 穿搭博主'); }
+  if (bio) { DB.user.bio = bio; setEl('profile-bio', bio); }
+  closeModal('modal-edit-profile');
+  showToast('资料保存成功 ✅');
+}
+
+// ════════════════════════════════════════════════
+//  MODAL SYSTEM
+// ════════════════════════════════════════════════
+function openModal(id) {
+  // Prefill edit profile
+  if (id === 'modal-edit-profile') {
+    document.getElementById('edit-name').value = DB.user.name;
+    document.getElementById('edit-handle').value = DB.user.handle;
+    document.getElementById('edit-bio').value = DB.user.bio;
+  }
+  if (id === 'modal-divid-detail' || id === 'modal-invites') renderWallet();
+  document.getElementById(id).classList.add('open');
+}
+function closeModal(id) {
+  document.getElementById(id).classList.remove('open');
+}
+function closeModalOutside(e, id) {
+  if (e.target === document.getElementById(id)) closeModal(id);
+}
+
+// ════════════════════════════════════════════════
+//  TOAST
+// ════════════════════════════════════════════════
 let toastTimer;
 function showToast(msg) {
   const t = document.getElementById('toast');
   t.textContent = msg;
   t.classList.add('show');
   clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => t.classList.remove('show'), 2200);
+  toastTimer = setTimeout(() => t.classList.remove('show'), 2400);
 }
+
+// ════════════════════════════════════════════════
+//  REAL-TIME TICKER
+// ════════════════════════════════════════════════
+let tickerIdx = 0;
+function rotateTicker() {
+  const el = document.getElementById('ticker-text');
+  if (!el) return;
+  el.style.opacity = '0';
+  setTimeout(() => {
+    el.innerHTML = DB.tickerMessages[tickerIdx % DB.tickerMessages.length];
+    el.style.opacity = '1';
+    tickerIdx++;
+  }, 300);
+}
+function addTickerMsg(msg) {
+  DB.tickerMessages.push(msg);
+  const el = document.getElementById('ticker-text');
+  if (el) {
+    el.style.opacity = '0';
+    setTimeout(() => { el.innerHTML = msg; el.style.opacity = '1'; }, 300);
+  }
+}
+
+// ════════════════════════════════════════════════
+//  LIVE CLOCK
+// ════════════════════════════════════════════════
+function updateClock() {
+  const now = new Date();
+  const h = now.getHours().toString().padStart(2, '0');
+  const m = now.getMinutes().toString().padStart(2, '0');
+  const el = document.getElementById('clock');
+  if (el) el.textContent = h + ':' + m;
+}
+
+// ════════════════════════════════════════════════
+//  UTILITY
+// ════════════════════════════════════════════════
+function setEl(id, val) {
+  const el = document.getElementById(id);
+  if (el) el.textContent = val;
+}
+
+// ════════════════════════════════════════════════
+//  SIMULATED REAL-TIME UPDATES (auto buy simulation)
+// ════════════════════════════════════════════════
+function simulateActivity() {
+  const rnd = Math.random();
+  if (rnd < 0.4) {
+    // New shareholder purchased
+    DB.product.sold += 1;
+    DB.product.totalDivid += DB.product.dividPerNew;
+    if (DB.user.isShareholder) {
+      DB.wallet.balance += DB.product.dividPerNew;
+      DB.wallet.incomes[0].amount += DB.product.dividPerNew;
+      DB.wallet.holdings[0].amount += DB.product.dividPerNew;
+      const walletEl = document.getElementById('wallet-balance');
+      if (walletEl) walletEl.textContent = '¥' + DB.wallet.balance.toLocaleString();
+    }
+    const names = ['@粉丝小A', '@时髦er', '@小可爱M', '@晴天穿搭', '@Nina'];
+    const name = names[Math.floor(Math.random() * names.length)];
+    addTickerMsg(`🎉 <strong>${name}</strong> 刚成为「经典翻领风衣」第${DB.product.sold}位股东`);
+    renderPresale();
+    updateDetailStats();
+  } else if (rnd < 0.7) {
+    // New vote
+    const idx = Math.floor(Math.random() * DB.vote.options.length);
+    DB.vote.options[idx].votes += 1;
+    DB.vote.totalVoters += 1;
+    const screen = document.getElementById('screen-detail');
+    if (screen && screen.classList.contains('active')) renderDetailVote();
+  }
+}
+
+// ════════════════════════════════════════════════
+//  INIT
+// ════════════════════════════════════════════════
+window.addEventListener('DOMContentLoaded', () => {
+  updateClock();
+  setInterval(updateClock, 10000);
+  renderHome();
+  renderVoteFeed();
+  renderDetailVote();
+  renderWallet();
+  renderPresale();
+  // Ticker rotation
+  setInterval(rotateTicker, 4000);
+  // Simulated live activity every 6-12s
+  setInterval(simulateActivity, 8000);
+});
 </script>
 </body>
 </html>
