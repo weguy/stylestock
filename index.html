@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>StyleStock · 穿搭主理人平台</title>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;600;700;900&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
 <style>
 :root {
   --rose: #E8547A;
@@ -131,6 +131,14 @@ body {
   padding: 16px 20px 8px;
 }
 .page-title { font-size: 22px; font-weight: 700; color: var(--ink); letter-spacing: -0.03em; }
+.header-back {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; font-size: 16px;
+}
 .header-action {
   font-size: 13px;
   color: var(--rose);
@@ -141,6 +149,7 @@ body {
   border-radius: var(--r-full);
   border: none;
   transition: all 0.2s;
+  font-family: inherit;
 }
 .header-action:hover { background: var(--rose-mid); }
 
@@ -157,6 +166,47 @@ body {
 }
 .section-more { font-size: 12px; color: var(--ink-60); font-weight: 400; cursor: pointer; }
 
+/* Buttons */
+.btn-primary {
+  background: linear-gradient(135deg, var(--rose), #C43060);
+  color: white; border: none; border-radius: var(--r-full);
+  padding: 10px 20px; font-size: 13px; font-weight: 600;
+  cursor: pointer; transition: all 0.2s;
+  box-shadow: 0 4px 12px rgba(232,84,122,0.3);
+  font-family: inherit;
+}
+.btn-primary:hover { transform: translateY(-1px); box-shadow: 0 6px 16px rgba(232,84,122,0.4); }
+.btn-ghost {
+  background: var(--surface-2); color: var(--ink);
+  border: 1px solid var(--border); border-radius: var(--r-full);
+  padding: 10px 16px; font-size: 13px; font-weight: 500;
+  cursor: pointer; transition: all 0.2s; font-family: inherit;
+}
+.btn-ghost:hover { background: var(--border); }
+
+/* ── TOAST ── */
+.toast {
+  position: fixed; bottom: 120px; left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  background: var(--ink); color: white;
+  font-size: 13px; font-weight: 500;
+  padding: 10px 20px; border-radius: var(--r-full);
+  opacity: 0; transition: all 0.3s cubic-bezier(0.34,1.56,0.64,1);
+  white-space: nowrap; z-index: 9999; pointer-events: none;
+}
+.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+/* Animations */
+@keyframes fadeSlide {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes pulse-dot {
+  0%,100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(0.7); }
+}
+.screen.active .scroll-area > * { animation: fadeSlide 0.3s ease forwards; }
+
 /* ══════════════════════════════
    HOME SCREEN
 ══════════════════════════════ */
@@ -167,573 +217,237 @@ body {
   background: var(--surface-2);
   border: 1px solid var(--border);
   border-radius: var(--r-full);
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 11px 16px;
+  display: flex; align-items: center; gap: 8px;
+  padding: 11px 16px; cursor: pointer;
 }
 .search-bar span { font-size: 13px; color: var(--ink-60); }
 
-/* Hero Banner */
-.hero-banner {
-  margin: 14px 20px;
-  background: linear-gradient(135deg, #2D1E8F 0%, #4A35C8 60%, #8B5CF6 100%);
-  border-radius: var(--r-xl);
-  padding: 22px 22px 20px;
-  position: relative;
-  overflow: hidden;
+/* Category Pills */
+.category-strip {
+  display: flex; gap: 8px;
+  padding: 12px 20px 4px;
+  overflow-x: auto;
 }
-.hero-banner::before {
-  content: '';
-  position: absolute;
-  top: -30px; right: -30px;
-  width: 160px; height: 160px;
-  background: radial-gradient(circle, rgba(255,255,255,0.12) 0%, transparent 70%);
-  border-radius: 50%;
-}
-.hero-banner::after {
-  content: '';
-  position: absolute;
-  bottom: -40px; left: 40px;
-  width: 120px; height: 120px;
-  background: radial-gradient(circle, rgba(232,84,122,0.25) 0%, transparent 70%);
-  border-radius: 50%;
-}
-.hero-tag {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  background: rgba(255,255,255,0.15);
-  color: rgba(255,255,255,0.9);
-  font-size: 11px;
-  font-weight: 500;
-  padding: 4px 12px;
-  border-radius: var(--r-full);
-  margin-bottom: 12px;
-  border: 1px solid rgba(255,255,255,0.2);
-  letter-spacing: 0.04em;
-}
-.hero-title {
-  font-size: 24px;
-  font-weight: 700;
-  color: white;
-  line-height: 1.25;
-  margin-bottom: 8px;
-  letter-spacing: -0.03em;
-  position: relative;
-  z-index: 1;
-}
-.hero-sub {
-  font-size: 13px;
-  color: rgba(255,255,255,0.7);
-  margin-bottom: 18px;
-  position: relative;
-  z-index: 1;
-}
-.hero-pills { display: flex; gap: 6px; margin-bottom: 18px; position: relative; z-index: 1; }
-.hero-pill {
-  font-size: 11px;
-  padding: 4px 10px;
-  border-radius: var(--r-full);
-  font-weight: 500;
-}
-.hero-pill.rose { background: rgba(232,84,122,0.3); color: #FFBDCD; }
-.hero-pill.mint { background: rgba(27,175,130,0.25); color: #A0EDD6; }
-.hero-pill.amber { background: rgba(240,160,48,0.25); color: #FFD98E; }
-.hero-btn {
-  background: white;
-  color: var(--indigo);
-  border: none;
-  border-radius: var(--r-full);
-  padding: 11px 22px;
-  font-size: 13px;
-  font-weight: 600;
+.category-strip::-webkit-scrollbar { display: none; }
+.cat-pill {
+  flex-shrink: 0;
+  display: flex; flex-direction: column; align-items: center; gap: 5px;
   cursor: pointer;
-  position: relative;
-  z-index: 1;
-  transition: all 0.2s;
-  box-shadow: 0 4px 16px rgba(0,0,0,0.15);
-  letter-spacing: 0.01em;
 }
-.hero-btn:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(0,0,0,0.2); }
+.cat-icon {
+  width: 52px; height: 52px; border-radius: 18px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 24px;
+  transition: all 0.2s cubic-bezier(0.34,1.56,0.64,1);
+  border: 2px solid transparent;
+}
+.cat-pill.active .cat-icon { border-color: var(--rose); box-shadow: 0 4px 12px rgba(232,84,122,0.25); transform: scale(1.05); }
+.cat-label { font-size: 10px; color: var(--ink-60); font-weight: 500; text-align: center; }
+.cat-pill.active .cat-label { color: var(--rose); font-weight: 600; }
 
-/* Quick Stats Strip */
-.stats-strip {
-  display: flex;
-  gap: 0;
-  margin: 0 20px 4px;
-  background: var(--surface-2);
+/* Product Grid (Home) */
+.product-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  padding: 4px 20px 0;
+}
+.product-grid-card {
   border: 1px solid var(--border);
   border-radius: var(--r-lg);
   overflow: hidden;
+  background: var(--surface);
+  box-shadow: var(--shadow-sm);
+  cursor: pointer;
+  transition: all 0.2s;
 }
-.stat-cell {
-  flex: 1;
-  text-align: center;
-  padding: 14px 8px;
-  border-right: 1px solid var(--border);
+.product-grid-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
+.pgc-img {
+  height: 160px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 52px; position: relative;
 }
+.pgc-badge {
+  position: absolute; top: 8px; right: 8px;
+  background: linear-gradient(135deg, var(--indigo), var(--indigo-dark));
+  color: white; font-size: 9px; font-weight: 600;
+  padding: 3px 8px; border-radius: var(--r-full);
+}
+.pgc-winner {
+  position: absolute; top: 8px; left: 8px;
+  background: linear-gradient(135deg, var(--amber), #E08020);
+  color: white; font-size: 9px; font-weight: 600;
+  padding: 3px 8px; border-radius: var(--r-full);
+}
+.pgc-body { padding: 10px 12px; }
+.pgc-name { font-size: 12px; font-weight: 600; color: var(--ink); margin-bottom: 4px; line-height: 1.3; }
+.pgc-price-row { display: flex; align-items: center; gap: 4px; margin-bottom: 6px; }
+.pgc-price { font-size: 16px; font-weight: 700; color: var(--rose); }
+.pgc-orig { font-size: 11px; color: var(--ink-30); text-decoration: line-through; }
+.pgc-divid { font-size: 10px; color: var(--mint); background: var(--mint-light); padding: 2px 7px; border-radius: var(--r-full); margin-left: auto; }
+.pgc-progress-track {
+  height: 3px; background: var(--surface-2); border-radius: 2px; overflow: hidden;
+}
+.pgc-progress-fill { height: 100%; border-radius: 2px; background: linear-gradient(90deg, var(--rose), var(--indigo)); }
+.pgc-meta { font-size: 10px; color: var(--ink-60); margin-top: 4px; }
+
+/* Hot Vote on Home (compact) */
+.home-vote-card {
+  margin: 0 20px 14px;
+  border: 1px solid var(--border);
+  border-radius: var(--r-xl);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  background: var(--surface);
+  cursor: pointer;
+}
+.home-vote-header {
+  display: flex; align-items: center; gap: 10px;
+  padding: 12px 16px; border-bottom: 1px solid var(--border);
+}
+.vote-avatar {
+  width: 38px; height: 38px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--rose-mid), var(--rose));
+  display: flex; align-items: center; justify-content: center;
+  font-size: 17px; flex-shrink: 0;
+}
+.vote-info { flex: 1; }
+.vote-name { font-size: 12px; font-weight: 600; color: var(--ink); }
+.vote-meta { font-size: 10px; color: var(--ink-60); }
+.live-badge {
+  display: flex; align-items: center; gap: 4px;
+  background: #FFF0F0; color: #C0392B;
+  font-size: 10px; font-weight: 600;
+  padding: 4px 10px; border-radius: var(--r-full);
+  border: 1px solid rgba(192,57,43,0.15);
+}
+.live-dot {
+  width: 6px; height: 6px; background: #E74C3C; border-radius: 50%;
+  animation: pulse-dot 1.2s ease-in-out infinite;
+}
+.home-vote-options { display: flex; gap: 6px; padding: 12px 16px; }
+.hvo {
+  flex: 1; border: 1.5px solid var(--border); border-radius: var(--r-md);
+  overflow: hidden; cursor: pointer; transition: all 0.2s;
+}
+.hvo:hover { border-color: var(--rose-mid); }
+.hvo.chosen { border-color: var(--rose); box-shadow: 0 0 0 3px rgba(232,84,122,0.12); }
+.hvo-img { height: 70px; display: flex; align-items: center; justify-content: center; font-size: 28px; position: relative; }
+.hvo-check { position: absolute; top: 4px; right: 4px; width: 18px; height: 18px; background: var(--rose); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 9px; color: white; opacity: 0; transform: scale(0); transition: all 0.2s cubic-bezier(0.34,1.56,0.64,1); }
+.hvo.chosen .hvo-check { opacity: 1; transform: scale(1); }
+.hvo-lbl { padding: 6px 8px; }
+.hvo-name { font-size: 10px; font-weight: 500; color: var(--ink); margin-bottom: 3px; }
+.hvo-bar-wrap { height: 2px; background: var(--surface-2); border-radius: 2px; margin-bottom: 3px; }
+.hvo-bar { height: 100%; border-radius: 2px; background: var(--rose); }
+.hvo-pct { font-size: 10px; color: var(--rose); font-weight: 600; }
+.home-vote-footer { display: flex; gap: 8px; padding: 0 16px 14px; align-items: center; }
+.home-vote-count { font-size: 11px; color: var(--ink-60); flex: 1; }
+
+/* Stats Strip */
+.stats-strip {
+  display: flex; gap: 0; margin: 0 20px 4px;
+  background: var(--surface-2); border: 1px solid var(--border);
+  border-radius: var(--r-lg); overflow: hidden;
+}
+.stat-cell { flex: 1; text-align: center; padding: 14px 8px; border-right: 1px solid var(--border); }
 .stat-cell:last-child { border-right: none; }
-.stat-num { font-size: 18px; font-weight: 700; color: var(--ink); letter-spacing: -0.03em; }
+.stat-num { font-size: 17px; font-weight: 700; color: var(--ink); letter-spacing: -0.03em; }
 .stat-num.rose { color: var(--rose); }
 .stat-num.indigo { color: var(--indigo); }
 .stat-num.mint { color: var(--mint); }
 .stat-lbl { font-size: 10px; color: var(--ink-60); margin-top: 2px; letter-spacing: 0.02em; }
 
-/* Hot Vote Card */
-.vote-card {
-  margin: 0 20px 14px;
-  border: 1px solid var(--border);
-  border-radius: var(--r-xl);
-  overflow: hidden;
-  box-shadow: var(--shadow-sm);
-  background: var(--surface);
-}
-.vote-card-header {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 14px 16px 12px;
-  border-bottom: 1px solid var(--border);
-}
-.vote-avatar {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, var(--rose-mid), var(--rose));
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 18px;
-  flex-shrink: 0;
-  box-shadow: 0 2px 8px rgba(232,84,122,0.25);
-}
-.vote-info { flex: 1; }
-.vote-name { font-size: 13px; font-weight: 600; color: var(--ink); }
-.vote-meta { font-size: 11px; color: var(--ink-60); margin-top: 1px; }
-.live-badge {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  background: #FFF0F0;
-  color: #C0392B;
-  font-size: 10px;
-  font-weight: 600;
-  padding: 4px 10px;
-  border-radius: var(--r-full);
-  border: 1px solid rgba(192,57,43,0.15);
-  letter-spacing: 0.03em;
-}
-.live-dot {
-  width: 6px;
-  height: 6px;
-  background: #E74C3C;
-  border-radius: 50%;
-  animation: pulse-dot 1.2s ease-in-out infinite;
-}
-@keyframes pulse-dot {
-  0%,100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.5; transform: scale(0.7); }
-}
-
-.vote-question { padding: 14px 16px 10px; font-size: 13px; font-weight: 500; color: var(--ink-60); }
-
-.style-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; padding: 0 16px 14px; }
-.style-opt {
-  border: 1.5px solid var(--border);
-  border-radius: var(--r-md);
-  overflow: hidden;
-  cursor: pointer;
-  transition: all 0.2s;
+/* ══════════════════════════════
+   PRODUCT DETAIL SCREEN
+══════════════════════════════ */
+.detail-img-gallery { position: relative; }
+.detail-main-img {
+  height: 280px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 90px;
   position: relative;
 }
-.style-opt:hover { border-color: var(--rose-mid); transform: translateY(-1px); }
-.style-opt.chosen { border-color: var(--rose); box-shadow: 0 0 0 3px rgba(232,84,122,0.12); }
-.style-img {
-  height: 90px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 36px;
-  position: relative;
+.detail-badge-row { position: absolute; top: 16px; left: 16px; display: flex; gap: 6px; }
+.detail-badge {
+  padding: 5px 12px; border-radius: var(--r-full);
+  font-size: 10px; font-weight: 600;
 }
-.style-img.bg-a { background: linear-gradient(135deg, #F1EFE8, #E8E4D8); }
-.style-img.bg-b { background: linear-gradient(135deg, #EEEDFE, #DDD9F8); }
-.style-img.bg-c { background: linear-gradient(135deg, #E1F5EE, #CBF0E0); }
-.style-img.bg-d { background: linear-gradient(135deg, #FBEAF0, #F5D0DE); }
-.chosen-check {
-  position: absolute;
-  top: 6px; right: 6px;
-  width: 20px; height: 20px;
-  background: var(--rose);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 10px;
-  color: white;
-  opacity: 0;
-  transform: scale(0);
-  transition: all 0.2s cubic-bezier(0.34,1.56,0.64,1);
+.detail-badge.winner { background: linear-gradient(135deg, var(--amber), #E08020); color: white; }
+.detail-badge.shareholder { background: linear-gradient(135deg, var(--indigo), var(--indigo-dark)); color: white; }
+.detail-thumbs { display: flex; gap: 8px; padding: 10px 20px; }
+.thumb {
+  width: 60px; height: 60px; border-radius: var(--r-md);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 24px; cursor: pointer; border: 2px solid transparent;
+  transition: all 0.2s; flex-shrink: 0;
 }
-.style-opt.chosen .chosen-check { opacity: 1; transform: scale(1); }
-.style-label {
-  padding: 8px 10px;
-  background: white;
-}
-.style-name { font-size: 11px; font-weight: 500; color: var(--ink); margin-bottom: 5px; }
-.style-bar-wrap { height: 3px; background: var(--surface-2); border-radius: 2px; margin-bottom: 4px; }
-.style-bar { height: 100%; border-radius: 2px; background: linear-gradient(90deg, var(--rose), #C43060); transition: width 0.6s ease; }
-.style-pct { font-size: 11px; color: var(--rose); font-weight: 600; }
-
-.vote-footer {
-  display: flex;
-  gap: 8px;
-  padding: 0 16px 16px;
-}
-.vote-count { font-size: 12px; color: var(--ink-60); align-self: center; flex: 1; }
-.btn-primary {
-  background: linear-gradient(135deg, var(--rose), #C43060);
-  color: white;
-  border: none;
-  border-radius: var(--r-full);
-  padding: 10px 20px;
-  font-size: 13px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.2s;
-  box-shadow: 0 4px 12px rgba(232,84,122,0.3);
-  font-family: inherit;
-}
-.btn-primary:hover { transform: translateY(-1px); box-shadow: 0 6px 16px rgba(232,84,122,0.4); }
-.btn-ghost {
-  background: var(--surface-2);
-  color: var(--ink);
-  border: 1px solid var(--border);
-  border-radius: var(--r-full);
-  padding: 10px 16px;
-  font-size: 13px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.2s;
-  font-family: inherit;
-}
-.btn-ghost:hover { background: var(--border); }
-
-/* Product Card (Home) */
-.product-card {
-  margin: 0 20px 14px;
-  border: 1px solid var(--border);
-  border-radius: var(--r-xl);
-  overflow: hidden;
-  box-shadow: var(--shadow-sm);
-  background: var(--surface);
-}
-.product-img-wrap {
-  height: 150px;
-  background: linear-gradient(135deg, #EEEDFE 0%, #FBEAF0 100%);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 60px;
-  position: relative;
-}
-.product-badge {
-  position: absolute;
-  top: 12px;
-  right: 12px;
-  background: linear-gradient(135deg, var(--indigo), var(--indigo-dark));
-  color: white;
-  font-size: 10px;
-  font-weight: 600;
-  padding: 5px 12px;
-  border-radius: var(--r-full);
-  letter-spacing: 0.03em;
-}
-.product-winner-badge {
-  position: absolute;
-  top: 12px;
-  left: 12px;
-  background: linear-gradient(135deg, var(--amber), #E08020);
-  color: white;
-  font-size: 10px;
-  font-weight: 600;
-  padding: 5px 12px;
-  border-radius: var(--r-full);
-}
-.product-body { padding: 14px 16px; }
-.product-title { font-size: 15px; font-weight: 600; color: var(--ink); margin-bottom: 6px; letter-spacing: -0.02em; }
-.product-tags { display: flex; gap: 6px; margin-bottom: 12px; flex-wrap: wrap; }
-.product-tag {
-  font-size: 10px;
-  padding: 3px 10px;
-  border-radius: var(--r-full);
-  font-weight: 500;
-}
+.thumb.active { border-color: var(--rose); box-shadow: 0 0 0 3px rgba(232,84,122,0.15); }
+.detail-body { padding: 14px 20px 0; }
+.detail-title { font-size: 18px; font-weight: 700; color: var(--ink); margin-bottom: 4px; letter-spacing: -0.03em; }
+.detail-subtitle { font-size: 13px; color: var(--ink-60); margin-bottom: 12px; }
+.detail-price-row { display: flex; align-items: baseline; gap: 8px; margin-bottom: 6px; }
+.detail-price { font-size: 28px; font-weight: 700; color: var(--rose); letter-spacing: -0.04em; }
+.detail-orig { font-size: 14px; color: var(--ink-30); text-decoration: line-through; }
+.detail-divid { margin-left: auto; font-size: 11px; font-weight: 500; color: var(--mint); background: var(--mint-light); padding: 5px 12px; border-radius: var(--r-full); }
+.detail-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 14px; }
+.detail-tag { font-size: 10px; padding: 3px 10px; border-radius: var(--r-full); font-weight: 500; }
 .tag-rose { background: var(--rose-light); color: var(--rose); }
 .tag-mint { background: var(--mint-light); color: var(--mint); }
 .tag-indigo { background: var(--indigo-light); color: var(--indigo); }
-.product-price-row {
-  display: flex;
-  align-items: baseline;
-  gap: 8px;
-  margin-bottom: 12px;
+.tag-amber { background: var(--amber-light); color: var(--amber); }
+
+/* Size selector */
+.detail-section-lbl { font-size: 12px; font-weight: 600; color: var(--ink); margin-bottom: 8px; }
+.size-row { display: flex; gap: 8px; margin-bottom: 16px; flex-wrap: wrap; }
+.size-btn {
+  min-width: 46px; height: 36px; border: 1.5px solid var(--border);
+  border-radius: var(--r-md); background: white;
+  font-size: 12px; font-weight: 500; color: var(--ink);
+  cursor: pointer; font-family: inherit; transition: all 0.2s;
+  padding: 0 10px;
 }
-.price-main { font-size: 24px; font-weight: 700; color: var(--rose); letter-spacing: -0.03em; }
-.price-orig { font-size: 13px; color: var(--ink-30); text-decoration: line-through; }
-.price-divid {
-  margin-left: auto;
-  font-size: 11px;
-  font-weight: 500;
-  color: var(--mint);
-  background: var(--mint-light);
-  padding: 4px 10px;
-  border-radius: var(--r-full);
-}
-.progress-block { margin-bottom: 14px; }
-.progress-meta {
-  display: flex;
-  justify-content: space-between;
-  font-size: 11px;
-  color: var(--ink-60);
-  margin-bottom: 6px;
-}
-.progress-meta strong { color: var(--ink); }
-.progress-track {
-  height: 6px;
-  background: var(--surface-2);
-  border-radius: 3px;
-  overflow: hidden;
-}
-.progress-fill {
-  height: 100%;
-  border-radius: 3px;
-  background: linear-gradient(90deg, var(--rose), var(--indigo));
+.size-btn.chosen { border-color: var(--rose); background: var(--rose-light); color: var(--rose); font-weight: 600; }
+.size-btn.sold { opacity: 0.4; cursor: not-allowed; text-decoration: line-through; }
+
+/* Color selector */
+.color-row { display: flex; gap: 8px; margin-bottom: 16px; }
+.color-dot {
+  width: 32px; height: 32px; border-radius: 50%;
+  cursor: pointer; border: 2px solid transparent; transition: all 0.2s;
   position: relative;
 }
-.progress-fill::after {
-  content: '';
-  position: absolute;
-  top: 0; right: 0;
-  width: 8px; height: 100%;
-  background: rgba(255,255,255,0.4);
-  border-radius: 3px;
-}
+.color-dot.chosen { border-color: var(--rose); box-shadow: 0 0 0 3px rgba(232,84,122,0.2); }
 
-/* ══════════════════════════════
-   VOTE SCREEN
-══════════════════════════════ */
-.vote-filter {
-  display: flex;
-  gap: 6px;
-  padding: 8px 20px 14px;
-  overflow-x: auto;
+/* Holder card */
+.holder-card {
+  background: linear-gradient(135deg, #1A1460, #4A35C8);
+  border-radius: var(--r-xl); margin: 14px 20px;
+  padding: 16px 18px;
 }
-.vote-filter::-webkit-scrollbar { display: none; }
-.filter-chip {
-  flex-shrink: 0;
-  padding: 7px 16px;
-  border-radius: var(--r-full);
-  font-size: 12px;
-  font-weight: 500;
-  cursor: pointer;
-  border: 1px solid var(--border);
-  background: white;
-  color: var(--ink-60);
-  transition: all 0.2s;
-  font-family: inherit;
-}
-.filter-chip.active { background: var(--rose); color: white; border-color: var(--rose); }
+.holder-card-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+.holder-card-title { font-size: 12px; color: rgba(200,195,255,0.8); font-weight: 500; }
+.holder-count { font-size: 20px; font-weight: 700; color: white; letter-spacing: -0.03em; }
+.holder-avatars { display: flex; align-items: center; }
+.h-ava { width: 28px; height: 28px; border-radius: 50%; border: 2px solid rgba(74,53,200,0.5); display: flex; align-items: center; justify-content: center; font-size: 11px; margin-left: -7px; }
+.h-ava:first-child { margin-left: 0; }
+.h-more { font-size: 10px; color: rgba(200,195,255,0.7); margin-left: 8px; }
+.holder-divid-row { display: flex; gap: 10px; }
+.h-stat { flex: 1; }
+.h-stat-lbl { font-size: 10px; color: rgba(200,195,255,0.7); margin-bottom: 2px; }
+.h-stat-val { font-size: 15px; font-weight: 700; color: white; }
+.h-stat-val.green { color: #6EE8C8; }
 
-.feed-card {
-  margin: 0 20px 14px;
-  border: 1px solid var(--border);
-  border-radius: var(--r-xl);
-  overflow: hidden;
-  background: var(--surface);
-  box-shadow: var(--shadow-sm);
-}
-.feed-header {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 14px 16px 12px;
-  border-bottom: 1px solid var(--border);
-}
-.feed-avatar {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 18px;
-  flex-shrink: 0;
-}
-.feed-user-info { flex: 1; }
-.feed-username { font-size: 13px; font-weight: 600; color: var(--ink); display: flex; align-items: center; gap: 6px; }
-.blogger-badge {
-  font-size: 10px;
-  font-weight: 500;
-  padding: 2px 8px;
-  border-radius: var(--r-full);
-  background: var(--rose-light);
-  color: var(--rose);
-}
-.feed-time { font-size: 11px; color: var(--ink-60); margin-top: 1px; }
-.follow-btn {
-  padding: 6px 14px;
-  border-radius: var(--r-full);
-  font-size: 12px;
-  font-weight: 500;
-  border: 1px solid var(--rose);
-  background: none;
-  color: var(--rose);
-  cursor: pointer;
-  font-family: inherit;
-  transition: all 0.2s;
-}
-.follow-btn:hover { background: var(--rose); color: white; }
-.follow-btn.followed { background: var(--surface-2); color: var(--ink-60); border-color: var(--border); }
-.feed-text { padding: 12px 16px 10px; font-size: 13px; color: var(--ink); line-height: 1.6; }
-.feed-imgs { display: flex; gap: 6px; padding: 0 16px 12px; }
-.feed-img {
-  flex: 1;
-  height: 100px;
-  border-radius: var(--r-md);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 36px;
-  overflow: hidden;
-}
-.feed-actions {
-  display: flex;
-  align-items: center;
-  padding: 12px 16px;
-  border-top: 1px solid var(--border);
-  gap: 0;
-}
-.feed-action-btn {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  font-size: 12px;
-  color: var(--ink-60);
-  cursor: pointer;
-  padding: 4px 12px;
-  border-radius: var(--r-full);
-  transition: all 0.15s;
-  flex: 1;
-  justify-content: center;
-}
-.feed-action-btn:hover { background: var(--surface-2); color: var(--rose); }
-.vote-mini-tag {
-  font-size: 11px;
-  background: var(--rose-light);
-  color: var(--rose);
-  padding: 5px 14px;
-  border-radius: var(--r-full);
-  font-weight: 500;
-  margin: 0 16px 14px;
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  border: 1px solid rgba(232,84,122,0.15);
-}
+/* Progress */
+.detail-progress { margin: 0 20px 14px; }
+.detail-prog-meta { display: flex; justify-content: space-between; font-size: 12px; color: var(--ink-60); margin-bottom: 8px; }
+.detail-prog-meta strong { color: var(--ink); }
+.detail-prog-track { height: 8px; background: var(--surface-2); border-radius: 4px; overflow: hidden; }
+.detail-prog-fill { height: 100%; border-radius: 4px; background: linear-gradient(90deg, var(--rose), var(--indigo)); position: relative; }
+.detail-prog-fill::after { content: ''; position: absolute; top: 0; right: 0; width: 10px; height: 100%; background: rgba(255,255,255,0.4); border-radius: 4px; }
 
-/* CTA Initiate Vote */
-.initiate-cta {
-  margin: 0 20px 20px;
-  background: linear-gradient(135deg, var(--surface-2), white);
-  border: 1.5px dashed var(--rose-mid);
-  border-radius: var(--r-xl);
-  padding: 20px;
-  text-align: center;
-  cursor: pointer;
-  transition: all 0.2s;
-}
-.initiate-cta:hover { background: var(--rose-light); border-color: var(--rose); }
-.initiate-cta h3 { font-size: 14px; font-weight: 600; color: var(--ink); margin-bottom: 4px; }
-.initiate-cta p { font-size: 12px; color: var(--ink-60); margin-bottom: 14px; }
-
-/* ══════════════════════════════
-   PRESALE SCREEN
-══════════════════════════════ */
-.stock-hero {
-  margin: 14px 20px;
-  border-radius: var(--r-xl);
-  overflow: hidden;
-  box-shadow: var(--shadow-md);
-}
-.stock-top {
-  background: linear-gradient(135deg, #1A1460 0%, #2D1E8F 50%, #4A35C8 100%);
-  padding: 20px;
-  position: relative;
-  overflow: hidden;
-}
-.stock-top::before {
-  content: '';
-  position: absolute;
-  top: -20px; right: -20px;
-  width: 120px; height: 120px;
-  background: radial-gradient(circle, rgba(255,255,255,0.08) 0%, transparent 70%);
-  border-radius: 50%;
-}
-.stock-item-name { font-size: 12px; color: rgba(200,195,255,0.8); margin-bottom: 6px; letter-spacing: 0.04em; text-transform: uppercase; }
-.stock-price-row { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
-.stock-price { font-size: 32px; font-weight: 700; color: white; letter-spacing: -0.04em; }
-.stock-change {
-  background: rgba(27,175,130,0.25);
-  color: #6EE8C8;
-  font-size: 12px;
-  font-weight: 600;
-  padding: 4px 10px;
-  border-radius: var(--r-full);
-  border: 1px solid rgba(27,175,130,0.3);
-}
-.stock-stats { display: grid; grid-template-columns: repeat(3,1fr); gap: 4px; }
-.stock-stat-label { font-size: 10px; color: rgba(170,160,240,0.8); margin-bottom: 3px; letter-spacing: 0.03em; }
-.stock-stat-val { font-size: 14px; font-weight: 600; color: white; }
-.stock-divider { height: 1px; background: rgba(255,255,255,0.08); margin: 14px 0; }
-
-.stock-bottom { background: white; padding: 16px 20px; }
-.holders-block { margin-bottom: 16px; }
-.holders-label { font-size: 12px; color: var(--ink-60); margin-bottom: 8px; }
-.holders-row { display: flex; align-items: center; }
-.holder-ava {
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  border: 2px solid white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 12px;
-  margin-left: -8px;
-  box-shadow: var(--shadow-sm);
-}
-.holder-ava:first-child { margin-left: 0; }
-.holder-more { font-size: 11px; color: var(--ink-60); margin-left: 10px; }
-
-.benefit-row {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 12px 0;
-  border-bottom: 1px solid var(--border);
-}
-.benefit-row:last-of-type { border-bottom: none; }
-.benefit-icon {
-  width: 38px;
-  height: 38px;
-  border-radius: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 16px;
-  flex-shrink: 0;
-}
+/* Benefit rows */
+.benefit-row { display: flex; align-items: center; gap: 12px; padding: 12px 20px; border-bottom: 1px solid var(--border); }
+.benefit-icon { width: 38px; height: 38px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; }
 .benefit-icon.rose { background: var(--rose-light); }
 .benefit-icon.indigo { background: var(--indigo-light); }
 .benefit-icon.mint { background: var(--mint-light); }
@@ -742,98 +456,129 @@ body {
 .benefit-sub { font-size: 11px; color: var(--ink-60); }
 .benefit-amount { font-size: 14px; font-weight: 700; color: var(--mint); }
 
-.mechanism-banner {
-  margin: 0 20px 14px;
-  background: linear-gradient(135deg, var(--indigo-light), #FBEAF0);
-  border: 1px solid rgba(74,53,200,0.1);
-  border-radius: var(--r-lg);
-  padding: 14px 16px;
+/* Vote section (embedded in detail) */
+.detail-vote-section { margin: 0 20px 14px; background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--r-xl); overflow: hidden; }
+.dvs-header { padding: 14px 16px 10px; border-bottom: 1px solid var(--border); }
+.dvs-title { font-size: 13px; font-weight: 600; color: var(--ink); margin-bottom: 2px; }
+.dvs-sub { font-size: 11px; color: var(--ink-60); }
+.dvs-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; padding: 12px; }
+.dvs-opt { border: 1.5px solid var(--border); border-radius: var(--r-md); overflow: hidden; cursor: pointer; transition: all 0.2s; background: white; }
+.dvs-opt:hover { border-color: var(--rose-mid); }
+.dvs-opt.chosen { border-color: var(--rose); box-shadow: 0 0 0 3px rgba(232,84,122,0.1); }
+.dvs-img { height: 80px; display: flex; align-items: center; justify-content: center; font-size: 32px; position: relative; }
+.dvs-check { position: absolute; top: 5px; right: 5px; width: 18px; height: 18px; background: var(--rose); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 9px; color: white; opacity: 0; transform: scale(0); transition: all 0.2s cubic-bezier(0.34,1.56,0.64,1); }
+.dvs-opt.chosen .dvs-check { opacity: 1; transform: scale(1); }
+.dvs-lbl { padding: 8px 10px; }
+.dvs-name { font-size: 11px; font-weight: 500; color: var(--ink); margin-bottom: 4px; }
+.dvs-bar-wrap { height: 3px; background: var(--surface-2); border-radius: 2px; margin-bottom: 3px; }
+.dvs-bar { height: 100%; border-radius: 2px; background: linear-gradient(90deg, var(--rose), #C43060); }
+.dvs-pct { font-size: 11px; color: var(--rose); font-weight: 600; }
+.dvs-footer { padding: 10px 12px 14px; border-top: 1px solid var(--border); display: flex; align-items: center; gap: 8px; }
+.dvs-count { font-size: 11px; color: var(--ink-60); flex: 1; }
+
+/* Creative Design */
+.creative-section { margin: 14px 20px; border: 1.5px dashed rgba(232,84,122,0.35); border-radius: var(--r-xl); background: linear-gradient(135deg, #FFF5F8, #F5F3FE); overflow: hidden; }
+.creative-header { padding: 14px 16px 10px; display: flex; align-items: center; gap: 10px; }
+.creative-icon { width: 40px; height: 40px; border-radius: 14px; background: linear-gradient(135deg, var(--rose), #C43060); display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
+.creative-title { font-size: 13px; font-weight: 700; color: var(--ink); }
+.creative-sub { font-size: 11px; color: var(--ink-60); margin-top: 1px; }
+.creative-gallery { display: flex; gap: 8px; padding: 0 16px 14px; overflow-x: auto; }
+.creative-gallery::-webkit-scrollbar { display: none; }
+.creative-item { flex-shrink: 0; width: 100px; }
+.creative-img { width: 100px; height: 120px; border-radius: var(--r-md); display: flex; align-items: center; justify-content: center; font-size: 36px; border: 2px solid rgba(255,255,255,0.8); margin-bottom: 6px; position: relative; overflow: hidden; }
+.creative-img::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to bottom, transparent 50%, rgba(0,0,0,0.15)); }
+.creative-item-name { font-size: 10px; font-weight: 500; color: var(--ink); text-align: center; margin-bottom: 2px; }
+.creative-item-likes { font-size: 10px; color: var(--rose); text-align: center; }
+.creative-upload-btn { margin: 0 16px 14px; }
+
+/* CTA Bar (detail bottom) */
+.detail-cta-bar {
+  margin: 14px 20px 0;
+  background: linear-gradient(135deg, var(--rose), #C43060);
+  border-radius: var(--r-xl); padding: 16px 20px;
+  display: flex; align-items: center; justify-content: space-between;
 }
+.detail-cta-info p { font-size: 11px; color: rgba(255,255,255,0.75); margin-bottom: 2px; }
+.detail-cta-info strong { font-size: 20px; font-weight: 700; color: white; letter-spacing: -0.03em; }
+.detail-cta-btn { background: white; color: var(--rose); border: none; border-radius: var(--r-full); padding: 10px 18px; font-size: 13px; font-weight: 700; cursor: pointer; font-family: inherit; white-space: nowrap; transition: all 0.2s; }
+.detail-cta-btn:hover { transform: scale(1.03); }
+
+/* ══════════════════════════════
+   VOTE SCREEN
+══════════════════════════════ */
+.vote-filter { display: flex; gap: 6px; padding: 8px 20px 14px; overflow-x: auto; }
+.vote-filter::-webkit-scrollbar { display: none; }
+.filter-chip { flex-shrink: 0; padding: 7px 16px; border-radius: var(--r-full); font-size: 12px; font-weight: 500; cursor: pointer; border: 1px solid var(--border); background: white; color: var(--ink-60); transition: all 0.2s; font-family: inherit; }
+.filter-chip.active { background: var(--rose); color: white; border-color: var(--rose); }
+
+.feed-card { margin: 0 20px 14px; border: 1px solid var(--border); border-radius: var(--r-xl); overflow: hidden; background: var(--surface); box-shadow: var(--shadow-sm); }
+.feed-header { display: flex; align-items: center; gap: 10px; padding: 14px 16px 12px; border-bottom: 1px solid var(--border); }
+.feed-avatar { width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
+.feed-user-info { flex: 1; }
+.feed-username { font-size: 13px; font-weight: 600; color: var(--ink); display: flex; align-items: center; gap: 6px; }
+.blogger-badge { font-size: 10px; font-weight: 500; padding: 2px 8px; border-radius: var(--r-full); background: var(--rose-light); color: var(--rose); }
+.feed-time { font-size: 11px; color: var(--ink-60); margin-top: 1px; }
+.follow-btn { padding: 6px 14px; border-radius: var(--r-full); font-size: 12px; font-weight: 500; border: 1px solid var(--rose); background: none; color: var(--rose); cursor: pointer; font-family: inherit; transition: all 0.2s; }
+.follow-btn:hover { background: var(--rose); color: white; }
+.follow-btn.followed { background: var(--surface-2); color: var(--ink-60); border-color: var(--border); }
+.feed-text { padding: 12px 16px 10px; font-size: 13px; color: var(--ink); line-height: 1.6; }
+.feed-imgs { display: flex; gap: 6px; padding: 0 16px 12px; }
+.feed-img { flex: 1; height: 100px; border-radius: var(--r-md); display: flex; align-items: center; justify-content: center; font-size: 36px; overflow: hidden; cursor: pointer; transition: all 0.15s; }
+.feed-img:hover { transform: scale(1.02); }
+.feed-actions { display: flex; align-items: center; padding: 12px 16px; border-top: 1px solid var(--border); gap: 0; }
+.feed-action-btn { display: flex; align-items: center; gap: 5px; font-size: 12px; color: var(--ink-60); cursor: pointer; padding: 4px 12px; border-radius: var(--r-full); transition: all 0.15s; flex: 1; justify-content: center; }
+.feed-action-btn:hover { background: var(--surface-2); color: var(--rose); }
+.vote-mini-tag { font-size: 11px; background: var(--rose-light); color: var(--rose); padding: 5px 14px; border-radius: var(--r-full); font-weight: 500; margin: 0 16px 14px; display: inline-flex; align-items: center; gap: 5px; border: 1px solid rgba(232,84,122,0.15); }
+
+.initiate-cta { margin: 0 20px 20px; background: linear-gradient(135deg, var(--surface-2), white); border: 1.5px dashed var(--rose-mid); border-radius: var(--r-xl); padding: 20px; text-align: center; cursor: pointer; transition: all 0.2s; }
+.initiate-cta:hover { background: var(--rose-light); border-color: var(--rose); }
+.initiate-cta h3 { font-size: 14px; font-weight: 600; color: var(--ink); margin-bottom: 4px; }
+.initiate-cta p { font-size: 12px; color: var(--ink-60); margin-bottom: 14px; }
+
+/* ══════════════════════════════
+   PRESALE / SHAREHOLDER SCREEN
+══════════════════════════════ */
+.mechanism-banner { margin: 14px 20px; background: linear-gradient(135deg, var(--indigo-light), #FBEAF0); border: 1px solid rgba(74,53,200,0.1); border-radius: var(--r-lg); padding: 14px 16px; }
 .mechanism-title { font-size: 12px; font-weight: 600; color: var(--indigo); margin-bottom: 5px; display: flex; align-items: center; gap: 5px; }
 .mechanism-text { font-size: 12px; color: #7F77DD; line-height: 1.65; }
 
-/* Invest CTA sticky */
-.invest-cta-bar {
-  margin: 14px 20px 0;
-  background: linear-gradient(135deg, var(--indigo), var(--indigo-dark));
-  border-radius: var(--r-xl);
-  padding: 16px 20px;
-  color: white;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
+.stock-hero { margin: 0 20px 14px; border-radius: var(--r-xl); overflow: hidden; box-shadow: var(--shadow-md); }
+.stock-top { background: linear-gradient(135deg, #1A1460 0%, #2D1E8F 50%, #4A35C8 100%); padding: 20px; position: relative; overflow: hidden; }
+.stock-top::before { content: ''; position: absolute; top: -20px; right: -20px; width: 120px; height: 120px; background: radial-gradient(circle, rgba(255,255,255,0.08) 0%, transparent 70%); border-radius: 50%; }
+.stock-item-name { font-size: 12px; color: rgba(200,195,255,0.8); margin-bottom: 6px; letter-spacing: 0.04em; text-transform: uppercase; }
+.stock-price-row { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
+.stock-price { font-size: 32px; font-weight: 700; color: white; letter-spacing: -0.04em; }
+.stock-change { background: rgba(27,175,130,0.25); color: #6EE8C8; font-size: 12px; font-weight: 600; padding: 4px 10px; border-radius: var(--r-full); border: 1px solid rgba(27,175,130,0.3); }
+.stock-stats { display: grid; grid-template-columns: repeat(3,1fr); gap: 4px; }
+.stock-stat-label { font-size: 10px; color: rgba(170,160,240,0.8); margin-bottom: 3px; letter-spacing: 0.03em; }
+.stock-stat-val { font-size: 14px; font-weight: 600; color: white; }
+.stock-divider { height: 1px; background: rgba(255,255,255,0.08); margin: 14px 0; }
+.stock-bottom { background: white; padding: 16px 20px; }
+.holders-block { margin-bottom: 16px; }
+.holders-label { font-size: 12px; color: var(--ink-60); margin-bottom: 8px; }
+.holders-row { display: flex; align-items: center; }
+.holder-ava { width: 30px; height: 30px; border-radius: 50%; border: 2px solid white; display: flex; align-items: center; justify-content: center; font-size: 12px; margin-left: -8px; box-shadow: var(--shadow-sm); }
+.holder-ava:first-child { margin-left: 0; }
+.holder-more { font-size: 11px; color: var(--ink-60); margin-left: 10px; }
+.invest-cta-bar { margin: 14px 20px 0; background: linear-gradient(135deg, var(--indigo), var(--indigo-dark)); border-radius: var(--r-xl); padding: 16px 20px; color: white; display: flex; align-items: center; justify-content: space-between; }
 .invest-info p { font-size: 11px; color: rgba(200,195,255,0.8); margin-bottom: 2px; }
 .invest-info strong { font-size: 20px; font-weight: 700; letter-spacing: -0.03em; }
-.invest-action-btn {
-  background: white;
-  color: var(--indigo);
-  border: none;
-  border-radius: var(--r-full);
-  padding: 10px 18px;
-  font-size: 13px;
-  font-weight: 700;
-  cursor: pointer;
-  font-family: inherit;
-  white-space: nowrap;
-  transition: all 0.2s;
-}
-.invest-action-btn:hover { transform: scale(1.03); box-shadow: 0 4px 16px rgba(0,0,0,0.2); }
+.invest-action-btn { background: white; color: var(--indigo); border: none; border-radius: var(--r-full); padding: 10px 18px; font-size: 13px; font-weight: 700; cursor: pointer; font-family: inherit; white-space: nowrap; transition: all 0.2s; }
+.invest-action-btn:hover { transform: scale(1.03); }
 
 /* ══════════════════════════════
    WALLET SCREEN
 ══════════════════════════════ */
-.wallet-hero {
-  margin: 14px 20px;
-  background: linear-gradient(135deg, #1A1460 0%, #2D1E8F 60%, #533AB7 100%);
-  border-radius: var(--r-xl);
-  padding: 22px 22px 20px;
-  position: relative;
-  overflow: hidden;
-  box-shadow: var(--shadow-md);
-}
-.wallet-hero::before {
-  content: '';
-  position: absolute;
-  top: -40px; right: -40px;
-  width: 180px; height: 180px;
-  background: radial-gradient(circle, rgba(255,255,255,0.06) 0%, transparent 70%);
-  border-radius: 50%;
-}
+.wallet-hero { margin: 14px 20px; background: linear-gradient(135deg, #1A1460 0%, #2D1E8F 60%, #533AB7 100%); border-radius: var(--r-xl); padding: 22px 22px 20px; position: relative; overflow: hidden; box-shadow: var(--shadow-md); }
+.wallet-hero::before { content: ''; position: absolute; top: -40px; right: -40px; width: 180px; height: 180px; background: radial-gradient(circle, rgba(255,255,255,0.06) 0%, transparent 70%); border-radius: 50%; }
 .wallet-lbl { font-size: 11px; color: rgba(200,195,255,0.7); letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 4px; }
 .wallet-amount { font-size: 40px; font-weight: 700; color: white; letter-spacing: -0.04em; margin-bottom: 4px; }
 .wallet-change { font-size: 12px; color: #6EE8C8; margin-bottom: 20px; display: flex; align-items: center; gap: 4px; }
 .wallet-actions { display: flex; gap: 8px; }
-.wallet-action-btn {
-  flex: 1;
-  background: rgba(255,255,255,0.12);
-  color: white;
-  border: 1px solid rgba(255,255,255,0.15);
-  border-radius: var(--r-full);
-  padding: 10px;
-  font-size: 12px;
-  font-weight: 500;
-  cursor: pointer;
-  font-family: inherit;
-  transition: all 0.2s;
-  backdrop-filter: blur(10px);
-}
+.wallet-action-btn { flex: 1; background: rgba(255,255,255,0.12); color: white; border: 1px solid rgba(255,255,255,0.15); border-radius: var(--r-full); padding: 10px; font-size: 12px; font-weight: 500; cursor: pointer; font-family: inherit; transition: all 0.2s; }
 .wallet-action-btn:hover { background: rgba(255,255,255,0.2); }
-
-/* Income type cards */
-.income-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
-  margin: 0 20px 14px;
-}
-.income-card {
-  border: 1px solid var(--border);
-  border-radius: var(--r-lg);
-  padding: 14px;
-  background: white;
-  box-shadow: var(--shadow-sm);
-}
+.income-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 0 20px 14px; }
+.income-card { border: 1px solid var(--border); border-radius: var(--r-lg); padding: 14px; background: white; box-shadow: var(--shadow-sm); }
 .income-icon { font-size: 24px; margin-bottom: 8px; }
 .income-type { font-size: 11px; color: var(--ink-60); margin-bottom: 4px; }
 .income-amount { font-size: 18px; font-weight: 700; color: var(--ink); letter-spacing: -0.03em; }
@@ -841,27 +586,9 @@ body {
 .income-amount.mint { color: var(--mint); }
 .income-amount.indigo { color: var(--indigo); }
 .income-change { font-size: 10px; color: var(--mint); margin-top: 3px; }
-
-/* Holdings */
-.holding-item {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 14px 20px;
-  border-bottom: 1px solid var(--border);
-  transition: background 0.15s;
-}
+.holding-item { display: flex; align-items: center; gap: 12px; padding: 14px 20px; border-bottom: 1px solid var(--border); transition: background 0.15s; cursor: pointer; }
 .holding-item:hover { background: var(--surface-2); }
-.holding-icon {
-  width: 42px;
-  height: 42px;
-  border-radius: 14px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 20px;
-  flex-shrink: 0;
-}
+.holding-icon { width: 42px; height: 42px; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; }
 .holding-icon.rose { background: var(--rose-light); }
 .holding-icon.indigo { background: var(--indigo-light); }
 .holding-icon.mint { background: var(--mint-light); }
@@ -871,78 +598,19 @@ body {
 .holding-right { text-align: right; }
 .holding-amount { font-size: 14px; font-weight: 700; color: var(--mint); }
 .holding-period { font-size: 10px; color: var(--ink-60); margin-top: 2px; }
-
-/* Referral block */
-.referral-block {
-  margin: 0 20px 20px;
-  background: linear-gradient(135deg, var(--rose-light), #FDF5F8);
-  border: 1px solid rgba(232,84,122,0.15);
-  border-radius: var(--r-xl);
-  padding: 18px;
-}
+.referral-block { margin: 0 20px 20px; background: linear-gradient(135deg, var(--rose-light), #FDF5F8); border: 1px solid rgba(232,84,122,0.15); border-radius: var(--r-xl); padding: 18px; }
 .referral-title { font-size: 14px; font-weight: 600; color: var(--ink); margin-bottom: 4px; }
 .referral-sub { font-size: 12px; color: var(--ink-60); margin-bottom: 14px; line-height: 1.5; }
-.referral-code-row {
-  display: flex;
-  gap: 8px;
-  align-items: center;
-  background: white;
-  border: 1px solid var(--border);
-  border-radius: var(--r-md);
-  padding: 10px 14px;
-  margin-bottom: 12px;
-}
+.referral-code-row { display: flex; gap: 8px; align-items: center; background: white; border: 1px solid var(--border); border-radius: var(--r-md); padding: 10px 14px; margin-bottom: 12px; }
 .referral-code { font-size: 14px; font-weight: 600; color: var(--ink); flex: 1; letter-spacing: 0.05em; }
-.copy-btn {
-  font-size: 11px;
-  color: var(--rose);
-  font-weight: 600;
-  cursor: pointer;
-  padding: 4px 10px;
-  background: var(--rose-light);
-  border-radius: var(--r-full);
-  border: none;
-  font-family: inherit;
-}
+.copy-btn { font-size: 11px; color: var(--rose); font-weight: 600; cursor: pointer; padding: 4px 10px; background: var(--rose-light); border-radius: var(--r-full); border: none; font-family: inherit; }
 
 /* ══════════════════════════════
    PROFILE SCREEN
 ══════════════════════════════ */
-.profile-cover {
-  height: 110px;
-  background: linear-gradient(135deg, #2D1E8F 0%, var(--rose) 100%);
-  position: relative;
-}
-.profile-ava-wrap {
-  position: absolute;
-  bottom: -28px;
-  left: 20px;
-  width: 64px;
-  height: 64px;
-  border-radius: 50%;
-  border: 3px solid white;
-  background: linear-gradient(135deg, var(--rose-mid), var(--indigo));
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 28px;
-  box-shadow: var(--shadow-md);
-}
-.profile-edit-btn {
-  position: absolute;
-  bottom: -40px;
-  right: 20px;
-  padding: 7px 16px;
-  border-radius: var(--r-full);
-  font-size: 12px;
-  font-weight: 500;
-  background: white;
-  border: 1px solid var(--border);
-  color: var(--ink);
-  cursor: pointer;
-  font-family: inherit;
-  box-shadow: var(--shadow-sm);
-}
+.profile-cover { height: 110px; background: linear-gradient(135deg, #2D1E8F 0%, var(--rose) 100%); position: relative; }
+.profile-ava-wrap { position: absolute; bottom: -28px; left: 20px; width: 64px; height: 64px; border-radius: 50%; border: 3px solid white; background: linear-gradient(135deg, var(--rose-mid), var(--indigo)); display: flex; align-items: center; justify-content: center; font-size: 28px; box-shadow: var(--shadow-md); }
+.profile-edit-btn { position: absolute; bottom: -40px; right: 20px; padding: 7px 16px; border-radius: var(--r-full); font-size: 12px; font-weight: 500; background: white; border: 1px solid var(--border); color: var(--ink); cursor: pointer; font-family: inherit; box-shadow: var(--shadow-sm); }
 .profile-info { padding: 42px 20px 14px; border-bottom: 1px solid var(--border); }
 .profile-name { font-size: 18px; font-weight: 700; color: var(--ink); letter-spacing: -0.03em; }
 .profile-handle { font-size: 13px; color: var(--ink-60); margin-bottom: 6px; }
@@ -953,106 +621,23 @@ body {
 .p-stat-num { font-size: 18px; font-weight: 700; color: var(--ink); letter-spacing: -0.03em; }
 .p-stat-num.rose { color: var(--rose); }
 .p-stat-lbl { font-size: 11px; color: var(--ink-60); margin-top: 2px; }
-
-/* Creator Journey */
-.journey-step {
-  display: flex;
-  align-items: flex-start;
-  gap: 14px;
-  padding: 14px 20px;
-  border-bottom: 1px solid var(--border);
-  transition: background 0.15s;
-}
+.journey-step { display: flex; align-items: flex-start; gap: 14px; padding: 14px 20px; border-bottom: 1px solid var(--border); transition: background 0.15s; }
 .journey-step:hover { background: var(--surface-2); }
-.step-num {
-  width: 34px;
-  height: 34px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  font-size: 13px;
-  font-weight: 700;
-  flex-shrink: 0;
-}
+.step-num { width: 34px; height: 34px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 13px; font-weight: 700; flex-shrink: 0; }
 .step-body { flex: 1; }
 .step-title { font-size: 13px; font-weight: 600; color: var(--ink); margin-bottom: 3px; }
 .step-desc { font-size: 12px; color: var(--ink-60); line-height: 1.5; }
-.step-status {
-  font-size: 10px;
-  font-weight: 500;
-  padding: 4px 10px;
-  border-radius: var(--r-full);
-  flex-shrink: 0;
-  align-self: flex-start;
-  margin-top: 4px;
-}
+.step-status { font-size: 10px; font-weight: 500; padding: 4px 10px; border-radius: var(--r-full); flex-shrink: 0; align-self: flex-start; margin-top: 4px; }
 .step-done { background: var(--mint-light); color: var(--mint); }
 .step-active { background: var(--rose-light); color: var(--rose); }
 .step-next { background: var(--surface-2); color: var(--ink-60); }
-
-/* Settings List */
 .settings-group { margin: 0 0 8px; }
-.settings-item {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 14px 20px;
-  border-bottom: 1px solid var(--border);
-  cursor: pointer;
-  transition: background 0.15s;
-}
+.settings-item { display: flex; align-items: center; gap: 12px; padding: 14px 20px; border-bottom: 1px solid var(--border); cursor: pointer; transition: background 0.15s; }
 .settings-item:hover { background: var(--surface-2); }
-.settings-icon {
-  width: 36px;
-  height: 36px;
-  border-radius: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 16px;
-  flex-shrink: 0;
-}
+.settings-icon { width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; }
 .settings-label { flex: 1; font-size: 13px; color: var(--ink); font-weight: 500; }
 .settings-arrow { font-size: 12px; color: var(--ink-30); }
-
-/* Notification dot */
-.notif-dot {
-  width: 8px; height: 8px;
-  background: var(--rose);
-  border-radius: 50%;
-  flex-shrink: 0;
-}
-
-/* ── TOAST ── */
-.toast {
-  position: fixed;
-  bottom: 120px;
-  left: 50%;
-  transform: translateX(-50%) translateY(20px);
-  background: var(--ink);
-  color: white;
-  font-size: 13px;
-  font-weight: 500;
-  padding: 10px 20px;
-  border-radius: var(--r-full);
-  opacity: 0;
-  transition: all 0.3s cubic-bezier(0.34,1.56,0.64,1);
-  white-space: nowrap;
-  z-index: 999;
-  pointer-events: none;
-}
-.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
-
-/* Animations */
-@keyframes fadeSlide {
-  from { opacity: 0; transform: translateY(12px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-.screen.active .scroll-area > * {
-  animation: fadeSlide 0.3s ease forwards;
-}
+.notif-dot { width: 8px; height: 8px; background: var(--rose); border-radius: 50%; flex-shrink: 0; }
 </style>
 </head>
 <body>
@@ -1070,26 +655,111 @@ body {
   <div class="screen active" id="screen-home">
     <div class="scroll-area">
       <!-- Search -->
-      <div class="search-bar">
+      <div class="search-bar" onclick="showToast('搜索功能即将开放')">
         <span>🔍</span>
         <span>搜索博主、款式、品类...</span>
       </div>
 
-      <!-- Hero -->
-      <div class="hero-banner">
-        <div class="hero-tag">✦ 零成本 · 零库存</div>
-        <div class="hero-title">穿搭博主<br>变身品牌主理人</div>
-        <div class="hero-sub">粉丝票选 · 预售众筹 · 买家分红</div>
-        <div class="hero-pills">
-          <span class="hero-pill rose">🗳️ 粉丝票选</span>
-          <span class="hero-pill mint">💰 购买即分红</span>
-          <span class="hero-pill amber">🚀 病毒裂变</span>
+      <!-- Category Pills -->
+      <div class="category-strip">
+        <div class="cat-pill active" onclick="selectCat(this,'全部')">
+          <div class="cat-icon" style="background:linear-gradient(135deg,#FBECF1,#EDEAFD)">✨</div>
+          <span class="cat-label">全部</span>
         </div>
-        <button class="hero-btn" onclick="switchScreen('vote')">立即参与票选 →</button>
+        <div class="cat-pill" onclick="selectCat(this,'外套')">
+          <div class="cat-icon" style="background:linear-gradient(135deg,#FEF3DF,#FAE0A0)">🧥</div>
+          <span class="cat-label">外套</span>
+        </div>
+        <div class="cat-pill" onclick="selectCat(this,'连衣裙')">
+          <div class="cat-icon" style="background:linear-gradient(135deg,#FBECF1,#F4B8CB)">👗</div>
+          <span class="cat-label">连衣裙</span>
+        </div>
+        <div class="cat-pill" onclick="selectCat(this,'裤装')">
+          <div class="cat-icon" style="background:linear-gradient(135deg,#E2F5EE,#A0EDD6)">👖</div>
+          <span class="cat-label">裤装</span>
+        </div>
+        <div class="cat-pill" onclick="selectCat(this,'配件')">
+          <div class="cat-icon" style="background:linear-gradient(135deg,#EDEAFD,#C8BFFF)">👜</div>
+          <span class="cat-label">配件</span>
+        </div>
+        <div class="cat-pill" onclick="selectCat(this,'针织')">
+          <div class="cat-icon" style="background:linear-gradient(135deg,#E2F5EE,#CBF0E0)">🧣</div>
+          <span class="cat-label">针织</span>
+        </div>
       </div>
 
-      <!-- Stats -->
-      <div class="stats-strip">
+      <!-- Product Grid -->
+      <div class="section-title">🔥 热门产品 <span class="section-more">查看全部</span></div>
+      <div class="product-grid">
+        <div class="product-grid-card" onclick="switchScreen('detail')">
+          <div class="pgc-img" style="background:linear-gradient(135deg,#F1EFE8,#E8E4D8)">
+            🧥
+            <div class="pgc-badge">单款股东</div>
+            <div class="pgc-winner">🏆 冠军</div>
+          </div>
+          <div class="pgc-body">
+            <div class="pgc-name">经典翻领风衣 2024秋冬</div>
+            <div class="pgc-price-row">
+              <span class="pgc-price">¥589</span>
+              <span class="pgc-orig">¥899</span>
+              <span class="pgc-divid">分红</span>
+            </div>
+            <div class="pgc-progress-track"><div class="pgc-progress-fill" style="width:84.7%"></div></div>
+            <div class="pgc-meta">847/1000件 · 847位股东</div>
+          </div>
+        </div>
+        <div class="product-grid-card" onclick="switchScreen('detail')">
+          <div class="pgc-img" style="background:linear-gradient(135deg,#EEEDFE,#DDD9F8)">
+            🥼
+            <div class="pgc-badge">预售中</div>
+          </div>
+          <div class="pgc-body">
+            <div class="pgc-name">宽肩廓形大衣 复古款</div>
+            <div class="pgc-price-row">
+              <span class="pgc-price">¥699</span>
+              <span class="pgc-orig">¥1099</span>
+              <span class="pgc-divid">分红</span>
+            </div>
+            <div class="pgc-progress-track"><div class="pgc-progress-fill" style="width:45%"></div></div>
+            <div class="pgc-meta">450/1000件 · 450位股东</div>
+          </div>
+        </div>
+        <div class="product-grid-card" onclick="switchScreen('detail')">
+          <div class="pgc-img" style="background:linear-gradient(135deg,#E1F5EE,#CBF0E0)">
+            👗
+            <div class="pgc-badge">票选冠军</div>
+          </div>
+          <div class="pgc-body">
+            <div class="pgc-name">腰带版型连衣裙 简约</div>
+            <div class="pgc-price-row">
+              <span class="pgc-price">¥459</span>
+              <span class="pgc-orig">¥699</span>
+              <span class="pgc-divid">分红</span>
+            </div>
+            <div class="pgc-progress-track"><div class="pgc-progress-fill" style="width:62%"></div></div>
+            <div class="pgc-meta">620/1000件 · 620位股东</div>
+          </div>
+        </div>
+        <div class="product-grid-card" onclick="switchScreen('detail')">
+          <div class="pgc-img" style="background:linear-gradient(135deg,#FBEAF0,#F5D0DE)">
+            🧣
+            <div class="pgc-badge">新品</div>
+          </div>
+          <div class="pgc-body">
+            <div class="pgc-name">斗篷叠穿套装 秋季</div>
+            <div class="pgc-price-row">
+              <span class="pgc-price">¥329</span>
+              <span class="pgc-orig">¥499</span>
+              <span class="pgc-divid">分红</span>
+            </div>
+            <div class="pgc-progress-track"><div class="pgc-progress-fill" style="width:28%"></div></div>
+            <div class="pgc-meta">280/1000件 · 280位股东</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Stats Strip -->
+      <div class="stats-strip" style="margin-top:20px">
         <div class="stat-cell">
           <div class="stat-num rose">6,200+</div>
           <div class="stat-lbl">活跃博主</div>
@@ -1104,10 +774,10 @@ body {
         </div>
       </div>
 
-      <!-- Hot Vote -->
-      <div class="section-title">🔥 热门票选 <span class="section-more">查看全部</span></div>
-      <div class="vote-card">
-        <div class="vote-card-header">
+      <!-- Hot Vote (compact inline) -->
+      <div class="section-title">🗳️ 热门票选 <span class="section-more" onclick="switchScreen('vote')">查看全部</span></div>
+      <div class="home-vote-card" onclick="void(0)">
+        <div class="home-vote-header">
           <div class="vote-avatar">✨</div>
           <div class="vote-info">
             <div class="vote-name">@MOMO穿搭研究所</div>
@@ -1115,99 +785,317 @@ body {
           </div>
           <div class="live-badge"><div class="live-dot"></div>投票中</div>
         </div>
-        <div class="vote-question">秋冬风衣新系列，你最想要哪个版型？票数最高的我们来生产！🧥</div>
-        <div class="style-grid">
-          <div class="style-opt chosen" onclick="selectStyle(this)">
-            <div class="style-img bg-a">🧥<div class="chosen-check">✓</div></div>
-            <div class="style-label">
-              <div class="style-name">A. 经典翻领</div>
-              <div class="style-bar-wrap"><div class="style-bar" style="width:62%"></div></div>
-              <div class="style-pct">62%</div>
+        <div class="home-vote-options">
+          <div class="hvo chosen" onclick="homeVote(this)">
+            <div class="hvo-img" style="background:linear-gradient(135deg,#F1EFE8,#E8E4D8)">🧥<div class="hvo-check">✓</div></div>
+            <div class="hvo-lbl">
+              <div class="hvo-name">A. 经典翻领</div>
+              <div class="hvo-bar-wrap"><div class="hvo-bar" style="width:62%"></div></div>
+              <div class="hvo-pct">62%</div>
             </div>
           </div>
-          <div class="style-opt" onclick="selectStyle(this)">
-            <div class="style-img bg-b">🥼<div class="chosen-check">✓</div></div>
-            <div class="style-label">
-              <div class="style-name">B. 宽肩廓形</div>
-              <div class="style-bar-wrap"><div class="style-bar" style="width:21%"></div></div>
-              <div class="style-pct">21%</div>
+          <div class="hvo" onclick="homeVote(this)">
+            <div class="hvo-img" style="background:linear-gradient(135deg,#EEEDFE,#DDD9F8)">🥼<div class="hvo-check">✓</div></div>
+            <div class="hvo-lbl">
+              <div class="hvo-name">B. 宽肩廓形</div>
+              <div class="hvo-bar-wrap"><div class="hvo-bar" style="width:21%"></div></div>
+              <div class="hvo-pct">21%</div>
             </div>
           </div>
-          <div class="style-opt" onclick="selectStyle(this)">
-            <div class="style-img bg-c">👗<div class="chosen-check">✓</div></div>
-            <div class="style-label">
-              <div class="style-name">C. 腰带版型</div>
-              <div class="style-bar-wrap"><div class="style-bar" style="width:11%"></div></div>
-              <div class="style-pct">11%</div>
+          <div class="hvo" onclick="homeVote(this)">
+            <div class="hvo-img" style="background:linear-gradient(135deg,#E1F5EE,#CBF0E0)">👗<div class="hvo-check">✓</div></div>
+            <div class="hvo-lbl">
+              <div class="hvo-name">C. 腰带款</div>
+              <div class="hvo-bar-wrap"><div class="hvo-bar" style="width:11%"></div></div>
+              <div class="hvo-pct">11%</div>
             </div>
           </div>
-          <div class="style-opt" onclick="selectStyle(this)">
-            <div class="style-img bg-d">🧣<div class="chosen-check">✓</div></div>
-            <div class="style-label">
-              <div class="style-name">D. 斗篷叠穿</div>
-              <div class="style-bar-wrap"><div class="style-bar" style="width:6%"></div></div>
-              <div class="style-pct">6%</div>
+          <div class="hvo" onclick="homeVote(this)">
+            <div class="hvo-img" style="background:linear-gradient(135deg,#FBEAF0,#F5D0DE)">🧣<div class="hvo-check">✓</div></div>
+            <div class="hvo-lbl">
+              <div class="hvo-name">D. 斗篷叠</div>
+              <div class="hvo-bar-wrap"><div class="hvo-bar" style="width:6%"></div></div>
+              <div class="hvo-pct">6%</div>
             </div>
           </div>
         </div>
-        <div class="vote-footer">
-          <span class="vote-count">🗳️ 3,289 人已投票 · 剩余 2天</span>
-          <button class="btn-primary" onclick="switchScreen('presale')">投票并预购</button>
-          <button class="btn-ghost" onclick="showToast('分享链接已复制！')">分享</button>
-        </div>
-      </div>
-
-      <!-- Presale Product -->
-      <div class="section-title">📈 热销预售 <span class="section-more">查看全部</span></div>
-      <div class="product-card">
-        <div class="product-img-wrap">
-          🧥
-          <div class="product-badge">单款股东</div>
-          <div class="product-winner-badge">🏆 票选冠军</div>
-        </div>
-        <div class="product-body">
-          <div class="product-title">经典翻领风衣 · 2024秋冬款</div>
-          <div class="product-tags">
-            <span class="product-tag tag-rose">购买即分红</span>
-            <span class="product-tag tag-mint">人均收益 ¥51</span>
-            <span class="product-tag tag-indigo">847位股东</span>
-          </div>
-          <div class="product-price-row">
-            <span class="price-main">¥589</span>
-            <span class="price-orig">¥899</span>
-            <span class="price-divid">持续分红中</span>
-          </div>
-          <div class="progress-block">
-            <div class="progress-meta">
-              <span>已预售 <strong>847</strong> 件</span>
-              <span>目标 <strong>1,000</strong> 件</span>
-            </div>
-            <div class="progress-track">
-              <div class="progress-fill" style="width:84.7%"></div>
-            </div>
-          </div>
-          <button class="btn-primary" style="width:100%;padding:12px" onclick="switchScreen('presale')">¥589 · 成为单款股东</button>
+        <div class="home-vote-footer">
+          <span class="home-vote-count">🗳️ 3,289人已投 · 剩余2天</span>
+          <button class="btn-primary" style="font-size:12px;padding:8px 14px" onclick="switchScreen('detail')">投票并预购</button>
         </div>
       </div>
     </div>
-    <div class="bottom-nav" id="nav-home">
-      <button class="nav-btn active" onclick="switchScreen('home','nav-home',this)">
+
+    <div class="bottom-nav">
+      <button class="nav-btn active" onclick="switchScreen('home',this)">
         <div class="nav-icon-wrap"><span class="nav-icon">🏠</span></div>
         <span class="nav-label">首页</span>
       </button>
-      <button class="nav-btn" onclick="switchScreen('vote','nav-home',this)">
+      <button class="nav-btn" onclick="switchScreen('vote',this)">
         <div class="nav-icon-wrap"><span class="nav-icon">🗳️</span></div>
         <span class="nav-label">票选</span>
       </button>
-      <button class="nav-btn" onclick="switchScreen('presale','nav-home',this)">
+      <button class="nav-btn" onclick="switchScreen('presale',this)">
         <div class="nav-icon-wrap"><span class="nav-icon">🧥</span></div>
         <span class="nav-label">预售</span>
       </button>
-      <button class="nav-btn" onclick="switchScreen('wallet','nav-home',this)">
+      <button class="nav-btn" onclick="switchScreen('wallet',this)">
         <div class="nav-icon-wrap"><span class="nav-icon">💰</span></div>
         <span class="nav-label">分红</span>
       </button>
-      <button class="nav-btn" onclick="switchScreen('profile','nav-home',this)">
+      <button class="nav-btn" onclick="switchScreen('profile',this)">
+        <div class="nav-icon-wrap"><span class="nav-icon">👤</span></div>
+        <span class="nav-label">我的</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- ══ PRODUCT DETAIL SCREEN ══ -->
+  <div class="screen" id="screen-detail">
+    <div class="page-header" style="padding-bottom:0">
+      <div class="header-back" onclick="switchScreen('home',null)">←</div>
+      <div style="font-size:14px;font-weight:600;color:var(--ink)">产品详情</div>
+      <button class="header-action" onclick="showToast('已收藏！')">🔖 收藏</button>
+    </div>
+    <div class="scroll-area">
+      <!-- Gallery -->
+      <div class="detail-img-gallery">
+        <div class="detail-main-img" id="detail-main" style="background:linear-gradient(135deg,#F1EFE8,#E8E4D8)">
+          <span id="detail-main-emoji">🧥</span>
+          <div class="detail-badge-row">
+            <span class="detail-badge winner">🏆 票选冠军</span>
+            <span class="detail-badge shareholder">单款股东</span>
+          </div>
+        </div>
+        <div class="detail-thumbs">
+          <div class="thumb active" style="background:linear-gradient(135deg,#F1EFE8,#E8E4D8)" onclick="switchThumb(this,'🧥','linear-gradient(135deg,#F1EFE8,#E8E4D8)')">🧥</div>
+          <div class="thumb" style="background:linear-gradient(135deg,#FBEAF0,#F4B8CB)" onclick="switchThumb(this,'🧥','linear-gradient(135deg,#FBEAF0,#F4B8CB)')">🧥</div>
+          <div class="thumb" style="background:linear-gradient(135deg,#EDEAFD,#C8BFFF)" onclick="switchThumb(this,'🧥','linear-gradient(135deg,#EDEAFD,#C8BFFF)')">🧥</div>
+          <div class="thumb" style="background:linear-gradient(135deg,#E2F5EE,#A0EDD6)" onclick="switchThumb(this,'🧥','linear-gradient(135deg,#E2F5EE,#A0EDD6)')">🧥</div>
+          <div class="thumb" style="background:linear-gradient(135deg,#FEF3DF,#FAE0A0)" onclick="switchThumb(this,'📐','linear-gradient(135deg,#FEF3DF,#FAE0A0)')">📐</div>
+        </div>
+      </div>
+
+      <!-- Product Info -->
+      <div class="detail-body">
+        <div class="detail-title">经典翻领风衣 · 2024秋冬款</div>
+        <div class="detail-subtitle">@MOMO穿搭研究所 出品 · 票选冠军款</div>
+        <div class="detail-price-row">
+          <span class="detail-price">¥589</span>
+          <span class="detail-orig">¥899</span>
+          <span class="detail-divid">持续分红中</span>
+        </div>
+        <div class="detail-tags">
+          <span class="detail-tag tag-rose">购买即分红</span>
+          <span class="detail-tag tag-mint">人均收益 ¥51</span>
+          <span class="detail-tag tag-indigo">847位股东</span>
+          <span class="detail-tag tag-amber">🏆 票选冠军</span>
+        </div>
+
+        <!-- Size -->
+        <div class="detail-section-lbl">选择尺码</div>
+        <div class="size-row">
+          <button class="size-btn" onclick="selectSize(this)">XS</button>
+          <button class="size-btn chosen" onclick="selectSize(this)">S</button>
+          <button class="size-btn" onclick="selectSize(this)">M</button>
+          <button class="size-btn" onclick="selectSize(this)">L</button>
+          <button class="size-btn" onclick="selectSize(this)">XL</button>
+          <button class="size-btn sold" onclick="void(0)">XXL</button>
+        </div>
+
+        <!-- Color -->
+        <div class="detail-section-lbl">选择颜色</div>
+        <div class="color-row">
+          <div class="color-dot chosen" style="background:#D4C4A0" onclick="selectColor(this)" title="卡其"></div>
+          <div class="color-dot" style="background:#2C2C2C" onclick="selectColor(this)" title="墨黑"></div>
+          <div class="color-dot" style="background:#C4A8B8" onclick="selectColor(this)" title="藕粉"></div>
+          <div class="color-dot" style="background:#8B7355" onclick="selectColor(this)" title="棕驼"></div>
+          <div class="color-dot" style="background:#E8E4D8" onclick="selectColor(this)" title="米白"></div>
+        </div>
+      </div>
+
+      <!-- Holder Card -->
+      <div class="holder-card">
+        <div class="holder-card-top">
+          <div>
+            <div class="holder-card-title">已有股东</div>
+            <div class="holder-count">847 位</div>
+          </div>
+          <div>
+            <div class="holder-avatars">
+              <div class="h-ava" style="background:#F4C0D1">A</div>
+              <div class="h-ava" style="background:#C0DD97">B</div>
+              <div class="h-ava" style="background:#B5D4F4">C</div>
+              <div class="h-ava" style="background:#FAC775">D</div>
+              <div class="h-ava" style="background:#F7C1C1">E</div>
+              <span class="h-more">+842</span>
+            </div>
+          </div>
+        </div>
+        <div class="holder-divid-row">
+          <div class="h-stat">
+            <div class="h-stat-lbl">累计分红</div>
+            <div class="h-stat-val green">¥43,200</div>
+          </div>
+          <div class="h-stat">
+            <div class="h-stat-lbl">人均收益</div>
+            <div class="h-stat-val green">¥51</div>
+          </div>
+          <div class="h-stat">
+            <div class="h-stat-lbl">每新增1位</div>
+            <div class="h-stat-val">¥6 / 人</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Progress -->
+      <div class="detail-progress">
+        <div class="detail-prog-meta">
+          <span>已预售 <strong>847</strong> 件</span>
+          <span>目标 <strong>1,000</strong> 件 · 差153件达标</span>
+        </div>
+        <div class="detail-prog-track"><div class="detail-prog-fill" style="width:84.7%"></div></div>
+      </div>
+
+      <!-- Shareholder Benefits -->
+      <div class="benefit-row">
+        <div class="benefit-icon rose">💰</div>
+        <div class="benefit-text">
+          <div class="benefit-title">销售分红</div>
+          <div class="benefit-sub">每新增一位股东，自动获得</div>
+        </div>
+        <div class="benefit-amount">¥6 / 人</div>
+      </div>
+      <div class="benefit-row">
+        <div class="benefit-icon indigo">🔗</div>
+        <div class="benefit-text">
+          <div class="benefit-title">推荐奖励</div>
+          <div class="benefit-sub">朋友通过你的链接购买</div>
+        </div>
+        <div class="benefit-amount">¥30 / 单</div>
+      </div>
+      <div class="benefit-row">
+        <div class="benefit-icon mint">📈</div>
+        <div class="benefit-text">
+          <div class="benefit-title">复购分红</div>
+          <div class="benefit-sub">老股东回购，持续获益</div>
+        </div>
+        <div class="benefit-amount">¥3 / 单</div>
+      </div>
+
+      <!-- Vote Section (embedded) -->
+      <div class="section-title" style="padding-bottom:4px">🗳️ 参与款型票选</div>
+      <div class="detail-vote-section">
+        <div class="dvs-header">
+          <div class="dvs-title">下一季秋冬款，你最想要哪个版型？</div>
+          <div class="dvs-sub">🗳️ 3,289人已投票 · 票高才生产 · 剩余2天</div>
+        </div>
+        <div class="dvs-grid">
+          <div class="dvs-opt chosen" onclick="detailVote(this)">
+            <div class="dvs-img" style="background:linear-gradient(135deg,#F1EFE8,#E8E4D8)">🧥<div class="dvs-check">✓</div></div>
+            <div class="dvs-lbl">
+              <div class="dvs-name">A. 经典翻领</div>
+              <div class="dvs-bar-wrap"><div class="dvs-bar" style="width:62%"></div></div>
+              <div class="dvs-pct">62%</div>
+            </div>
+          </div>
+          <div class="dvs-opt" onclick="detailVote(this)">
+            <div class="dvs-img" style="background:linear-gradient(135deg,#EEEDFE,#DDD9F8)">🥼<div class="dvs-check">✓</div></div>
+            <div class="dvs-lbl">
+              <div class="dvs-name">B. 宽肩廓形</div>
+              <div class="dvs-bar-wrap"><div class="dvs-bar" style="width:21%"></div></div>
+              <div class="dvs-pct">21%</div>
+            </div>
+          </div>
+          <div class="dvs-opt" onclick="detailVote(this)">
+            <div class="dvs-img" style="background:linear-gradient(135deg,#E1F5EE,#CBF0E0)">👗<div class="dvs-check">✓</div></div>
+            <div class="dvs-lbl">
+              <div class="dvs-name">C. 腰带版型</div>
+              <div class="dvs-bar-wrap"><div class="dvs-bar" style="width:11%"></div></div>
+              <div class="dvs-pct">11%</div>
+            </div>
+          </div>
+          <div class="dvs-opt" onclick="detailVote(this)">
+            <div class="dvs-img" style="background:linear-gradient(135deg,#FBEAF0,#F5D0DE)">🧣<div class="dvs-check">✓</div></div>
+            <div class="dvs-lbl">
+              <div class="dvs-name">D. 斗篷叠穿</div>
+              <div class="dvs-bar-wrap"><div class="dvs-bar" style="width:6%"></div></div>
+              <div class="dvs-pct">6%</div>
+            </div>
+          </div>
+        </div>
+        <div class="dvs-footer">
+          <span class="dvs-count">🗳️ 3,289 人已投票</span>
+          <button class="btn-primary" style="font-size:12px;padding:8px 16px" onclick="showToast('投票成功！感谢参与 🎉')">确认投票</button>
+        </div>
+      </div>
+
+      <!-- Buyer Creative Design -->
+      <div class="section-title" style="padding-bottom:4px">🎨 买家创意设计</div>
+      <div class="creative-section">
+        <div class="creative-header">
+          <div class="creative-icon">🎨</div>
+          <div>
+            <div class="creative-title">买家DIY创意展示</div>
+            <div class="creative-sub">上传你的穿搭创意，获得更多分红加成</div>
+          </div>
+        </div>
+        <div class="creative-gallery">
+          <div class="creative-item">
+            <div class="creative-img" style="background:linear-gradient(135deg,#F1EFE8,#E8E4D8)">🧥</div>
+            <div class="creative-item-name">@momo搭法</div>
+            <div class="creative-item-likes">❤️ 1.2k</div>
+          </div>
+          <div class="creative-item">
+            <div class="creative-img" style="background:linear-gradient(135deg,#FBEAF0,#F4B8CB)">🧥</div>
+            <div class="creative-item-name">@小鱼创意</div>
+            <div class="creative-item-likes">❤️ 876</div>
+          </div>
+          <div class="creative-item">
+            <div class="creative-img" style="background:linear-gradient(135deg,#EDEAFD,#C8BFFF)">🧥</div>
+            <div class="creative-item-name">@橘子穿法</div>
+            <div class="creative-item-likes">❤️ 634</div>
+          </div>
+          <div class="creative-item" onclick="showToast('上传创意设计即将开放！')">
+            <div class="creative-img" style="background:var(--surface-2);border:2px dashed var(--rose-mid)">➕</div>
+            <div class="creative-item-name" style="color:var(--rose)">上传我的</div>
+            <div class="creative-item-likes" style="color:var(--ink-60)">获分红加成</div>
+          </div>
+        </div>
+        <div class="creative-upload-btn">
+          <button class="btn-primary" style="width:100%;padding:12px" onclick="showToast('🎨 上传创意设计页面即将开放！')">🎨 上传我的创意搭配，赚额外分红</button>
+        </div>
+      </div>
+
+      <!-- CTA -->
+      <div class="detail-cta-bar">
+        <div class="detail-cta-info">
+          <p>立即成为单款股东</p>
+          <strong>¥589</strong>
+        </div>
+        <button class="detail-cta-btn" onclick="showToast('🎉 加入成功！你已成为第848位股东！')">成为股东 →</button>
+      </div>
+      <div style="height:20px"></div>
+    </div>
+
+    <div class="bottom-nav">
+      <button class="nav-btn" onclick="switchScreen('home',this)">
+        <div class="nav-icon-wrap"><span class="nav-icon">🏠</span></div>
+        <span class="nav-label">首页</span>
+      </button>
+      <button class="nav-btn" onclick="switchScreen('vote',this)">
+        <div class="nav-icon-wrap"><span class="nav-icon">🗳️</span></div>
+        <span class="nav-label">票选</span>
+      </button>
+      <button class="nav-btn active" onclick="switchScreen('detail',this)">
+        <div class="nav-icon-wrap"><span class="nav-icon">🧥</span></div>
+        <span class="nav-label">产品</span>
+      </button>
+      <button class="nav-btn" onclick="switchScreen('wallet',this)">
+        <div class="nav-icon-wrap"><span class="nav-icon">💰</span></div>
+        <span class="nav-label">分红</span>
+      </button>
+      <button class="nav-btn" onclick="switchScreen('profile',this)">
         <div class="nav-icon-wrap"><span class="nav-icon">👤</span></div>
         <span class="nav-label">我的</span>
       </button>
@@ -1222,7 +1110,7 @@ body {
     </div>
     <div class="scroll-area">
       <div class="vote-filter">
-        <button class="filter-chip active">全部</button>
+        <button class="filter-chip active" onclick="filterChip(this)">全部</button>
         <button class="filter-chip" onclick="filterChip(this)">进行中 🔴</button>
         <button class="filter-chip" onclick="filterChip(this)">已结束</button>
         <button class="filter-chip" onclick="filterChip(this)">外套</button>
@@ -1230,7 +1118,6 @@ body {
         <button class="filter-chip" onclick="filterChip(this)">裤装</button>
       </div>
 
-      <!-- Feed 1 -->
       <div class="feed-card">
         <div class="feed-header">
           <div class="feed-avatar" style="background:var(--rose-light)">✨</div>
@@ -1242,19 +1129,18 @@ body {
         </div>
         <div class="feed-text">秋冬风衣系列！大家最想穿哪款版型？票数最高的我来帮大家做出来～买了还能参与分红哦 🎉 快来投票！</div>
         <div class="feed-imgs">
-          <div class="feed-img" style="background:linear-gradient(135deg,#F1EFE8,#E8E4D8)">🧥</div>
-          <div class="feed-img" style="background:linear-gradient(135deg,#EEEDFE,#DDD9F8)">🥼</div>
-          <div class="feed-img" style="background:linear-gradient(135deg,#E1F5EE,#CBF0E0)">👗</div>
+          <div class="feed-img" style="background:linear-gradient(135deg,#F1EFE8,#E8E4D8)" onclick="switchScreen('detail')">🧥</div>
+          <div class="feed-img" style="background:linear-gradient(135deg,#EEEDFE,#DDD9F8)" onclick="switchScreen('detail')">🥼</div>
+          <div class="feed-img" style="background:linear-gradient(135deg,#E1F5EE,#CBF0E0)" onclick="switchScreen('detail')">👗</div>
         </div>
         <span class="vote-mini-tag">🗳️ 进行中 · 3,289人已投 · 剩2天</span>
         <div class="feed-actions">
-          <div class="feed-action-btn" onclick="switchScreen('home')">🗳️ 去投票</div>
+          <div class="feed-action-btn" onclick="switchScreen('detail')">🗳️ 去投票</div>
           <div class="feed-action-btn" onclick="showToast('评论功能即将开放')">💬 128</div>
           <div class="feed-action-btn" onclick="showToast('分享链接已复制！')">↗ 分享</div>
         </div>
       </div>
 
-      <!-- Feed 2 -->
       <div class="feed-card">
         <div class="feed-header">
           <div class="feed-avatar" style="background:var(--indigo-light)">🌸</div>
@@ -1266,18 +1152,17 @@ body {
         </div>
         <div class="feed-text">上周我发起的A款夹克票选成功啦！现在都出货了，我的粉丝们都在拿分红了 😍 这次我来做风衣！大家支持哪个款？</div>
         <div class="feed-imgs">
-          <div class="feed-img" style="background:linear-gradient(135deg,#F4C0D1,#E8A0C0)">🧣</div>
-          <div class="feed-img" style="background:linear-gradient(135deg,#C0DD97,#A8CC75)">🧤</div>
+          <div class="feed-img" style="background:linear-gradient(135deg,#F4C0D1,#E8A0C0)" onclick="switchScreen('detail')">🧣</div>
+          <div class="feed-img" style="background:linear-gradient(135deg,#C0DD97,#A8CC75)" onclick="switchScreen('detail')">🧤</div>
         </div>
         <span class="vote-mini-tag" style="background:var(--surface-2);color:var(--ink-60);border-color:var(--border)">✅ 已结束 · 1.2万票</span>
         <div class="feed-actions">
-          <div class="feed-action-btn">📦 已生产</div>
+          <div class="feed-action-btn" onclick="switchScreen('detail')">📦 查看产品</div>
           <div class="feed-action-btn" onclick="showToast('评论功能即将开放')">💬 356</div>
           <div class="feed-action-btn" onclick="showToast('分享链接已复制！')">↗ 分享</div>
         </div>
       </div>
 
-      <!-- Feed 3 -->
       <div class="feed-card">
         <div class="feed-header">
           <div class="feed-avatar" style="background:var(--mint-light)">🌿</div>
@@ -1289,19 +1174,18 @@ body {
         </div>
         <div class="feed-text">冬天必备！羽绒服款式大票选，你们最想要哪款呢？超过800票就开产！🐻</div>
         <div class="feed-imgs">
-          <div class="feed-img" style="background:linear-gradient(135deg,#FEF3DF,#FAE0A0)">🧸</div>
-          <div class="feed-img" style="background:linear-gradient(135deg,#EEEDFE,#DDD9F8)">🐧</div>
-          <div class="feed-img" style="background:linear-gradient(135deg,#FBEAF0,#F5D0DE)">🦊</div>
+          <div class="feed-img" style="background:linear-gradient(135deg,#FEF3DF,#FAE0A0)" onclick="switchScreen('detail')">🧸</div>
+          <div class="feed-img" style="background:linear-gradient(135deg,#EEEDFE,#DDD9F8)" onclick="switchScreen('detail')">🐧</div>
+          <div class="feed-img" style="background:linear-gradient(135deg,#FBEAF0,#F5D0DE)" onclick="switchScreen('detail')">🦊</div>
         </div>
         <span class="vote-mini-tag">🗳️ 进行中 · 421人已投 · 剩5天</span>
         <div class="feed-actions">
-          <div class="feed-action-btn" onclick="showToast('投票成功！')">🗳️ 去投票</div>
+          <div class="feed-action-btn" onclick="switchScreen('detail')">🗳️ 去投票</div>
           <div class="feed-action-btn" onclick="showToast('评论功能即将开放')">💬 34</div>
           <div class="feed-action-btn" onclick="showToast('分享链接已复制！')">↗ 分享</div>
         </div>
       </div>
 
-      <!-- Initiate CTA -->
       <div class="initiate-cta" onclick="showToast('发起票选功能即将开放！')">
         <div style="font-size:32px;margin-bottom:10px">📸</div>
         <h3>我也要发起票选</h3>
@@ -1309,24 +1193,25 @@ body {
         <button class="btn-primary">免费发起票选 →</button>
       </div>
     </div>
-    <div class="bottom-nav" id="nav-vote">
-      <button class="nav-btn" onclick="switchScreen('home','nav-vote',this)">
+
+    <div class="bottom-nav">
+      <button class="nav-btn" onclick="switchScreen('home',this)">
         <div class="nav-icon-wrap"><span class="nav-icon">🏠</span></div>
         <span class="nav-label">首页</span>
       </button>
-      <button class="nav-btn active" onclick="switchScreen('vote','nav-vote',this)">
+      <button class="nav-btn active" onclick="switchScreen('vote',this)">
         <div class="nav-icon-wrap"><span class="nav-icon">🗳️</span></div>
         <span class="nav-label">票选</span>
       </button>
-      <button class="nav-btn" onclick="switchScreen('presale','nav-vote',this)">
+      <button class="nav-btn" onclick="switchScreen('presale',this)">
         <div class="nav-icon-wrap"><span class="nav-icon">🧥</span></div>
         <span class="nav-label">预售</span>
       </button>
-      <button class="nav-btn" onclick="switchScreen('wallet','nav-vote',this)">
+      <button class="nav-btn" onclick="switchScreen('wallet',this)">
         <div class="nav-icon-wrap"><span class="nav-icon">💰</span></div>
         <span class="nav-label">分红</span>
       </button>
-      <button class="nav-btn" onclick="switchScreen('profile','nav-vote',this)">
+      <button class="nav-btn" onclick="switchScreen('profile',this)">
         <div class="nav-icon-wrap"><span class="nav-icon">👤</span></div>
         <span class="nav-label">我的</span>
       </button>
@@ -1340,13 +1225,11 @@ body {
       <button class="header-action" onclick="showToast('收藏成功！')">🔖 收藏</button>
     </div>
     <div class="scroll-area">
-      <!-- Mechanism Banner -->
       <div class="mechanism-banner">
         <div class="mechanism-title">✦ 什么是「单款股东」？</div>
         <div class="mechanism-text">买下这件风衣 = 成为这款产品的股东。每新增一位购买者，你的持仓自动分红。带朋友购买，还能额外赚推荐奖励。越多人买，赚越多。</div>
       </div>
 
-      <!-- Stock Card -->
       <div class="stock-hero">
         <div class="stock-top">
           <div class="stock-item-name">经典翻领风衣 · 2024秋冬</div>
@@ -1369,11 +1252,11 @@ body {
             </div>
           </div>
           <div class="stock-divider"></div>
-          <div class="progress-meta" style="color:rgba(200,195,255,0.7)">
+          <div style="display:flex;justify-content:space-between;font-size:11px;color:rgba(200,195,255,0.7);margin-bottom:6px">
             <span>预售进度</span>
             <span style="color:#6EE8C8;font-weight:600">84.7% · 差153件达标</span>
           </div>
-          <div style="height:6px;background:rgba(255,255,255,0.12);border-radius:3px;margin-top:6px;overflow:hidden">
+          <div style="height:6px;background:rgba(255,255,255,0.12);border-radius:3px;overflow:hidden">
             <div style="height:100%;width:84.7%;background:linear-gradient(90deg,#1BAF82,#6EE8C8);border-radius:3px"></div>
           </div>
         </div>
@@ -1389,94 +1272,52 @@ body {
               <div class="holder-more">+842 位</div>
             </div>
           </div>
-
-          <div class="benefit-row">
+          <div class="benefit-row" style="padding:12px 0">
             <div class="benefit-icon rose">💰</div>
-            <div class="benefit-text">
-              <div class="benefit-title">销售分红</div>
-              <div class="benefit-sub">每新增一位股东，自动获得</div>
-            </div>
+            <div class="benefit-text"><div class="benefit-title">销售分红</div><div class="benefit-sub">每新增一位股东，自动获得</div></div>
             <div class="benefit-amount">¥6 / 人</div>
           </div>
-          <div class="benefit-row">
+          <div class="benefit-row" style="padding:12px 0">
             <div class="benefit-icon indigo">🔗</div>
-            <div class="benefit-text">
-              <div class="benefit-title">推荐分红</div>
-              <div class="benefit-sub">你邀请的朋友购买，额外获得</div>
-            </div>
-            <div class="benefit-amount">¥30 / 人</div>
+            <div class="benefit-text"><div class="benefit-title">推荐奖励</div><div class="benefit-sub">朋友通过链接购买</div></div>
+            <div class="benefit-amount">¥30 / 单</div>
           </div>
-          <div class="benefit-row">
+          <div class="benefit-row" style="padding:12px 0;border-bottom:none">
             <div class="benefit-icon mint">📈</div>
-            <div class="benefit-text">
-              <div class="benefit-title">博主版权分红</div>
-              <div class="benefit-sub">发起票选博主持续抽成</div>
-            </div>
-            <div class="benefit-amount">3% 销售</div>
+            <div class="benefit-text"><div class="benefit-title">复购分红</div><div class="benefit-sub">老股东回购获益</div></div>
+            <div class="benefit-amount">¥3 / 单</div>
           </div>
         </div>
       </div>
 
-      <!-- Invest CTA -->
       <div class="invest-cta-bar">
         <div class="invest-info">
-          <p>成为单款股东，立享分红</p>
+          <p>立即成为单款股东</p>
           <strong>¥589</strong>
         </div>
-        <button class="invest-action-btn" onclick="showToast('🎉 购买成功！你已成为单款股东')">立即持股</button>
+        <button class="invest-action-btn" onclick="showToast('🎉 加入成功！你已成为第848位股东！')">立即入股 →</button>
       </div>
-
-      <!-- Size Guide -->
-      <div class="section-title" style="margin-top:8px">📏 选择尺码</div>
-      <div style="display:flex;gap:8px;padding:0 20px 16px;flex-wrap:wrap">
-        <button onclick="selectSize(this)" style="padding:10px 20px;border:1.5px solid var(--border);border-radius:var(--r-full);font-size:13px;background:white;cursor:pointer;font-family:inherit;transition:all 0.2s">XS</button>
-        <button onclick="selectSize(this)" style="padding:10px 20px;border:1.5px solid var(--rose);border-radius:var(--r-full);font-size:13px;background:var(--rose-light);color:var(--rose);cursor:pointer;font-family:inherit;font-weight:600">S</button>
-        <button onclick="selectSize(this)" style="padding:10px 20px;border:1.5px solid var(--border);border-radius:var(--r-full);font-size:13px;background:white;cursor:pointer;font-family:inherit">M</button>
-        <button onclick="selectSize(this)" style="padding:10px 20px;border:1.5px solid var(--border);border-radius:var(--r-full);font-size:13px;background:white;cursor:pointer;font-family:inherit">L</button>
-        <button onclick="selectSize(this)" style="padding:10px 20px;border:1.5px solid var(--border);border-radius:var(--r-full);font-size:13px;background:white;cursor:pointer;font-family:inherit">XL</button>
-      </div>
-
-      <!-- Reviews -->
-      <div class="section-title">⭐ 股东评价 <span class="section-more">全部 128 条</span></div>
-      <div style="margin:0 20px 20px;border:1px solid var(--border);border-radius:var(--r-xl);overflow:hidden;background:white">
-        <div style="padding:14px 16px;border-bottom:1px solid var(--border)">
-          <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
-            <div style="width:30px;height:30px;border-radius:50%;background:var(--rose-light);display:flex;align-items:center;justify-content:center;font-size:14px">🌸</div>
-            <span style="font-size:13px;font-weight:500">小白同学</span>
-            <span style="font-size:11px;color:var(--ink-60);margin-left:auto">3天前</span>
-          </div>
-          <div style="font-size:11px;color:var(--amber);margin-bottom:5px">★★★★★</div>
-          <div style="font-size:12px;color:var(--ink);line-height:1.6">面料超好，比想象中厚实！已经赚回¥18了，期待更多分红 💕</div>
-        </div>
-        <div style="padding:14px 16px">
-          <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
-            <div style="width:30px;height:30px;border-radius:50%;background:var(--mint-light);display:flex;align-items:center;justify-content:center;font-size:14px">🌿</div>
-            <span style="font-size:13px;font-weight:500">橘子控</span>
-            <span style="font-size:11px;color:var(--ink-60);margin-left:auto">1周前</span>
-          </div>
-          <div style="font-size:11px;color:var(--amber);margin-bottom:5px">★★★★★</div>
-          <div style="font-size:12px;color:var(--ink);line-height:1.6">推荐给了6个朋友，赚了¥180，衣服本来就很好看！双赢！</div>
-        </div>
-      </div>
+      <div style="height:20px"></div>
     </div>
-    <div class="bottom-nav" id="nav-presale">
-      <button class="nav-btn" onclick="switchScreen('home','nav-presale',this)">
+
+    <div class="bottom-nav">
+      <button class="nav-btn" onclick="switchScreen('home',this)">
         <div class="nav-icon-wrap"><span class="nav-icon">🏠</span></div>
         <span class="nav-label">首页</span>
       </button>
-      <button class="nav-btn" onclick="switchScreen('vote','nav-presale',this)">
+      <button class="nav-btn" onclick="switchScreen('vote',this)">
         <div class="nav-icon-wrap"><span class="nav-icon">🗳️</span></div>
         <span class="nav-label">票选</span>
       </button>
-      <button class="nav-btn active" onclick="switchScreen('presale','nav-presale',this)">
+      <button class="nav-btn active" onclick="switchScreen('presale',this)">
         <div class="nav-icon-wrap"><span class="nav-icon">🧥</span></div>
         <span class="nav-label">预售</span>
       </button>
-      <button class="nav-btn" onclick="switchScreen('wallet','nav-presale',this)">
+      <button class="nav-btn" onclick="switchScreen('wallet',this)">
         <div class="nav-icon-wrap"><span class="nav-icon">💰</span></div>
         <span class="nav-label">分红</span>
       </button>
-      <button class="nav-btn" onclick="switchScreen('profile','nav-presale',this)">
+      <button class="nav-btn" onclick="switchScreen('profile',this)">
         <div class="nav-icon-wrap"><span class="nav-icon">👤</span></div>
         <span class="nav-label">我的</span>
       </button>
@@ -1487,87 +1328,83 @@ body {
   <div class="screen" id="screen-wallet">
     <div class="page-header">
       <div class="page-title">我的分红</div>
-      <button class="header-action" onclick="showToast('账单已导出')">导出账单</button>
+      <button class="header-action" onclick="showToast('提现申请中...')">提现</button>
     </div>
     <div class="scroll-area">
-      <!-- Wallet Hero -->
       <div class="wallet-hero">
         <div class="wallet-lbl">可提现余额</div>
-        <div class="wallet-amount">¥ 1,247.50</div>
-        <div class="wallet-change">↑ 本月新增 +¥432 · 较上月 +12%</div>
+        <div class="wallet-amount">¥2,340</div>
+        <div class="wallet-change">↑ 本月新增 ¥860 · 较上月 +24%</div>
         <div class="wallet-actions">
-          <button class="wallet-action-btn" onclick="showToast('提现申请已提交，1-3个工作日到账')">💳 提现</button>
-          <button class="wallet-action-btn" onclick="showToast('账单明细')">📋 明细</button>
-          <button class="wallet-action-btn" onclick="showToast('再投资功能即将上线')">🔄 再投资</button>
+          <button class="wallet-action-btn" onclick="showToast('提现申请中...')">💳 提现</button>
+          <button class="wallet-action-btn" onclick="showToast('分享链接已复制！')">🔗 邀请赚钱</button>
+          <button class="wallet-action-btn" onclick="showToast('分红记录')">📊 明细</button>
         </div>
       </div>
 
-      <!-- Income Cards -->
-      <div class="section-title">收益构成</div>
+      <div class="section-title" style="padding-top:10px">收入分类</div>
       <div class="income-grid">
         <div class="income-card">
           <div class="income-icon">💰</div>
           <div class="income-type">销售分红</div>
-          <div class="income-amount rose">¥432</div>
-          <div class="income-change">↑ 本月</div>
+          <div class="income-amount rose">¥1,428</div>
+          <div class="income-change">↑ 本月 +18%</div>
         </div>
         <div class="income-card">
           <div class="income-icon">🔗</div>
           <div class="income-type">推荐奖励</div>
           <div class="income-amount mint">¥630</div>
-          <div class="income-change">↑ 本月</div>
+          <div class="income-change">↑ 本月 +42%</div>
         </div>
         <div class="income-card">
           <div class="income-icon">📈</div>
-          <div class="income-type">版权分红</div>
-          <div class="income-amount indigo">¥185.5</div>
-          <div class="income-change">↑ 本月</div>
+          <div class="income-type">复购分红</div>
+          <div class="income-amount indigo">¥210</div>
+          <div class="income-change">↑ 本月 +8%</div>
         </div>
         <div class="income-card">
-          <div class="income-icon">🏆</div>
-          <div class="income-type">累计总收益</div>
-          <div class="income-amount" style="color:var(--amber)">¥43,200</div>
-          <div class="income-change" style="color:var(--amber)">↑ 全部时间</div>
+          <div class="income-icon">🎨</div>
+          <div class="income-type">创意设计加成</div>
+          <div class="income-amount" style="color:var(--amber)">¥72</div>
+          <div class="income-change" style="color:var(--amber)">↑ 新增功能</div>
         </div>
       </div>
 
-      <!-- Holdings -->
-      <div class="section-title">持仓明细 <span class="section-more">共 3 款</span></div>
-      <div class="holding-item">
+      <div class="section-title">我的持仓</div>
+      <div class="holding-item" onclick="switchScreen('detail')">
         <div class="holding-icon rose">🧥</div>
         <div class="holding-info">
           <div class="holding-name">经典翻领风衣</div>
-          <div class="holding-meta">已推荐 12 人购买</div>
+          <div class="holding-meta">持有1份 · 847位股东</div>
         </div>
         <div class="holding-right">
-          <div class="holding-amount">+¥432</div>
+          <div class="holding-amount">+¥51</div>
           <div class="holding-period">本月分红</div>
         </div>
       </div>
-      <div class="holding-item">
+      <div class="holding-item" onclick="switchScreen('detail')">
         <div class="holding-icon indigo">🥼</div>
         <div class="holding-info">
-          <div class="holding-name">宽肩廓形外套</div>
-          <div class="holding-meta">已推荐 7 人购买</div>
+          <div class="holding-name">宽肩廓形大衣</div>
+          <div class="holding-meta">持有1份 · 450位股东</div>
         </div>
         <div class="holding-right">
-          <div class="holding-amount">+¥267</div>
+          <div class="holding-amount">+¥22</div>
           <div class="holding-period">本月分红</div>
         </div>
       </div>
-      <div class="holding-item">
+      <div class="holding-item" onclick="switchScreen('detail')">
         <div class="holding-icon mint">👗</div>
         <div class="holding-info">
-          <div class="holding-name">腰带版型大衣</div>
-          <div class="holding-meta">已推荐 18 人购买</div>
+          <div class="holding-name">腰带版型连衣裙</div>
+          <div class="holding-meta">持有1份 · 620位股东</div>
         </div>
         <div class="holding-right">
-          <div class="holding-amount">+¥548</div>
+          <div class="holding-amount">+¥34</div>
           <div class="holding-period">本月分红</div>
         </div>
       </div>
 
-      <!-- Referral Block -->
       <div class="section-title" style="margin-top:8px">裂变推荐</div>
       <div class="referral-block">
         <div class="referral-title">📤 分享专属链接，赚推荐奖励</div>
@@ -1579,24 +1416,25 @@ body {
         <button class="btn-primary" style="width:100%;padding:12px" onclick="showToast('分享面板已打开')">📤 立即分享专属链接</button>
       </div>
     </div>
-    <div class="bottom-nav" id="nav-wallet">
-      <button class="nav-btn" onclick="switchScreen('home','nav-wallet',this)">
+
+    <div class="bottom-nav">
+      <button class="nav-btn" onclick="switchScreen('home',this)">
         <div class="nav-icon-wrap"><span class="nav-icon">🏠</span></div>
         <span class="nav-label">首页</span>
       </button>
-      <button class="nav-btn" onclick="switchScreen('vote','nav-wallet',this)">
+      <button class="nav-btn" onclick="switchScreen('vote',this)">
         <div class="nav-icon-wrap"><span class="nav-icon">🗳️</span></div>
         <span class="nav-label">票选</span>
       </button>
-      <button class="nav-btn" onclick="switchScreen('presale','nav-wallet',this)">
+      <button class="nav-btn" onclick="switchScreen('presale',this)">
         <div class="nav-icon-wrap"><span class="nav-icon">🧥</span></div>
         <span class="nav-label">预售</span>
       </button>
-      <button class="nav-btn active" onclick="switchScreen('wallet','nav-wallet',this)">
+      <button class="nav-btn active" onclick="switchScreen('wallet',this)">
         <div class="nav-icon-wrap"><span class="nav-icon">💰</span></div>
         <span class="nav-label">分红</span>
       </button>
-      <button class="nav-btn" onclick="switchScreen('profile','nav-wallet',this)">
+      <button class="nav-btn" onclick="switchScreen('profile',this)">
         <div class="nav-icon-wrap"><span class="nav-icon">👤</span></div>
         <span class="nav-label">我的</span>
       </button>
@@ -1606,7 +1444,6 @@ body {
   <!-- ══ PROFILE SCREEN ══ -->
   <div class="screen" id="screen-profile">
     <div class="scroll-area">
-      <!-- Cover -->
       <div class="profile-cover">
         <div class="profile-ava-wrap">🌸</div>
         <button class="profile-edit-btn" onclick="showToast('编辑功能即将上线')">编辑资料</button>
@@ -1631,7 +1468,6 @@ body {
         </div>
       </div>
 
-      <!-- Creator Journey -->
       <div class="section-title">🚀 博主成长路径</div>
       <div class="journey-step">
         <div class="step-num" style="background:var(--rose)">1</div>
@@ -1666,7 +1502,6 @@ body {
         <span class="step-status step-next">待解锁</span>
       </div>
 
-      <!-- Settings -->
       <div class="section-title" style="margin-top:8px">账户设置</div>
       <div class="settings-group">
         <div class="settings-item" onclick="showToast('通知设置')">
@@ -1698,24 +1533,25 @@ body {
       </div>
       <div style="height:20px"></div>
     </div>
-    <div class="bottom-nav" id="nav-profile">
-      <button class="nav-btn" onclick="switchScreen('home','nav-profile',this)">
+
+    <div class="bottom-nav">
+      <button class="nav-btn" onclick="switchScreen('home',this)">
         <div class="nav-icon-wrap"><span class="nav-icon">🏠</span></div>
         <span class="nav-label">首页</span>
       </button>
-      <button class="nav-btn" onclick="switchScreen('vote','nav-profile',this)">
+      <button class="nav-btn" onclick="switchScreen('vote',this)">
         <div class="nav-icon-wrap"><span class="nav-icon">🗳️</span></div>
         <span class="nav-label">票选</span>
       </button>
-      <button class="nav-btn" onclick="switchScreen('presale','nav-profile',this)">
+      <button class="nav-btn" onclick="switchScreen('presale',this)">
         <div class="nav-icon-wrap"><span class="nav-icon">🧥</span></div>
         <span class="nav-label">预售</span>
       </button>
-      <button class="nav-btn" onclick="switchScreen('wallet','nav-profile',this)">
+      <button class="nav-btn" onclick="switchScreen('wallet',this)">
         <div class="nav-icon-wrap"><span class="nav-icon">💰</span></div>
         <span class="nav-label">分红</span>
       </button>
-      <button class="nav-btn active" onclick="switchScreen('profile','nav-profile',this)">
+      <button class="nav-btn active" onclick="switchScreen('profile',this)">
         <div class="nav-icon-wrap"><span class="nav-icon">👤</span></div>
         <span class="nav-label">我的</span>
       </button>
@@ -1728,24 +1564,22 @@ body {
 
 <script>
 // ── Screen Switch
-function switchScreen(name) {
+function switchScreen(name, navBtn) {
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
   const target = document.getElementById('screen-' + name);
   if (target) {
     target.classList.add('active');
-    // Scroll to top
     const scrollArea = target.querySelector('.scroll-area');
     if (scrollArea) scrollArea.scrollTop = 0;
   }
-  // Update nav in this screen
-  const nav = target?.querySelector('.bottom-nav');
-  if (nav) {
-    nav.querySelectorAll('.nav-btn').forEach(btn => {
-      btn.classList.remove('active');
-    });
-    // Find the matching button by label
-    const labels = { home:'首页', vote:'票选', presale:'预售', wallet:'分红', profile:'我的' };
-    nav.querySelectorAll('.nav-btn').forEach(btn => {
+  // Update nav active states in ALL navbars
+  document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+  if (navBtn) {
+    navBtn.classList.add('active');
+  } else {
+    // Find and activate correct button by screen name
+    const labels = { home:'首页', vote:'票选', presale:'预售', detail:'产品', wallet:'分红', profile:'我的' };
+    document.querySelectorAll('.nav-btn').forEach(btn => {
       const lbl = btn.querySelector('.nav-label');
       if (lbl && lbl.textContent.trim() === labels[name]) {
         btn.classList.add('active');
@@ -1754,28 +1588,49 @@ function switchScreen(name) {
   }
 }
 
-// ── Style Option Select
-function selectStyle(el) {
-  const grid = el.closest('.style-grid');
-  if (!grid) return;
-  grid.querySelectorAll('.style-opt').forEach(o => o.classList.remove('chosen'));
+// ── Category Select
+function selectCat(pill, name) {
+  document.querySelectorAll('.cat-pill').forEach(p => p.classList.remove('active'));
+  pill.classList.add('active');
+  showToast('分类：' + name);
+}
+
+// ── Home Vote
+function homeVote(el) {
+  el.closest('.home-vote-options').querySelectorAll('.hvo').forEach(o => o.classList.remove('chosen'));
   el.classList.add('chosen');
   showToast('✓ 投票成功！');
 }
 
+// ── Detail Vote
+function detailVote(el) {
+  el.closest('.dvs-grid').querySelectorAll('.dvs-opt').forEach(o => o.classList.remove('chosen'));
+  el.classList.add('chosen');
+  showToast('已选择款型 ✓');
+}
+
+// ── Thumb Gallery
+function switchThumb(thumb, emoji, bg) {
+  document.querySelectorAll('.thumb').forEach(t => t.classList.remove('active'));
+  thumb.classList.add('active');
+  const main = document.getElementById('detail-main');
+  main.style.background = bg;
+  document.getElementById('detail-main-emoji').textContent = emoji;
+}
+
 // ── Size Select
 function selectSize(btn) {
-  const row = btn.closest('div');
-  row.querySelectorAll('button').forEach(b => {
-    b.style.borderColor = 'var(--border)';
-    b.style.background = 'white';
-    b.style.color = 'var(--ink)';
-    b.style.fontWeight = '400';
-  });
-  btn.style.borderColor = 'var(--rose)';
-  btn.style.background = 'var(--rose-light)';
-  btn.style.color = 'var(--rose)';
-  btn.style.fontWeight = '600';
+  if (btn.classList.contains('sold')) return;
+  btn.closest('.size-row').querySelectorAll('.size-btn').forEach(b => b.classList.remove('chosen'));
+  btn.classList.add('chosen');
+  showToast('已选 ' + btn.textContent + ' 码');
+}
+
+// ── Color Select
+function selectColor(dot) {
+  dot.closest('.color-row').querySelectorAll('.color-dot').forEach(d => d.classList.remove('chosen'));
+  dot.classList.add('chosen');
+  showToast('颜色已选');
 }
 
 // ── Follow Toggle
